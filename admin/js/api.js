@@ -227,6 +227,8 @@ async function reativarTag(token) {
 
 async function resetarTag(token) {
 
+    console.log("Ação enviada:", ACTION.RESETAR_TAG);
+
     return await apiGet(
 
         ACTION.RESETAR_TAG,
@@ -238,7 +240,6 @@ async function resetarTag(token) {
     );
 
 }
-
 async function excluirTag(token) {
 
     return await apiPost({
