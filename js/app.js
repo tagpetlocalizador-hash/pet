@@ -1,7 +1,7 @@
 /*************************************************
  * PET NFC
  * app.js
- * Versão 1.1.0
+ * Versão 1.2.0
  *************************************************/
 
 let petAtual = null;
@@ -273,21 +273,17 @@ function carregarPerfil(dados) {
 
         if (dados.foto) {
 
-            /*
-             * URL retornada pelo Google Drive.
-             */
-            fotoPerfil.src = dados.foto;
+            fotoPerfil.src =
+                dados.foto;
 
             fotoPerfil.style.display =
                 "block";
 
         } else {
 
-            /*
-             * Evita erro 404 enquanto não
-             * existe foto padrão no projeto.
-             */
-            fotoPerfil.removeAttribute("src");
+            fotoPerfil.removeAttribute(
+                "src"
+            );
 
             fotoPerfil.style.display =
                 "none";
@@ -295,16 +291,18 @@ function carregarPerfil(dados) {
         }
 
 
-        fotoPerfil.onerror = function () {
+        fotoPerfil.onerror =
+            function () {
 
-            console.error(
-                "Não foi possível carregar a foto:",
-                dados.foto
-            );
+                console.error(
+                    "Não foi possível carregar a foto:",
+                    dados.foto
+                );
 
-            this.style.display = "none";
+                this.style.display =
+                    "none";
 
-        };
+            };
 
     }
 
@@ -328,7 +326,9 @@ function mostrarPreviewFoto(evento) {
 
 
     if (
-        !arquivo.type.startsWith("image/")
+        !arquivo.type.startsWith(
+            "image/"
+        )
     ) {
 
         alert(
@@ -358,24 +358,26 @@ function mostrarPreviewFoto(evento) {
         new FileReader();
 
 
-    reader.onload = function (eventoReader) {
+    reader.onload =
+        function (eventoReader) {
 
-        previewFoto.src =
-            eventoReader.target.result;
+            previewFoto.src =
+                eventoReader.target.result;
 
-        previewFoto.style.display =
-            "block";
+            previewFoto.style.display =
+                "block";
 
-    };
+        };
 
 
-    reader.onerror = function () {
+    reader.onerror =
+        function () {
 
-        alert(
-            "Não foi possível ler a imagem."
-        );
+            alert(
+                "Não foi possível ler a imagem."
+            );
 
-    };
+        };
 
 
     reader.readAsDataURL(arquivo);
@@ -388,8 +390,9 @@ function mostrarPreviewFoto(evento) {
 =================================================== */
 
 /**
- * Reduz a imagem antes de enviar ao Apps Script.
- * A imagem final será JPEG com no máximo 900px.
+ * Reduz a imagem antes do envio.
+ * Tamanho máximo: 500 px
+ * Qualidade JPEG: 65%
  */
 function reduzirFoto(arquivo) {
 
@@ -400,15 +403,16 @@ function reduzirFoto(arquivo) {
                 new FileReader();
 
 
-            reader.onerror = function () {
+            reader.onerror =
+                function () {
 
-                reject(
-                    new Error(
-                        "Não foi possível ler a foto."
-                    )
-                );
+                    reject(
+                        new Error(
+                            "Não foi possível ler a foto."
+                        )
+                    );
 
-            };
+                };
 
 
             reader.onload =
@@ -434,7 +438,7 @@ function reduzirFoto(arquivo) {
                         function () {
 
                             const tamanhoMaximo =
-                                900;
+                                500;
 
                             let largura =
                                 imagem.width;
@@ -448,11 +452,12 @@ function reduzirFoto(arquivo) {
                                 largura > tamanhoMaximo
                             ) {
 
-                                altura = Math.round(
-                                    altura *
-                                    tamanhoMaximo /
-                                    largura
-                                );
+                                altura =
+                                    Math.round(
+                                        altura *
+                                        tamanhoMaximo /
+                                        largura
+                                    );
 
                                 largura =
                                     tamanhoMaximo;
@@ -461,11 +466,12 @@ function reduzirFoto(arquivo) {
                                 altura > tamanhoMaximo
                             ) {
 
-                                largura = Math.round(
-                                    largura *
-                                    tamanhoMaximo /
-                                    altura
-                                );
+                                largura =
+                                    Math.round(
+                                        largura *
+                                        tamanhoMaximo /
+                                        altura
+                                    );
 
                                 altura =
                                     tamanhoMaximo;
@@ -504,10 +510,6 @@ function reduzirFoto(arquivo) {
                             }
 
 
-                            /*
-                             * Fundo branco para imagens PNG
-                             * que possuem transparência.
-                             */
                             contexto.fillStyle =
                                 "#ffffff";
 
@@ -531,8 +533,18 @@ function reduzirFoto(arquivo) {
                             const fotoBase64 =
                                 canvas.toDataURL(
                                     "image/jpeg",
-                                    0.82
+                                    0.65
                                 );
+
+
+                            console.log(
+                                "Tamanho da foto enviada:",
+                                Math.round(
+                                    fotoBase64.length /
+                                    1024
+                                ),
+                                "KB"
+                            );
 
 
                             resolve(fotoBase64);
@@ -546,7 +558,9 @@ function reduzirFoto(arquivo) {
                 };
 
 
-            reader.readAsDataURL(arquivo);
+            reader.readAsDataURL(
+                arquivo
+            );
 
         }
     );
@@ -568,19 +582,29 @@ async function salvarCadastro(evento) {
 
 
     const campoNomePet =
-        document.getElementById("nomePet");
+        document.getElementById(
+            "nomePet"
+        );
 
     const campoNomeTutor =
-        document.getElementById("nomeTutor");
+        document.getElementById(
+            "nomeTutor"
+        );
 
     const campoWhatsapp =
-        document.getElementById("whatsapp");
+        document.getElementById(
+            "whatsapp"
+        );
 
     const campoEmail =
-        document.getElementById("email");
+        document.getElementById(
+            "email"
+        );
 
     const campoFoto =
-        document.getElementById("foto");
+        document.getElementById(
+            "foto"
+        );
 
     const btnCadastrar =
         document.getElementById(
@@ -649,7 +673,8 @@ async function salvarCadastro(evento) {
 
     if (btnCadastrar) {
 
-        btnCadastrar.disabled = true;
+        btnCadastrar.disabled =
+            true;
 
         btnCadastrar.innerText =
             "Cadastrando...";
@@ -693,14 +718,14 @@ async function salvarCadastro(evento) {
 
 
         /*
-         * Depois envia a foto ao Google Drive.
+         * Depois envia a foto.
          */
         if (arquivoFoto) {
 
             if (btnCadastrar) {
 
                 btnCadastrar.innerText =
-                    "Enviando foto...";
+                    "Preparando foto...";
 
             }
 
@@ -709,6 +734,14 @@ async function salvarCadastro(evento) {
                 await reduzirFoto(
                     arquivoFoto
                 );
+
+
+            if (btnCadastrar) {
+
+                btnCadastrar.innerText =
+                    "Enviando foto...";
+
+            }
 
 
             const respostaFoto =
@@ -731,10 +764,6 @@ async function salvarCadastro(evento) {
         }
 
 
-        /*
-         * Busca novamente os dados já atualizados,
-         * incluindo a URL da foto.
-         */
         if (btnCadastrar) {
 
             btnCadastrar.innerText =
@@ -749,10 +778,6 @@ async function salvarCadastro(evento) {
 
         if (!respostaPet.sucesso) {
 
-            /*
-             * Recarrega como alternativa caso
-             * a busca final tenha algum erro.
-             */
             location.reload();
 
             return;
@@ -760,9 +785,12 @@ async function salvarCadastro(evento) {
         }
 
 
-        petAtual = respostaPet;
+        petAtual =
+            respostaPet;
 
-        carregarPerfil(respostaPet);
+        carregarPerfil(
+            respostaPet
+        );
 
         mostrarPerfil();
 
@@ -783,7 +811,8 @@ async function salvarCadastro(evento) {
 
         if (btnCadastrar) {
 
-            btnCadastrar.disabled = false;
+            btnCadastrar.disabled =
+                false;
 
             btnCadastrar.innerText =
                 "Cadastrar";
@@ -901,13 +930,14 @@ function mostrarErro(msg) {
 
 
 /**
- * Evita inserir código HTML vindo
- * de mensagens do servidor.
+ * Evita inserir HTML em mensagens
  */
 function escaparHTML(texto) {
 
     const elemento =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     elemento.innerText =
         String(texto || "");
