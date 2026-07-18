@@ -227,17 +227,19 @@ async function reativarTag(token) {
 
 async function resetarTag(token) {
 
-    return await apiPost({
+    console.log("Ação enviada:", ACTION.RESETAR_TAG);
 
-        action: ACTION.RESETAR_TAG,
+    return await apiGet(
 
-        token: token
+        ACTION.RESETAR_TAG,
 
-    });
+        {
+            token: token
+        }
+
+    );
 
 }
-
-
 async function excluirTag(token) {
 
     return await apiPost({
