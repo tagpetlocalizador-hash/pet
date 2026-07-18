@@ -227,14 +227,20 @@ async function reativarTag(token) {
 
 async function resetarTag(token) {
 
-    alert("AÇÃO = " + ACTION.RESETAR_TAG);
+    const url = new URL(CONFIG.API_URL);
 
-    return await apiGet(
-        ACTION.RESETAR_TAG,
-        {
-            token: token
-        }
-    );
+    url.searchParams.append("action", ACTION.RESETAR_TAG);
+    url.searchParams.append("token", token);
+
+    console.log("URL:", url.toString());
+
+    const response = await fetch(url.toString());
+
+    const texto = await response.text();
+
+    console.log("RESPOSTA:", texto);
+
+    return JSON.parse(texto);
 
 }
 async function excluirTag(token) {
