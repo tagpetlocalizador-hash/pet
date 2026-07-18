@@ -1,16 +1,26 @@
 /*************************************************
- * LINKA GIFT
+ * PET NFC
  * etiqueta.js
+ * Versão 1.0.0
  *************************************************/
+
+let token = "";
+
+/* ==========================================
+   INICIALIZAÇÃO
+========================================== */
 
 document.addEventListener("DOMContentLoaded", iniciar);
 
+/* ==========================================
+   INICIAR
+========================================== */
+
 async function iniciar() {
 
-    // Token recebido na URL
-    const params = new URLSearchParams(window.location.search);
+    const parametros = new URLSearchParams(window.location.search);
 
-    const token = params.get("token");
+    token = parametros.get("token");
 
     if (!token) {
 
@@ -20,19 +30,17 @@ async function iniciar() {
 
     }
 
-    // Busca os dados da TAG
+    carregarEtiqueta();
 
-    const resposta = await apiGet(
+}
 
-        ACTION.BUSCAR_TAG,
+/* ==========================================
+   CARREGA DADOS
+========================================== */
 
-        {
+async function carregarEtiqueta() {
 
-            token: token
-
-        }
-
-    );
+    const resposta = await buscarTag(token);
 
     if (!resposta.sucesso) {
 
@@ -42,40 +50,42 @@ async function iniciar() {
 
     }
 
-    // Monta a URL pública
+    const tag = resposta.dados;
 
-    const url =
+    document.getElementById("token").innerText =
+        tag.token;
 
-        "https://tagpetlocalizador-hash.github.io/pet/?token="
+    document.getElementById("url").innerText =
+        CONFIG.URL_SITE + "?token=" + tag.token;
 
-        + token;
+    gerarQRCode(
 
-    // TOKEN
-
-    document.getElementById("token").innerHTML = token;
-
-    // LINK
-
-    document.getElementById("url").innerHTML = url;
-
-    // QR CODE
-
-    new QRCode(
-
-        document.getElementById("qrcode"),
-
-        {
-
-            text: url,
-
-            width: 230,
-
-            height: 230,
-
-            correctLevel: QRCode.CorrectLevel.H
-
-        }
+        CONFIG.URL_SITE + "?token=" + tag.token
 
     );
+
+}
+
+/* ==========================================
+   QR CODE
+========================================== */
+
+function gerarQRCode(url) {
+
+    const div = document.getElementById("qrcode");
+
+    div.innerHTML = "";
+
+    new QRCode(div, {
+
+        text: url,
+
+        width: 170,
+
+        height: 170,
+
+        correctLevel: QRCode.CorrectLevel.H
+
+    });
 
 }
