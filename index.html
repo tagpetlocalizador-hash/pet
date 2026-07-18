@@ -1,85 +1,403 @@
-/*************************************************
- * PET NFC
- * Email.gs
- * Versão 4.1.0
- *************************************************/
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-/**
- * Envia um e-mail ao tutor quando o pet é localizado.
- *
- * @param {Array} registro Linha da planilha
- * @param {string} latitude
- * @param {string} longitude
- * @param {string} maps
- */
-function enviarEmailTutor(registro, latitude, longitude, maps) {
+<head>
 
-  try {
+    <meta charset="UTF-8">
 
-    const email = registro[COL.EMAIL];
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
 
-    if (vazio(email)) {
-      return;
-    }
+    <title>PET NFC</title>
 
-    const nomePet = registro[COL.NOME_PET] || "Seu pet";
+    <meta
+        name="theme-color"
+        content="#0d6efd">
 
-    const nomeTutor = registro[COL.NOME_TUTOR] || "";
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 
-    const assunto = "🐶 Seu pet foi localizado!";
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+        rel="stylesheet">
 
-    let mensagem = "";
+    <!-- CSS -->
+    <link
+        href="css/style.css"
+        rel="stylesheet">
 
-    if (!vazio(nomeTutor)) {
+</head>
 
-      mensagem += "Olá, " + nomeTutor + "!\n\n";
+<body class="bg-light">
 
-    } else {
+<div class="container py-4">
 
-      mensagem += "Olá!\n\n";
+    <!-- LOGO -->
 
-    }
+    <div class="text-center mb-4">
 
-    mensagem +=
-      "Boas notícias!\n\n" +
+        <img
+            src="img/logo.png"
+            alt="PET NFC"
+            class="img-fluid"
+            style="max-width:140px;"
+            onerror="this.style.display='none'">
 
-      "Recebemos uma notificação de que seu pet \"" +
-      nomePet +
-      "\" foi encontrado.\n\n" +
+        <h2 class="fw-bold mt-3">
 
-      "Uma pessoa encontrou a TAG do seu pet e autorizou o envio da localização para facilitar o reencontro.\n\n" +
+            PET NFC
 
-      "Localização:\n" +
-      latitude + ", " + longitude + "\n\n" +
+        </h2>
 
-      "Google Maps:\n" +
-      maps + "\n\n" +
+    </div>
 
-      "Data/Hora:\n" +
-      agora() + "\n\n" +
 
-      "Entre em contato o mais rápido possível.\n\n" +
+    <!-- ================= LOADING ================= -->
 
-      "-------------------------------------\n" +
-      "PET NFC\n" +
-      "Sistema Inteligente de Identificação Animal\n\n" +
-      "Acesse seu cadastro:\n" +
-      CONFIG.URL_SITE + "\n";
+    <div id="loading">
 
-    MailApp.sendEmail({
+        <div class="text-center">
 
-      to: email,
+            <div
+                class="spinner-border text-primary mb-3"
+                role="status">
 
-      subject: assunto,
+                <span class="visually-hidden">
+                    Carregando...
+                </span>
 
-      body: mensagem
+            </div>
 
-    });
+            <h5>
+                Carregando...
+            </h5>
 
-  } catch (erro) {
+        </div>
 
-    Logger.log("Erro ao enviar e-mail: " + erro);
+    </div>
 
-  }
 
-}
+    <!-- ================= CADASTRO ================= -->
+
+    <div
+        id="cadastro"
+        style="display:none;">
+
+        <div class="card shadow border-0">
+
+            <div class="card-body p-4">
+
+                <h4 class="text-center mb-4">
+                    Cadastro do Pet
+                </h4>
+
+                <div class="text-center mb-3">
+
+                    <img
+                        id="previewFoto"
+                        src="img/pet-default.png"
+                        alt="Foto do pet"
+                        class="rounded-circle border object-fit-cover"
+                        width="150"
+                        height="150"
+                        onerror="this.style.display='none'">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label
+                        for="foto"
+                        class="form-label">
+
+                        Foto do pet
+
+                    </label>
+
+                    <input
+                        type="file"
+                        id="foto"
+                        class="form-control"
+                        accept="image/*">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label
+                        for="nomePet"
+                        class="form-label">
+
+                        Nome do Pet
+
+                    </label>
+
+                    <input
+                        id="nomePet"
+                        type="text"
+                        class="form-control"
+                        maxlength="50"
+                        autocomplete="off"
+                        required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label
+                        for="nomeTutor"
+                        class="form-label">
+
+                        Nome do Tutor
+
+                    </label>
+
+                    <input
+                        id="nomeTutor"
+                        type="text"
+                        class="form-control"
+                        maxlength="80"
+                        autocomplete="name"
+                        required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label
+                        for="whatsapp"
+                        class="form-label">
+
+                        WhatsApp
+
+                    </label>
+
+                    <input
+                        id="whatsapp"
+                        type="tel"
+                        class="form-control"
+                        placeholder="Ex.: 11999999999"
+                        inputmode="numeric"
+                        autocomplete="tel"
+                        maxlength="20"
+                        required>
+
+                </div>
+
+                <div class="mb-4">
+
+                    <label
+                        for="email"
+                        class="form-label">
+
+                        E-mail
+
+                    </label>
+
+                    <input
+                        id="email"
+                        type="email"
+                        class="form-control"
+                        autocomplete="email"
+                        maxlength="120"
+                        required>
+
+                </div>
+
+                <button
+                    id="btnCadastrar"
+                    type="button"
+                    class="btn btn-primary w-100 btn-lg">
+
+                    <i class="bi bi-check-circle-fill me-1"></i>
+
+                    Cadastrar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= PERFIL ================= -->
+
+    <div
+        id="perfil"
+        style="display:none;">
+
+        <div class="card shadow border-0">
+
+            <div class="card-body p-4">
+
+                <div class="text-center">
+
+                    <img
+                        id="fotoPerfil"
+                        src="img/pet-default.png"
+                        alt="Foto do pet"
+                        class="rounded-circle border object-fit-cover"
+                        width="180"
+                        height="180"
+                        onerror="this.style.display='none'">
+
+                    <h3
+                        id="perfilNomePet"
+                        class="mt-3 fw-bold">
+
+                        Nome do Pet
+
+                    </h3>
+
+                    <p
+                        id="perfilTutor"
+                        class="text-muted mb-0">
+
+                        Tutor
+
+                    </p>
+
+                </div>
+
+                <hr class="my-4">
+
+                <div class="d-grid gap-3">
+
+                    <a
+                        id="btnLigar"
+                        href="#"
+                        class="btn btn-primary btn-lg">
+
+                        <i class="bi bi-telephone-fill me-1"></i>
+
+                        Ligar para o tutor
+
+                    </a>
+
+                    <a
+                        id="btnWhatsapp"
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-success btn-lg">
+
+                        <i class="bi bi-whatsapp me-1"></i>
+
+                        Chamar no WhatsApp
+
+                    </a>
+
+                    <button
+                        id="btnLocalizacao"
+                        type="button"
+                        class="btn btn-warning btn-lg">
+
+                        <i class="bi bi-geo-alt-fill me-1"></i>
+
+                        Encontrei este Pet
+
+                    </button>
+
+                </div>
+
+                <div
+                    id="avisoLocalizacao"
+                    class="alert alert-info text-center mt-4 mb-0">
+
+                    <i class="bi bi-info-circle-fill"></i>
+
+                    Ao tocar em “Encontrei este Pet”, você poderá compartilhar sua localização com o tutor.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= MENSAGEM ================= -->
+
+    <div
+        id="mensagem"
+        style="display:none;"
+        class="mt-4">
+
+        <div class="card shadow border-0">
+
+            <div class="card-body text-center p-4">
+
+                <div
+                    class="text-success mb-3"
+                    style="font-size:55px;">
+
+                    <i class="bi bi-check-circle-fill"></i>
+
+                </div>
+
+                <h4>
+                    Localização enviada
+                </h4>
+
+                <p class="mb-3">
+
+                    Obrigado por ajudar.
+
+                    A localização foi enviada ao tutor do pet.
+
+                </p>
+
+                <button
+                    id="btnVoltarPerfil"
+                    type="button"
+                    class="btn btn-primary">
+
+                    Voltar ao perfil
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= ERRO ================= -->
+
+    <div
+        id="erroSistema"
+        style="display:none;">
+
+        <div class="alert alert-danger text-center">
+
+            <h4>
+                Não foi possível abrir esta TAG
+            </h4>
+
+            <p
+                id="textoErroSistema"
+                class="mb-0">
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+
+</html>
