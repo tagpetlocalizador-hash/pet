@@ -1,23 +1,29 @@
 /*************************************************
  * PET NFC
  * app.js
- * Versão 1.2.0
+ * Versão 2.0.0
  *************************************************/
 
+
 let petAtual = null;
+
+let enviandoLocalizacao = false;
 
 
 /* ===================================================
    INICIALIZAÇÃO
 =================================================== */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    configurarEventos();
+        configurarEventos();
 
-    iniciarSistema();
+        iniciarSistema();
 
-});
+    }
+);
 
 
 /* ===================================================
@@ -34,6 +40,9 @@ function configurarEventos() {
 
     const btnLocalizacao =
         document.getElementById("btnLocalizacao");
+
+    const btnVoltarPerfil =
+        document.getElementById("btnVoltarPerfil");
 
 
     if (campoFoto) {
@@ -65,41 +74,61 @@ function configurarEventos() {
 
     }
 
+
+    if (btnVoltarPerfil) {
+
+        btnVoltarPerfil.addEventListener(
+            "click",
+            function () {
+
+                mostrarPerfil();
+
+            }
+        );
+
+    }
+
 }
 
 
 /* ===================================================
-   INICIAR
+   INICIAR SISTEMA
 =================================================== */
 
 async function iniciarSistema() {
 
     mostrarLoading();
 
+
     if (!TOKEN) {
 
         mostrarErro(
-            "Token da TAG não informado."
+            "O token da TAG não foi informado."
         );
 
         return;
 
     }
+
 
     const resposta =
         await buscarPet(TOKEN);
 
+
     if (!resposta.sucesso) {
 
         mostrarErro(
-            resposta.mensagem
+            resposta.mensagem ||
+            "Não foi possível carregar esta TAG."
         );
 
         return;
 
     }
 
+
     petAtual = resposta;
+
 
     if (
         resposta.status === STATUS.LIVRE
@@ -107,13 +136,27 @@ async function iniciarSistema() {
 
         mostrarCadastro();
 
-    } else {
-
-        carregarPerfil(resposta);
-
-        mostrarPerfil();
+        return;
 
     }
+
+
+    if (
+        resposta.status === STATUS.BLOQUEADO
+    ) {
+
+        mostrarErro(
+            "Esta TAG está bloqueada."
+        );
+
+        return;
+
+    }
+
+
+    carregarPerfil(resposta);
+
+    mostrarPerfil();
 
 }
 
@@ -124,45 +167,34 @@ async function iniciarSistema() {
 
 function esconderTudo() {
 
-    const loading =
-        document.getElementById("loading");
+    const ids = [
 
-    const cadastro =
-        document.getElementById("cadastro");
+        "loading",
 
-    const perfil =
-        document.getElementById("perfil");
+        "cadastro",
 
-    const mensagem =
-        document.getElementById("mensagem");
+        "perfil",
 
+        "mensagem",
 
-    if (loading) {
+        "erroSistema"
 
-        loading.style.display = "none";
-
-    }
+    ];
 
 
-    if (cadastro) {
+    ids.forEach(function (id) {
 
-        cadastro.style.display = "none";
+        const elemento =
+            document.getElementById(id);
 
-    }
+        if (elemento) {
 
+            elemento.style.display =
+                "none";
 
-    if (perfil) {
+        }
 
-        perfil.style.display = "none";
-
-    }
-
-
-    if (mensagem) {
-
-        mensagem.style.display = "none";
-
-    }
+    });
 
 }
 
@@ -176,7 +208,8 @@ function mostrarLoading() {
 
     if (loading) {
 
-        loading.style.display = "block";
+        loading.style.display =
+            "block";
 
     }
 
@@ -192,7 +225,8 @@ function mostrarCadastro() {
 
     if (cadastro) {
 
-        cadastro.style.display = "block";
+        cadastro.style.display =
+            "block";
 
     }
 
@@ -208,7 +242,8 @@ function mostrarPerfil() {
 
     if (perfil) {
 
-        perfil.style.display = "block";
+        perfil.style.display =
+            "block";
 
     }
 
@@ -224,7 +259,42 @@ function mostrarMensagem() {
 
     if (mensagem) {
 
-        mensagem.style.display = "block";
+        mensagem.style.display =
+            "block";
+
+    }
+
+}
+
+
+function mostrarErro(mensagem) {
+
+    esconderTudo();
+
+    const erroSistema =
+        document.getElementById(
+            "erroSistema"
+        );
+
+    const textoErro =
+        document.getElementById(
+            "textoErroSistema"
+        );
+
+
+    if (textoErro) {
+
+        textoErro.textContent =
+            mensagem ||
+            "Ocorreu um erro inesperado.";
+
+    }
+
+
+    if (erroSistema) {
+
+        erroSistema.style.display =
+            "block";
 
     }
 
@@ -252,59 +322,251 @@ function carregarPerfil(dados) {
             "fotoPerfil"
         );
 
+    const btnLigar =
+        document.getElementById(
+            "btnLigar"
+        );
+
+    const btnWhatsapp =
+        document.getElementById(
+            "btnWhatsapp"
+        );
+
+
+    const nomePet =
+        dados.nome_pet ||
+        dados.nomePet ||
+        "Pet";
+
+    const nomeTutor =
+        dados.nome_tutor ||
+        dados.nomeTutor ||
+        "Tutor não informado";
+
+    const telefone =
+        limparTelefone(
+            dados.whatsapp ||
+            dados.telefone ||
+            ""
+        );
+
 
     if (perfilNomePet) {
 
-        perfilNomePet.innerText =
-            dados.nome_pet || "";
+        perfilNomePet.textContent =
+            nomePet;
 
     }
 
 
     if (perfilTutor) {
 
-        perfilTutor.innerText =
-            dados.nome_tutor || "";
+        perfilTutor.textContent =
+            "Tutor: " + nomeTutor;
 
     }
 
 
-    if (fotoPerfil) {
+    configurarFotoPerfil(
+        fotoPerfil,
+        dados.foto
+    );
 
-        if (dados.foto) {
 
-            fotoPerfil.src =
-                dados.foto;
+    configurarBotaoLigar(
+        btnLigar,
+        telefone
+    );
 
-            fotoPerfil.style.display =
-                "block";
 
-        } else {
+    configurarBotaoWhatsapp(
+        btnWhatsapp,
+        telefone,
+        nomePet
+    );
 
-            fotoPerfil.removeAttribute(
-                "src"
-            );
+}
 
-            fotoPerfil.style.display =
+
+function configurarFotoPerfil(
+    elemento,
+    foto
+) {
+
+    if (!elemento) {
+
+        return;
+
+    }
+
+
+    elemento.onerror =
+        function () {
+
+            this.onerror = null;
+
+            this.style.display =
                 "none";
 
-        }
+        };
 
 
-        fotoPerfil.onerror =
-            function () {
+    if (foto) {
 
-                console.error(
-                    "Não foi possível carregar a foto:",
-                    dados.foto
-                );
+        elemento.src =
+            foto;
 
-                this.style.display =
-                    "none";
+        elemento.style.display =
+            "inline-block";
 
-            };
+    } else {
+
+        elemento.src =
+            CONFIG.FOTO_PADRAO;
+
+        elemento.style.display =
+            "inline-block";
 
     }
+
+}
+
+
+function configurarBotaoLigar(
+    botao,
+    telefone
+) {
+
+    if (!botao) {
+
+        return;
+
+    }
+
+
+    if (!telefone) {
+
+        botao.href =
+            "#";
+
+        botao.classList.add(
+            "disabled"
+        );
+
+        botao.setAttribute(
+            "aria-disabled",
+            "true"
+        );
+
+        return;
+
+    }
+
+
+    botao.classList.remove(
+        "disabled"
+    );
+
+    botao.removeAttribute(
+        "aria-disabled"
+    );
+
+    botao.href =
+        "tel:+" + telefone;
+
+}
+
+
+function configurarBotaoWhatsapp(
+    botao,
+    telefone,
+    nomePet
+) {
+
+    if (!botao) {
+
+        return;
+
+    }
+
+
+    if (!telefone) {
+
+        botao.href =
+            "#";
+
+        botao.classList.add(
+            "disabled"
+        );
+
+        botao.setAttribute(
+            "aria-disabled",
+            "true"
+        );
+
+        return;
+
+    }
+
+
+    const mensagem =
+        "Olá! Encontrei o pet " +
+        nomePet +
+        " e acessei a TAG de identificação.";
+
+
+    botao.classList.remove(
+        "disabled"
+    );
+
+    botao.removeAttribute(
+        "aria-disabled"
+    );
+
+    botao.href =
+        "https://wa.me/" +
+        telefone +
+        "?text=" +
+        encodeURIComponent(mensagem);
+
+}
+
+
+/* ===================================================
+   TELEFONE
+=================================================== */
+
+function limparTelefone(valor) {
+
+    let numero =
+        String(valor || "")
+            .replace(/\D/g, "");
+
+
+    if (!numero) {
+
+        return "";
+
+    }
+
+
+    /*
+     * Acrescenta o código do Brasil quando
+     * o cliente informou apenas DDD + número.
+     */
+
+    if (
+        numero.length === 10 ||
+        numero.length === 11
+    ) {
+
+        numero =
+            "55" + numero;
+
+    }
+
+
+    return numero;
 
 }
 
@@ -318,6 +580,7 @@ function mostrarPreviewFoto(evento) {
     const arquivo =
         evento.target.files[0];
 
+
     if (!arquivo) {
 
         return;
@@ -326,16 +589,15 @@ function mostrarPreviewFoto(evento) {
 
 
     if (
-        !arquivo.type.startsWith(
-            "image/"
-        )
+        !arquivo.type.startsWith("image/")
     ) {
 
         alert(
             "Selecione um arquivo de imagem."
         );
 
-        evento.target.value = "";
+        evento.target.value =
+            "";
 
         return;
 
@@ -346,6 +608,7 @@ function mostrarPreviewFoto(evento) {
         document.getElementById(
             "previewFoto"
         );
+
 
     if (!previewFoto) {
 
@@ -365,7 +628,7 @@ function mostrarPreviewFoto(evento) {
                 eventoReader.target.result;
 
             previewFoto.style.display =
-                "block";
+                "inline-block";
 
         };
 
@@ -380,7 +643,9 @@ function mostrarPreviewFoto(evento) {
         };
 
 
-    reader.readAsDataURL(arquivo);
+    reader.readAsDataURL(
+        arquivo
+    );
 
 }
 
@@ -389,11 +654,6 @@ function mostrarPreviewFoto(evento) {
    REDUZIR FOTO
 =================================================== */
 
-/**
- * Reduz a imagem antes do envio.
- * Tamanho máximo: 500 px
- * Qualidade JPEG: 65%
- */
 function reduzirFoto(arquivo) {
 
     return new Promise(
@@ -538,16 +798,22 @@ function reduzirFoto(arquivo) {
 
 
                             console.log(
-                                "Tamanho da foto enviada:",
+
+                                "Tamanho da foto:",
+
                                 Math.round(
                                     fotoBase64.length /
                                     1024
                                 ),
+
                                 "KB"
+
                             );
 
 
-                            resolve(fotoBase64);
+                            resolve(
+                                fotoBase64
+                            );
 
                         };
 
@@ -655,15 +921,10 @@ async function salvarCadastro(evento) {
     }
 
 
-    if (
-        arquivoFoto &&
-        !arquivoFoto.type.startsWith(
-            "image/"
-        )
-    ) {
+    if (!validarEmail(email)) {
 
         alert(
-            "Selecione uma foto válida."
+            "Informe um e-mail válido."
         );
 
         return;
@@ -671,45 +932,54 @@ async function salvarCadastro(evento) {
     }
 
 
-    if (btnCadastrar) {
+    if (
+        limparTelefone(whatsapp).length < 12
+    ) {
 
-        btnCadastrar.disabled =
-            true;
+        alert(
+            "Informe um WhatsApp válido com DDD."
+        );
 
-        btnCadastrar.innerText =
-            "Cadastrando...";
+        return;
 
     }
 
 
+    alterarBotaoCadastro(
+        btnCadastrar,
+        true,
+        "Cadastrando..."
+    );
+
+
     try {
 
-        const dados = {
-
-            token: TOKEN,
-
-            nome_pet: nomePet,
-
-            nome_tutor: nomeTutor,
-
-            whatsapp: whatsapp,
-
-            email: email
-
-        };
-
-
-        /*
-         * Primeiro cadastra os dados do pet.
-         */
         const respostaCadastro =
-            await cadastrarPet(dados);
+            await cadastrarPet({
+
+                token:
+                    TOKEN,
+
+                nome_pet:
+                    nomePet,
+
+                nome_tutor:
+                    nomeTutor,
+
+                whatsapp:
+                    whatsapp,
+
+                email:
+                    email
+
+            });
 
 
         if (!respostaCadastro.sucesso) {
 
             alert(
-                respostaCadastro.mensagem
+                respostaCadastro.mensagem ||
+                "Não foi possível cadastrar o pet."
             );
 
             return;
@@ -717,17 +987,13 @@ async function salvarCadastro(evento) {
         }
 
 
-        /*
-         * Depois envia a foto.
-         */
         if (arquivoFoto) {
 
-            if (btnCadastrar) {
-
-                btnCadastrar.innerText =
-                    "Preparando foto...";
-
-            }
+            alterarBotaoCadastro(
+                btnCadastrar,
+                true,
+                "Preparando foto..."
+            );
 
 
             const fotoBase64 =
@@ -736,12 +1002,11 @@ async function salvarCadastro(evento) {
                 );
 
 
-            if (btnCadastrar) {
-
-                btnCadastrar.innerText =
-                    "Enviando foto...";
-
-            }
+            alterarBotaoCadastro(
+                btnCadastrar,
+                true,
+                "Enviando foto..."
+            );
 
 
             const respostaFoto =
@@ -754,9 +1019,15 @@ async function salvarCadastro(evento) {
             if (!respostaFoto.sucesso) {
 
                 alert(
+
                     "O cadastro foi realizado, " +
                     "mas a foto não foi enviada.\n\n" +
-                    respostaFoto.mensagem
+
+                    (
+                        respostaFoto.mensagem ||
+                        "Erro desconhecido."
+                    )
+
                 );
 
             }
@@ -764,12 +1035,11 @@ async function salvarCadastro(evento) {
         }
 
 
-        if (btnCadastrar) {
-
-            btnCadastrar.innerText =
-                "Carregando perfil...";
-
-        }
+        alterarBotaoCadastro(
+            btnCadastrar,
+            true,
+            "Carregando perfil..."
+        );
 
 
         const respostaPet =
@@ -778,7 +1048,7 @@ async function salvarCadastro(evento) {
 
         if (!respostaPet.sucesso) {
 
-            location.reload();
+            window.location.reload();
 
             return;
 
@@ -809,17 +1079,46 @@ async function salvarCadastro(evento) {
 
     } finally {
 
-        if (btnCadastrar) {
-
-            btnCadastrar.disabled =
-                false;
-
-            btnCadastrar.innerText =
-                "Cadastrar";
-
-        }
+        alterarBotaoCadastro(
+            btnCadastrar,
+            false,
+            "Cadastrar"
+        );
 
     }
+
+}
+
+
+function alterarBotaoCadastro(
+    botao,
+    desabilitado,
+    texto
+) {
+
+    if (!botao) {
+
+        return;
+
+    }
+
+    botao.disabled =
+        desabilitado;
+
+    botao.innerHTML =
+        desabilitado
+            ? '<span class="spinner-border spinner-border-sm me-2"></span>' +
+              texto
+            : '<i class="bi bi-check-circle-fill me-1"></i> ' +
+              texto;
+
+}
+
+
+function validarEmail(email) {
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(email);
 
 }
 
@@ -830,10 +1129,17 @@ async function salvarCadastro(evento) {
 
 function enviarMinhaLocalizacao() {
 
+    if (enviandoLocalizacao) {
+
+        return;
+
+    }
+
+
     if (!navigator.geolocation) {
 
         alert(
-            "Seu navegador não suporta localização."
+            "Seu navegador não oferece suporte à localização."
         );
 
         return;
@@ -841,10 +1147,35 @@ function enviarMinhaLocalizacao() {
     }
 
 
-    navigator.geolocation
-        .getCurrentPosition(
+    const btnLocalizacao =
+        document.getElementById(
+            "btnLocalizacao"
+        );
 
-            async function (posicao) {
+
+    enviandoLocalizacao =
+        true;
+
+
+    alterarBotaoLocalizacao(
+        btnLocalizacao,
+        true,
+        "Obtendo localização..."
+    );
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        async function (posicao) {
+
+            try {
+
+                alterarBotaoLocalizacao(
+                    btnLocalizacao,
+                    true,
+                    "Enviando..."
+                );
+
 
                 const resposta =
                     await enviarLocalizacao(
@@ -862,86 +1193,182 @@ function enviarMinhaLocalizacao() {
 
                     mostrarMensagem();
 
-                } else {
-
-                    alert(
-                        resposta.mensagem
-                    );
+                    return;
 
                 }
 
-            },
+
+                alert(
+                    resposta.mensagem ||
+                    "Não foi possível enviar a localização."
+                );
 
 
-            function (erro) {
+            } catch (erro) {
 
                 console.error(
-                    "Erro de localização:",
+                    "Erro ao enviar localização:",
                     erro
                 );
 
                 alert(
-                    "Não foi possível obter sua localização."
+                    "Não foi possível enviar a localização."
                 );
 
-            },
 
+            } finally {
 
-            {
+                enviandoLocalizacao =
+                    false;
 
-                enableHighAccuracy: true,
-
-                timeout: 15000,
-
-                maximumAge: 0
+                alterarBotaoLocalizacao(
+                    btnLocalizacao,
+                    false,
+                    "Encontrei este Pet"
+                );
 
             }
 
-        );
+        },
+
+
+        function (erro) {
+
+            console.error(
+                "Erro de localização:",
+                erro
+            );
+
+
+            enviandoLocalizacao =
+                false;
+
+
+            alterarBotaoLocalizacao(
+                btnLocalizacao,
+                false,
+                "Encontrei este Pet"
+            );
+
+
+            tratarErroLocalizacao(
+                erro
+            );
+
+        },
+
+
+        {
+
+            enableHighAccuracy:
+                true,
+
+            timeout:
+                20000,
+
+            maximumAge:
+                0
+
+        }
+
+    );
 
 }
 
 
-/* ===================================================
-   ERROS
-=================================================== */
+function alterarBotaoLocalizacao(
+    botao,
+    desabilitado,
+    texto
+) {
 
-function mostrarErro(msg) {
+    if (!botao) {
 
-    esconderTudo();
+        return;
 
-    document.body.innerHTML = `
+    }
 
-        <div class="container mt-5">
 
-            <div class="alert alert-danger text-center">
+    botao.disabled =
+        desabilitado;
 
-                <h4>Erro</h4>
 
-                <p>${escaparHTML(msg)}</p>
+    if (desabilitado) {
 
-            </div>
+        botao.innerHTML =
 
-        </div>
+            '<span class="spinner-border ' +
+            'spinner-border-sm me-2"></span>' +
 
-    `;
+            texto;
+
+    } else {
+
+        botao.innerHTML =
+
+            '<i class="bi bi-geo-alt-fill me-1"></i>' +
+
+            texto;
+
+    }
 
 }
 
 
-/**
- * Evita inserir HTML em mensagens
- */
-function escaparHTML(texto) {
+function tratarErroLocalizacao(erro) {
 
-    const elemento =
-        document.createElement(
-            "div"
-        );
+    switch (erro.code) {
 
-    elemento.innerText =
-        String(texto || "");
+        case erro.PERMISSION_DENIED:
 
-    return elemento.innerHTML;
+            alert(
+
+                "📍 Permissão de localização negada.\n\n" +
+
+                "Ative a localização do celular, permita o acesso " +
+                "à localização para este site e passe a TAG novamente."
+
+            );
+
+            break;
+
+
+        case erro.POSITION_UNAVAILABLE:
+
+            alert(
+
+                "📍 Não foi possível encontrar sua localização.\n\n" +
+
+                "Verifique se o GPS do celular está ligado e tente novamente."
+
+            );
+
+            break;
+
+
+        case erro.TIMEOUT:
+
+            alert(
+
+                "📍 A localização demorou muito para responder.\n\n" +
+
+                "Vá para um local com melhor sinal e tente novamente."
+
+            );
+
+            break;
+
+
+        default:
+
+            alert(
+
+                "📍 Não foi possível obter sua localização.\n\n" +
+
+                "Ative o GPS e tente novamente."
+
+            );
+
+    }
 
 }
