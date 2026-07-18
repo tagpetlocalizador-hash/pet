@@ -103,7 +103,6 @@ async function iniciarSistema() {
 
     mostrarLoading();
 
-
     if (!TOKEN) {
 
         mostrarErro(
@@ -114,65 +113,95 @@ async function iniciarSistema() {
 
     }
 
+    try {
 
-    const resposta =
-        await buscarPet(TOKEN);
+        const resposta =
+            await buscarPet(TOKEN);
 
+        // ==========================
+        // DEBUG
+        // ==========================
 
-    if (!resposta.sucesso) {
+        console.log("Resposta completa da API:", resposta);
 
-        mostrarErro(
-            resposta.mensagem ||
-            "Não foi possível carregar esta TAG."
+        alert(
+            JSON.stringify(
+                resposta,
+                null,
+                2
+            )
         );
 
-        return;
+        // ==========================
 
-    }
+        if (!resposta || !resposta.sucesso) {
 
+            mostrarErro(
 
-    petAtual = resposta;
+                resposta?.mensagem ||
 
+                "Não foi possível carregar esta TAG."
 
-    if (
-        resposta.status === STATUS.LIVRE
-    ) {
+            );
 
-        mostrarCadastro();
+            return;
 
-        return;
+        }
 
-    }
+        petAtual = resposta;
 
+        console.log("Status recebido:", resposta.status);
 
-    if (
-        resposta.status === STATUS.BLOQUEADO
-    ) {
+        if (resposta.status === STATUS.LIVRE) {
 
-        mostrarErro(
-            "Esta TAG está bloqueada."
+            console.log("Mostrando tela de cadastro");
+
+            mostrarCadastro();
+
+            return;
+
+        }
+
+        if (resposta.status === STATUS.BLOQUEADO) {
+
+            console.log("TAG bloqueada");
+
+            mostrarErro(
+                "Esta TAG está bloqueada."
+            );
+
+            return;
+
+        }
+
+        console.log("Mostrando perfil do pet");
+
+        carregarPerfil(resposta);
+
+        mostrarPerfil();
+
+        setTimeout(function () {
+
+            verificarLocalizacaoAutomatica();
+
+        }, 800);
+
+    } catch (erro) {
+
+        console.error("Erro ao iniciar sistema:", erro);
+
+        alert(
+            "ERRO:\n\n" +
+            erro
         );
 
-        return;
+        mostrarErro(
+            "Erro ao carregar os dados da TAG."
+        );
 
     }
-
-
-    carregarPerfil(resposta);
-
-    mostrarPerfil();
-
-    // Tenta obter e enviar a localização automaticamente
-    // logo após abrir uma TAG já cadastrada.
-    setTimeout(function () {
-
-        verificarLocalizacaoAutomatica();
-
-    }, 800);
 
 }
-
-
 /* ===================================================
    TELAS
 =================================================== */
