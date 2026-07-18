@@ -1,0 +1,261 @@
+/*************************************************
+ * PET NFC
+ * style.css
+ * Versão 1.0.0
+ *************************************************/
+
+/* ===========================
+   GERAL
+=========================== */
+
+body{
+    background:#f5f7fb;
+    font-family:Arial,Helvetica,sans-serif;
+    color:#333;
+}
+
+.container{
+    max-width:550px;
+}
+
+/* ===========================
+   LOGO
+=========================== */
+
+.logo{
+    width:140px;
+    margin:auto;
+    display:block;
+}
+
+/* ===========================
+   CARDS
+=========================== */
+
+.card{
+
+    border:none;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+/* ===========================
+   FOTO PET
+=========================== */
+
+#previewFoto,
+#fotoPerfil{
+
+    object-fit:cover;
+
+    border:5px solid #ffffff;
+
+    background:#ececec;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+
+}
+
+/* ===========================
+   TÍTULOS
+=========================== */
+
+h2{
+
+    font-weight:700;
+
+    color:#0d6efd;
+
+}
+
+h3{
+
+    font-weight:700;
+
+}
+
+h4{
+
+    font-weight:700;
+
+}
+
+/* ===========================
+   FORMULÁRIOS
+=========================== */
+
+.form-control{
+
+    border-radius:12px;
+
+    padding:12px;
+
+    border:1px solid #d7d7d7;
+
+}
+
+.form-control:focus{
+
+    border-color:#0d6efd;
+
+    box-shadow:0 0 0 .2rem rgba(13,110,253,.2);
+
+}
+
+/* ===========================
+   BOTÕES
+=========================== */
+
+.btn{
+
+    border-radius:14px;
+
+    padding:14px;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+}
+
+.btn-primary{
+
+    background:#0d6efd;
+
+    border:none;
+
+}
+
+.btn-primary:hover{
+
+    background:#0b5ed7;
+
+}
+
+.btn-success{
+
+    background:#198754;
+
+    border:none;
+
+}
+
+.btn-success:hover{
+
+    background:#157347;
+
+}
+
+/* ===========================
+   LOADING
+=========================== */
+
+#loading{
+
+    padding:70px 0;
+
+}
+
+.spinner-border{
+
+    width:60px;
+
+    height:60px;
+
+}
+
+/* ===========================
+   PERFIL
+=========================== */
+
+#perfilNomePet{
+
+    margin-top:20px;
+
+    color:#222;
+
+}
+
+#perfilTutor{
+
+    font-size:18px;
+
+}
+
+/* ===========================
+   ALERTAS
+=========================== */
+
+.alert{
+
+    border-radius:15px;
+
+}
+
+/* ===========================
+   ANIMAÇÕES
+=========================== */
+
+.card{
+
+    animation:fade .4s ease;
+
+}
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(15px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media(max-width:576px){
+
+    h2{
+
+        font-size:28px;
+
+    }
+
+    h3{
+
+        font-size:24px;
+
+    }
+
+    .btn{
+
+        font-size:16px;
+
+    }
+
+    #previewFoto,
+    #fotoPerfil{
+
+        width:150px;
+
+        height:150px;
+
+    }
+
+}
