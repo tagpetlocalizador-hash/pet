@@ -31,15 +31,11 @@
         <div class="text-center py-4">
 
             <h3 class="fw-bold text-white">
-
                 PET NFC
-
             </h3>
 
             <small class="text-light">
-
                 Painel Administrativo
-
             </small>
 
         </div>
@@ -47,43 +43,28 @@
         <hr>
 
         <a href="index.html" class="menu-item">
-
             <i class="bi bi-speedometer2"></i>
-
             Dashboard
-
         </a>
 
         <a href="tags.html" class="menu-item active">
-
             <i class="bi bi-upc-scan"></i>
-
             TAGs
-
         </a>
 
         <a href="pets.html" class="menu-item">
-
             <i class="bi bi-heart-fill"></i>
-
             Pets
-
         </a>
 
         <a href="estatisticas.html" class="menu-item">
-
             <i class="bi bi-bar-chart-fill"></i>
-
             Estatísticas
-
         </a>
 
         <a href="configuracoes.html" class="menu-item">
-
             <i class="bi bi-gear-fill"></i>
-
             Configurações
-
         </a>
 
     </aside>
@@ -94,16 +75,10 @@
 
         <div class="d-flex justify-content-between align-items-center mb-4">
 
-            <h2>
-
-                TAGs
-
-            </h2>
+            <h2>TAGs</h2>
 
             <button
-
                 id="btnNovaTag"
-
                 class="btn btn-primary">
 
                 <i class="bi bi-plus-circle"></i>
@@ -119,11 +94,8 @@
             <div class="mb-3">
 
                 <input
-
                     id="pesquisa"
-
                     class="form-control"
-
                     placeholder="Pesquisar TAG">
 
             </div>
@@ -137,18 +109,10 @@
                         <tr>
 
                             <th>ID</th>
-
                             <th>TOKEN</th>
-
                             <th>STATUS</th>
-
                             <th>PET</th>
-
-                            <th width="240">
-
-                                AÇÕES
-
-                            </th>
+                            <th width="240">AÇÕES</th>
 
                         </tr>
 
@@ -168,7 +132,9 @@
 
 </div>
 
-<!-- Modal Nova TAG -->
+<!-- =======================================================
+     MODAL NOVA TAG
+======================================================= -->
 
 <div class="modal fade" id="modalNovaTag" tabindex="-1">
 
@@ -185,13 +151,9 @@
                 </h5>
 
                 <button
-
                     type="button"
-
                     class="btn-close"
-
                     data-bs-dismiss="modal">
-
                 </button>
 
             </div>
@@ -223,11 +185,8 @@
                     </label>
 
                     <input
-
                         id="novaUrl"
-
                         class="form-control"
-
                         readonly>
 
                 </div>
@@ -236,10 +195,20 @@
 
             <div class="modal-footer">
 
+                <!-- NOVO BOTÃO -->
+
                 <button
+                    id="btnEtiqueta"
+                    class="btn btn-primary">
 
+                    <i class="bi bi-printer"></i>
+
+                    Visualizar Etiqueta
+
+                </button>
+
+                <button
                     id="btnCopiar"
-
                     class="btn btn-success">
 
                     <i class="bi bi-clipboard"></i>
@@ -249,9 +218,7 @@
                 </button>
 
                 <button
-
                     class="btn btn-secondary"
-
                     data-bs-dismiss="modal">
 
                     Fechar
