@@ -30,7 +30,7 @@ async function iniciar() {
 
     }
 
-    console.log("Token recebido:", token);
+    console.log(Object.keys(tag));
 
     await carregarEtiqueta();
 
