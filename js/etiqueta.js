@@ -1,20 +1,20 @@
 /*************************************************
  * PET NFC
  * etiqueta.js
- * Versão 1.0.0
+ * Versão 2.0.0
  *************************************************/
 
 let token = "";
 
-/* ==========================================
+/* ===================================================
    INICIALIZAÇÃO
-========================================== */
+=================================================== */
 
 document.addEventListener("DOMContentLoaded", iniciar);
 
-/* ==========================================
+/* ===================================================
    INICIAR
-========================================== */
+=================================================== */
 
 async function iniciar() {
 
@@ -30,45 +30,57 @@ async function iniciar() {
 
     }
 
-    carregarEtiqueta();
+    console.log("Token recebido:", token);
+
+    await carregarEtiqueta();
 
 }
 
-/* ==========================================
-   CARREGA DADOS
-========================================== */
+/* ===================================================
+   CARREGAR ETIQUETA
+=================================================== */
 
 async function carregarEtiqueta() {
 
-    const resposta = await buscarTag(token);
+    try {
 
-    if (!resposta.sucesso) {
+        const resposta = await buscarTag(token);
 
-        alert(resposta.mensagem);
+        console.log("Resposta API:", resposta);
 
-        return;
+        if (!resposta.sucesso) {
+
+            alert(resposta.mensagem);
+
+            return;
+
+        }
+
+        const tag = resposta.dados;
+
+        document.getElementById("token").innerText =
+            tag.token;
+
+        document.getElementById("url").innerText =
+            tag.url;
+
+        gerarQRCode(tag.url);
 
     }
 
-    const tag = resposta.dados;
+    catch (erro) {
 
-    document.getElementById("token").innerText =
-        tag.token;
+        console.error(erro);
 
-    document.getElementById("url").innerText =
-        CONFIG.URL_SITE + "?token=" + tag.token;
+        alert("Erro ao carregar etiqueta.");
 
-    gerarQRCode(
-
-        CONFIG.URL_SITE + "?token=" + tag.token
-
-    );
+    }
 
 }
 
-/* ==========================================
-   QR CODE
-========================================== */
+/* ===================================================
+   GERAR QR CODE
+=================================================== */
 
 function gerarQRCode(url) {
 
@@ -83,6 +95,10 @@ function gerarQRCode(url) {
         width: 170,
 
         height: 170,
+
+        colorDark: "#000000",
+
+        colorLight: "#ffffff",
 
         correctLevel: QRCode.CorrectLevel.H
 
