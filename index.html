@@ -1,280 +1,85 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+/*************************************************
+ * PET NFC
+ * Email.gs
+ * Versão 4.1.0
+ *************************************************/
 
-<head>
+/**
+ * Envia um e-mail ao tutor quando o pet é localizado.
+ *
+ * @param {Array} registro Linha da planilha
+ * @param {string} latitude
+ * @param {string} longitude
+ * @param {string} maps
+ */
+function enviarEmailTutor(registro, latitude, longitude, maps) {
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  try {
 
-    <title>PET NFC</title>
+    const email = registro[COL.EMAIL];
 
-    <meta name="theme-color" content="#0d6efd">
+    if (vazio(email)) {
+      return;
+    }
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    const nomePet = registro[COL.NOME_PET] || "Seu pet";
 
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    const nomeTutor = registro[COL.NOME_TUTOR] || "";
 
-    <!-- CSS -->
-    <link href="css/style.css" rel="stylesheet">
+    const assunto = "🐶 Seu pet foi localizado!";
 
-</head>
+    let mensagem = "";
 
-<body class="bg-light">
+    if (!vazio(nomeTutor)) {
 
-<div class="container py-4">
+      mensagem += "Olá, " + nomeTutor + "!\n\n";
 
-    <!-- LOGO -->
-    <div class="text-center mb-4">
+    } else {
 
-        <img src="img/logo.png"
-             alt="PET NFC"
-             class="img-fluid"
-             style="max-width:140px;">
+      mensagem += "Olá!\n\n";
 
-        <h2 class="fw-bold mt-3">
-            PET NFC
-        </h2>
+    }
 
-    </div>
+    mensagem +=
+      "Boas notícias!\n\n" +
 
-    <!-- ================= LOADING ================= -->
+      "Recebemos uma notificação de que seu pet \"" +
+      nomePet +
+      "\" foi encontrado.\n\n" +
 
-    <div id="loading">
+      "Uma pessoa encontrou a TAG do seu pet e autorizou o envio da localização para facilitar o reencontro.\n\n" +
 
-        <div class="text-center">
+      "Localização:\n" +
+      latitude + ", " + longitude + "\n\n" +
 
-            <div class="spinner-border text-primary mb-3"></div>
+      "Google Maps:\n" +
+      maps + "\n\n" +
 
-            <h5>Carregando...</h5>
+      "Data/Hora:\n" +
+      agora() + "\n\n" +
 
-        </div>
+      "Entre em contato o mais rápido possível.\n\n" +
 
-    </div>
+      "-------------------------------------\n" +
+      "PET NFC\n" +
+      "Sistema Inteligente de Identificação Animal\n\n" +
+      "Acesse seu cadastro:\n" +
+      CONFIG.URL_SITE + "\n";
 
-    <!-- ================= CADASTRO ================= -->
+    MailApp.sendEmail({
 
-    <div id="cadastro" style="display:none;">
+      to: email,
 
-        <div class="card shadow">
+      subject: assunto,
 
-            <div class="card-body">
+      body: mensagem
 
-                <h4 class="text-center mb-4">
+    });
 
-                    Cadastro do Pet
+  } catch (erro) {
 
-                </h4>
+    Logger.log("Erro ao enviar e-mail: " + erro);
 
-                <div class="text-center mb-3">
+  }
 
-                    <img
-
-                        id="previewFoto"
-
-                        src="img/pet-default.png"
-
-                        class="rounded-circle border"
-
-                        width="150"
-
-                        height="150">
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-
-                        Foto
-
-                    </label>
-
-                    <input
-
-                        type="file"
-
-                        id="foto"
-
-                        class="form-control"
-
-                        accept="image/*">
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-
-                        Nome do Pet
-
-                    </label>
-
-                    <input
-
-                        id="nomePet"
-
-                        class="form-control">
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-
-                        Nome do Tutor
-
-                    </label>
-
-                    <input
-
-                        id="nomeTutor"
-
-                        class="form-control">
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-
-                        WhatsApp
-
-                    </label>
-
-                    <input
-
-                        id="whatsapp"
-
-                        class="form-control">
-
-                </div>
-
-                <div class="mb-4">
-
-                    <label class="form-label">
-
-                        E-mail
-
-                    </label>
-
-                    <input
-
-                        id="email"
-
-                        type="email"
-
-                        class="form-control">
-
-                </div>
-
-                <button
-
-                    id="btnCadastrar"
-
-                    class="btn btn-primary w-100 btn-lg">
-
-                    Cadastrar
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- ================= PERFIL ================= -->
-
-    <div id="perfil" style="display:none;">
-
-        <div class="card shadow">
-
-            <div class="card-body">
-
-                <div class="text-center">
-
-                    <img
-
-                        id="fotoPerfil"
-
-                        src="img/pet-default.png"
-
-                        class="rounded-circle border"
-
-                        width="180"
-
-                        height="180">
-
-                    <h3
-
-                        id="perfilNomePet"
-
-                        class="mt-3">
-
-                        Nome do Pet
-
-                    </h3>
-
-                    <p
-
-                        id="perfilTutor"
-
-                        class="text-muted">
-
-                        Tutor
-
-                    </p>
-
-                </div>
-
-                <hr>
-
-                <button
-
-                    id="btnLocalizacao"
-
-                    class="btn btn-success w-100 btn-lg">
-
-                    <i class="bi bi-geo-alt-fill"></i>
-
-                    Encontrei este Pet
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- ================= MENSAGEM ================= -->
-
-    <div
-
-        id="mensagem"
-
-        style="display:none;"
-
-        class="mt-4">
-
-        <div class="alert alert-success text-center">
-
-            Obrigado.
-
-            A localização foi enviada ao tutor.
-
-        </div>
-
-    </div>
-
-</div>
-
-<script src="js/config.js"></script>
-<script src="js/api.js"></script>
-<script src="js/app.js"></script>
-
-</body>
-
-</html>
+}
