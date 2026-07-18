@@ -1,8 +1,9 @@
 /*************************************************
  * PET NFC
  * api.js
- * Versão 1.0.0
+ * Versão 1.1.0
  *************************************************/
+
 
 /**
  * Requisição GET
@@ -16,27 +17,42 @@ async function apiGet(action, params = {}) {
         url.searchParams.append("action", action);
 
         Object.keys(params).forEach(key => {
-            url.searchParams.append(key, params[key]);
+
+            url.searchParams.append(
+                key,
+                params[key]
+            );
+
         });
+
 
         const response = await fetch(url.toString(), {
+
             method: "GET"
+
         });
 
+
         return await response.json();
+
 
     } catch (erro) {
 
         console.error(erro);
 
         return {
+
             sucesso: false,
-            mensagem: "Erro ao conectar com o servidor."
+
+            mensagem:
+            "Erro ao conectar com o servidor."
+
         };
 
     }
 
 }
+
 
 
 /**
@@ -46,27 +62,50 @@ async function apiPost(dados = {}) {
 
     try {
 
-        const response = await fetch(CONFIG.API_URL, {
 
-            method: "POST",
+        const response = await fetch(
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+            CONFIG.API_URL,
 
-            body: JSON.stringify(dados)
+            {
 
-        });
+                method: "POST",
+
+                headers: {
+
+                    /*
+                    Evita preflight CORS
+                    no Google Apps Script
+                    */
+
+                    "Content-Type": "text/plain"
+
+                },
+
+
+                body: JSON.stringify(dados)
+
+            }
+
+        );
+
 
         return await response.json();
 
+
     } catch (erro) {
+
 
         console.error(erro);
 
+
         return {
+
             sucesso: false,
-            mensagem: "Erro ao conectar com o servidor."
+
+            mensagem:
+            "Erro ao conectar com o servidor."
+
         };
 
     }
@@ -74,9 +113,11 @@ async function apiPost(dados = {}) {
 }
 
 
+
 /*************************************************
  * PET
  *************************************************/
+
 
 async function buscarPet(token) {
 
@@ -85,180 +126,90 @@ async function buscarPet(token) {
         ACTION.BUSCAR_PET,
 
         {
+
             token: token
+
         }
 
     );
 
 }
+
 
 
 async function cadastrarPet(dados) {
 
-    dados.action = ACTION.CADASTRAR_PET;
+
+    dados.action =
+        ACTION.CADASTRAR_PET;
+
 
     return await apiPost(dados);
 
+
 }
+
 
 
 async function editarPet(dados) {
 
-    dados.action = ACTION.EDITAR_PET;
+
+    dados.action =
+        ACTION.EDITAR_PET;
+
 
     return await apiPost(dados);
 
+
 }
+
 
 
 async function atualizarFoto(token, foto) {
 
+
     return await apiPost({
 
-        action: ACTION.ATUALIZAR_FOTO,
+        action:
+        ACTION.ATUALIZAR_FOTO,
+
 
         token: token,
+
 
         foto: foto
 
+
     });
+
 
 }
 
 
-async function enviarLocalizacao(token, latitude, longitude) {
+
+async function enviarLocalizacao(
+    token,
+    latitude,
+    longitude
+) {
+
 
     return await apiPost({
 
-        action: ACTION.LOCALIZACAO,
+        action:
+        ACTION.LOCALIZACAO,
+
 
         token: token,
 
+
         latitude: latitude,
+
 
         longitude: longitude
 
-    });
-
-}
-
-
-/*************************************************
- * ADMIN
- *************************************************/
-
-async function gerarTag() {
-
-    return await apiGet(
-
-        ACTION.GERAR_TAG
-
-    );
-
-}
-
-
-async function gerarLote(qtd) {
-
-    return await apiGet(
-
-        ACTION.GERAR_LOTE,
-
-        {
-            qtd: qtd
-        }
-
-    );
-
-}
-
-
-async function listarTags() {
-
-    return await apiGet(
-
-        ACTION.LISTAR_TAGS
-
-    );
-
-}
-
-
-async function buscarTag(token) {
-
-    return await apiGet(
-
-        ACTION.BUSCAR_TAG,
-
-        {
-            token: token
-        }
-
-    );
-
-}
-
-
-async function bloquearTag(token) {
-
-    return await apiPost({
-
-        action: ACTION.BLOQUEAR_TAG,
-
-        token: token
 
     });
 
-}
-
-
-async function reativarTag(token) {
-
-    return await apiPost({
-
-        action: ACTION.REATIVAR_TAG,
-
-        token: token
-
-    });
-
-}
-
-
-async function resetarTag(token) {
-
-    console.log("Ação enviada:", ACTION.RESETAR_TAG);
-
-    return await apiGet(
-
-        ACTION.RESETAR_TAG,
-
-        {
-            token: token
-        }
-
-    );
-
-}
-async function excluirTag(token) {
-
-    return await apiPost({
-
-        action: ACTION.EXCLUIR_TAG,
-
-        token: token
-
-    });
-
-}
-
-
-async function estatisticas() {
-
-    return await apiGet(
-
-        ACTION.ESTATISTICAS
-
-    );
 
 }
