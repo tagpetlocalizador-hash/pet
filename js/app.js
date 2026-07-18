@@ -9,6 +9,10 @@ let petAtual = null;
 
 let enviandoLocalizacao = false;
 
+let localizacaoEnviada = false;
+
+let avisoLocalizacaoExibido = false;
+
 
 /* ===================================================
    INICIALIZAÇÃO
@@ -158,6 +162,14 @@ async function iniciarSistema() {
 
     mostrarPerfil();
 
+    // Tenta obter e enviar a localização automaticamente
+    // logo após abrir uma TAG já cadastrada.
+    setTimeout(function () {
+
+        verificarLocalizacaoAutomatica();
+
+    }, 800);
+
 }
 
 
@@ -299,8 +311,6 @@ function mostrarErro(mensagem) {
     }
 
 }
-
-
 /* ===================================================
    PERFIL
 =================================================== */
@@ -648,8 +658,6 @@ function mostrarPreviewFoto(evento) {
     );
 
 }
-
-
 /* ===================================================
    REDUZIR FOTO
 =================================================== */
@@ -1121,13 +1129,20 @@ function validarEmail(email) {
         .test(email);
 
 }
-
-
 /* ===================================================
    LOCALIZAÇÃO
 =================================================== */
 
 function enviarMinhaLocalizacao() {
+
+    if (localizacaoEnviada) {
+
+        mostrarMensagem();
+
+        return;
+
+    }
+
 
     if (enviandoLocalizacao) {
 
@@ -1139,7 +1154,8 @@ function enviarMinhaLocalizacao() {
     if (!navigator.geolocation) {
 
         alert(
-            "Seu navegador não oferece suporte à localização."
+            "📍 A localização está desligada ou bloqueada.\n\n" +
+            "Ligue a localização do celular e passe a tag novamente para ajudar a encontrar o tutor deste pet."
         );
 
         return;
@@ -1189,7 +1205,13 @@ function enviarMinhaLocalizacao() {
                     );
 
 
-                if (resposta.sucesso) {
+                if (
+                    resposta &&
+                    resposta.sucesso
+                ) {
+
+                    localizacaoEnviada =
+                        true;
 
                     mostrarMensagem();
 
@@ -1306,7 +1328,7 @@ function alterarBotaoLocalizacao(
 
         botao.innerHTML =
 
-            '<i class="bi bi-geo-alt-fill me-1"></i>' +
+            '<i class="bi bi-geo-alt-fill me-1"></i> ' +
 
             texto;
 
@@ -1317,58 +1339,161 @@ function alterarBotaoLocalizacao(
 
 function tratarErroLocalizacao(erro) {
 
-    switch (erro.code) {
-
-        case erro.PERMISSION_DENIED:
-
-            alert(
-
-                "📍 Permissão de localização negada.\n\n" +
-
-                "Ative a localização do celular, permita o acesso " +
-                "à localização para este site e passe a TAG novamente."
-
-            );
-
-            break;
+    console.error(
+        "Não foi possível obter a localização:",
+        erro
+    );
 
 
-        case erro.POSITION_UNAVAILABLE:
+    alert(
+        "📍 A localização está desligada ou bloqueada.\n\n" +
+        "Ligue a localização do celular e passe a tag novamente para ajudar a encontrar o tutor deste pet."
+    );
 
-            alert(
+}
+/* ===================================================
+   LOCALIZAÇÃO AUTOMÁTICA AO ABRIR A TAG
+=================================================== */
 
-                "📍 Não foi possível encontrar sua localização.\n\n" +
+function verificarLocalizacaoAutomatica() {
 
-                "Verifique se o GPS do celular está ligado e tente novamente."
+    if (
+        localizacaoEnviada ||
+        enviandoLocalizacao
+    ) {
 
-            );
-
-            break;
-
-
-        case erro.TIMEOUT:
-
-            alert(
-
-                "📍 A localização demorou muito para responder.\n\n" +
-
-                "Vá para um local com melhor sinal e tente novamente."
-
-            );
-
-            break;
-
-
-        default:
-
-            alert(
-
-                "📍 Não foi possível obter sua localização.\n\n" +
-
-                "Ative o GPS e tente novamente."
-
-            );
+        return;
 
     }
+
+
+    if (!navigator.geolocation) {
+
+        exibirAvisoLocalizacaoAutomatica();
+
+        return;
+
+    }
+
+
+    enviandoLocalizacao =
+        true;
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        async function (posicao) {
+
+            try {
+
+                const resposta =
+                    await enviarLocalizacao(
+
+                        TOKEN,
+
+                        posicao.coords.latitude,
+
+                        posicao.coords.longitude
+
+                    );
+
+
+                if (
+                    resposta &&
+                    resposta.sucesso
+                ) {
+
+                    localizacaoEnviada =
+                        true;
+
+                    console.log(
+                        "Localização enviada automaticamente."
+                    );
+
+                    return;
+
+                }
+
+
+                console.error(
+                    "A API não confirmou o envio da localização:",
+                    resposta
+                );
+
+
+            } catch (erro) {
+
+                console.error(
+                    "Erro ao enviar localização automaticamente:",
+                    erro
+                );
+
+
+            } finally {
+
+                enviandoLocalizacao =
+                    false;
+
+            }
+
+        },
+
+
+        function (erro) {
+
+            enviandoLocalizacao =
+                false;
+
+
+            console.error(
+                "Erro na localização automática:",
+                erro
+            );
+
+
+            exibirAvisoLocalizacaoAutomatica();
+
+        },
+
+
+        {
+
+            enableHighAccuracy:
+                true,
+
+            timeout:
+                12000,
+
+            maximumAge:
+                0
+
+        }
+
+    );
+
+}
+
+
+/* ===================================================
+   AVISO DE LOCALIZAÇÃO
+=================================================== */
+
+function exibirAvisoLocalizacaoAutomatica() {
+
+    if (avisoLocalizacaoExibido) {
+
+        return;
+
+    }
+
+
+    avisoLocalizacaoExibido =
+        true;
+
+
+    alert(
+        "📍 A localização está desligada ou bloqueada.\n\n" +
+        "Ligue a localização do celular e passe a tag novamente para ajudar a encontrar o tutor deste pet."
+    );
 
 }
