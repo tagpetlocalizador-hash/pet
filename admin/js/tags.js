@@ -1,9 +1,11 @@
 /*************************************************
  * PET NFC ADMIN
  * tags.js
+ * Versão 1.1.0
  *************************************************/
 
 let modalNovaTag;
+
 
 /* ===================================================
    INICIALIZAÇÃO
@@ -11,25 +13,60 @@ let modalNovaTag;
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    modalNovaTag = new bootstrap.Modal(
-        document.getElementById("modalNovaTag")
-    );
+    const elementoModal =
+        document.getElementById("modalNovaTag");
 
-    document
-        .getElementById("btnNovaTag")
-        .addEventListener("click", criarNovaTag);
+    if (elementoModal) {
 
-    document
-        .getElementById("btnCopiar")
-        .addEventListener("click", copiarLink);
+        modalNovaTag =
+            new bootstrap.Modal(elementoModal);
 
-    document
-        .getElementById("btnEtiqueta")
-        .addEventListener("click", abrirEtiqueta);
+    }
+
+
+    const btnNovaTag =
+        document.getElementById("btnNovaTag");
+
+    if (btnNovaTag) {
+
+        btnNovaTag.addEventListener(
+            "click",
+            criarNovaTag
+        );
+
+    }
+
+
+    const btnCopiar =
+        document.getElementById("btnCopiar");
+
+    if (btnCopiar) {
+
+        btnCopiar.addEventListener(
+            "click",
+            copiarLink
+        );
+
+    }
+
+
+    const btnEtiqueta =
+        document.getElementById("btnEtiqueta");
+
+    if (btnEtiqueta) {
+
+        btnEtiqueta.addEventListener(
+            "click",
+            abrirEtiqueta
+        );
+
+    }
+
 
     carregarTags();
 
 });
+
 
 /* ===================================================
    CARREGA TAGS
@@ -37,93 +74,254 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function carregarTags() {
 
-    const resposta = await apiGet(ACTION.LISTAR_TAGS);
+    const tbody =
+        document.getElementById("listaTags");
 
-    if (!resposta.sucesso) {
+    if (!tbody) {
 
-        alert(resposta.mensagem);
+        console.error(
+            "Elemento listaTags não encontrado."
+        );
 
         return;
 
     }
 
-    const tbody = document.getElementById("listaTags");
 
-    tbody.innerHTML = "";
-
-    resposta.dados.forEach(tag => {
-
-        tbody.innerHTML += `
+    tbody.innerHTML = `
 
         <tr>
 
-            <td>${tag.id}</td>
+            <td colspan="5" class="text-center">
 
-            <td>${tag.token}</td>
-
-            <td>
-
-                <span class="badge bg-${
-                    tag.status==="ATIVO"
-                    ? "success"
-                    : tag.status==="BLOQUEADO"
-                    ? "danger"
-                    : "secondary"
-                }">
-
-                    ${tag.status}
-
-                </span>
-
-            </td>
-
-            <td>${tag.nome_pet || "-"}</td>
-
-            <td>
-
-                <button
-                    class="btn btn-sm btn-primary"
-                    title="Editar">
-
-                    <i class="bi bi-pencil"></i>
-
-                </button>
-
-                
-
-                <button
-    class="btn btn-sm btn-warning"
-    title="Resetar"
-    onclick="resetarTagConfirm('${tag.token}')">
-
-    <i class="bi bi-arrow-clockwise"></i>
-
-</button>
-<button
-    class="btn btn-sm btn-secondary"
-    title="Bloquear">
-
-    <i class="bi bi-lock"></i>
-
-</button>
-
-                <button
-                    class="btn btn-sm btn-danger"
-                    title="Excluir">
-
-                    <i class="bi bi-trash"></i>
-
-                </button>
+                Carregando TAGs...
 
             </td>
 
         </tr>
 
+    `;
+
+
+    const resposta =
+        await listarTags();
+
+
+    if (!resposta.sucesso) {
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="text-center text-danger">
+
+                    ${resposta.mensagem}
+
+                </td>
+
+            </tr>
+
         `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML = "";
+
+
+    if (
+        !Array.isArray(resposta.dados) ||
+        resposta.dados.length === 0
+    ) {
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="text-center">
+
+                    Nenhuma TAG cadastrada.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    resposta.dados.forEach(tag => {
+
+        const token =
+            String(tag.token || "");
+
+        const status =
+            String(tag.status || "");
+
+        const nomePet =
+            String(tag.nome_pet || "-");
+
+
+        let corStatus = "secondary";
+
+        if (status === "ATIVO") {
+
+            corStatus = "success";
+
+        } else if (status === "BLOQUEADO") {
+
+            corStatus = "danger";
+
+        }
+
+
+        const botaoStatus =
+            status === "BLOQUEADO"
+
+            ? `
+
+                <button
+                    type="button"
+                    class="btn btn-sm btn-success"
+                    title="Reativar"
+                    onclick="reativarTagConfirm('${token}')">
+
+                    <i class="bi bi-unlock"></i>
+
+                </button>
+
+            `
+
+            : `
+
+                <button
+                    type="button"
+                    class="btn btn-sm btn-secondary"
+                    title="Bloquear"
+                    onclick="bloquearTagConfirm('${token}')">
+
+                    <i class="bi bi-lock"></i>
+
+                </button>
+
+            `;
+
+
+        tbody.insertAdjacentHTML(
+
+            "beforeend",
+
+            `
+
+            <tr>
+
+                <td>${tag.id || "-"}</td>
+
+                <td>${token}</td>
+
+                <td>
+
+                    <span class="badge bg-${corStatus}">
+
+                        ${status || "-"}
+
+                    </span>
+
+                </td>
+
+                <td>${nomePet}</td>
+
+                <td>
+
+                    <button
+                        type="button"
+                        class="btn btn-sm btn-primary"
+                        title="Editar"
+                        onclick="editarTag('${token}')">
+
+                        <i class="bi bi-pencil"></i>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-sm btn-warning"
+                        title="Resetar"
+                        onclick="resetarTagConfirm('${token}')">
+
+                        <i class="bi bi-arrow-clockwise"></i>
+
+                    </button>
+
+
+                    ${botaoStatus}
+
+
+                    <button
+                        type="button"
+                        class="btn btn-sm btn-danger"
+                        title="Excluir"
+                        onclick="excluirTagConfirm('${token}')">
+
+                        <i class="bi bi-trash"></i>
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+            `
+
+        );
 
     });
 
 }
+
+
+/* ===================================================
+   EDITAR TAG
+=================================================== */
+
+function editarTag(token) {
+
+    if (!token) {
+
+        alert("Token da TAG não encontrado.");
+
+        return;
+
+    }
+
+    /*
+     * Direciona para a página pública da TAG.
+     * Nela o pet poderá ser cadastrado ou editado.
+     */
+
+    const url =
+        CONFIG.URL_SITE +
+        "/?token=" +
+        encodeURIComponent(token);
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+}
+
+
 /* ===================================================
    RESETAR TAG
 =================================================== */
@@ -131,12 +329,18 @@ async function carregarTags() {
 async function resetarTagConfirm(token) {
 
     const confirmar = confirm(
-        "Deseja realmente resetar esta TAG?\n\nO vínculo com o pet será removido."
+
+        "Deseja realmente resetar esta TAG?\n\n" +
+        "O vínculo com o pet será removido."
+
     );
 
     if (!confirmar) return;
 
-    const resposta = await resetarTag(token);
+
+    const resposta =
+        await resetarTag(token);
+
 
     if (!resposta.sucesso) {
 
@@ -146,20 +350,143 @@ async function resetarTagConfirm(token) {
 
     }
 
-    alert(resposta.mensagem);
 
-    carregarTags();
+    alert(
+        resposta.mensagem ||
+        "TAG resetada com sucesso."
+    );
+
+    await carregarTags();
 
 }
+
+
+/* ===================================================
+   BLOQUEAR TAG
+=================================================== */
+
+async function bloquearTagConfirm(token) {
+
+    const confirmar = confirm(
+
+        "Deseja realmente bloquear esta TAG?\n\n" +
+        "O perfil não poderá ser utilizado enquanto estiver bloqueado."
+
+    );
+
+    if (!confirmar) return;
+
+
+    const resposta =
+        await bloquearTag(token);
+
+
+    if (!resposta.sucesso) {
+
+        alert(resposta.mensagem);
+
+        return;
+
+    }
+
+
+    alert(
+        resposta.mensagem ||
+        "TAG bloqueada com sucesso."
+    );
+
+    await carregarTags();
+
+}
+
+
+/* ===================================================
+   REATIVAR TAG
+=================================================== */
+
+async function reativarTagConfirm(token) {
+
+    const confirmar = confirm(
+
+        "Deseja reativar esta TAG?"
+
+    );
+
+    if (!confirmar) return;
+
+
+    const resposta =
+        await reativarTag(token);
+
+
+    if (!resposta.sucesso) {
+
+        alert(resposta.mensagem);
+
+        return;
+
+    }
+
+
+    alert(
+        resposta.mensagem ||
+        "TAG reativada com sucesso."
+    );
+
+    await carregarTags();
+
+}
+
+
+/* ===================================================
+   EXCLUIR TAG
+=================================================== */
+
+async function excluirTagConfirm(token) {
+
+    const confirmar = confirm(
+
+        "ATENÇÃO!\n\n" +
+        "Deseja realmente excluir esta TAG?\n\n" +
+        "Esta ação pode não ser reversível."
+
+    );
+
+    if (!confirmar) return;
+
+
+    const resposta =
+        await excluirTag(token);
+
+
+    if (!resposta.sucesso) {
+
+        alert(resposta.mensagem);
+
+        return;
+
+    }
+
+
+    alert(
+        resposta.mensagem ||
+        "TAG excluída com sucesso."
+    );
+
+    await carregarTags();
+
+}
+
+
 /* ===================================================
    NOVA TAG
 =================================================== */
 
 async function criarNovaTag() {
 
-    const resposta = await apiGet(
-        ACTION.GERAR_TAG
-    );
+    const resposta =
+        await gerarTag();
+
 
     if (!resposta.sucesso) {
 
@@ -169,24 +496,42 @@ async function criarNovaTag() {
 
     }
 
-    document.getElementById("novoId").innerText =
+
+    document
+        .getElementById("novoId")
+        .innerText =
         resposta.id;
 
-    document.getElementById("novoToken").innerText =
+
+    document
+        .getElementById("novoToken")
+        .innerText =
         resposta.token;
 
-    document.getElementById("novaUrl").value =
+
+    document
+        .getElementById("novaUrl")
+        .value =
         resposta.url;
+
 
     document
         .getElementById("btnEtiqueta")
-        .dataset.token = resposta.token;
+        .dataset.token =
+        resposta.token;
 
-    modalNovaTag.show();
 
-    carregarTags();
+    if (modalNovaTag) {
+
+        modalNovaTag.show();
+
+    }
+
+
+    await carregarTags();
 
 }
+
 
 /* ===================================================
    VISUALIZAR ETIQUETA
@@ -194,9 +539,14 @@ async function criarNovaTag() {
 
 function abrirEtiqueta() {
 
-    const token = document
-        .getElementById("btnEtiqueta")
-        .dataset.token;
+    const botao =
+        document.getElementById("btnEtiqueta");
+
+    const token =
+        botao
+        ? botao.dataset.token
+        : "";
+
 
     if (!token) {
 
@@ -206,31 +556,57 @@ function abrirEtiqueta() {
 
     }
 
-    const url = "etiqueta.html?token=" + token;
 
-    console.log("Abrindo:", url);
+    const url =
+        "etiqueta.html?token=" +
+        encodeURIComponent(token);
+
 
     window.location.href = url;
 
 }
 
+
 /* ===================================================
    COPIAR LINK
 =================================================== */
 
-function copiarLink() {
+async function copiarLink() {
 
     const campo =
         document.getElementById("novaUrl");
 
-    campo.select();
 
-    campo.setSelectionRange(0,99999);
+    if (!campo || !campo.value) {
 
-    navigator.clipboard.writeText(
-        campo.value
-    );
+        alert("Link não encontrado.");
 
-    alert("Link copiado.");
+        return;
+
+    }
+
+
+    try {
+
+        await navigator.clipboard.writeText(
+            campo.value
+        );
+
+        alert("Link copiado.");
+
+    } catch (erro) {
+
+        campo.select();
+
+        campo.setSelectionRange(
+            0,
+            99999
+        );
+
+        document.execCommand("copy");
+
+        alert("Link copiado.");
+
+    }
 
 }
