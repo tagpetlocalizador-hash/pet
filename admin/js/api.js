@@ -227,16 +227,13 @@ async function reativarTag(token) {
 
 async function resetarTag(token) {
 
-    console.log("Ação enviada:", ACTION.RESETAR_TAG);
+    alert("AÇÃO = " + ACTION.RESETAR_TAG);
 
     return await apiGet(
-
         ACTION.RESETAR_TAG,
-
         {
             token: token
         }
-
     );
 
 }
