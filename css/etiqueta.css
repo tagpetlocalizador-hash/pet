@@ -1,5 +1,5 @@
 /*************************************************
- * LINKA GIFT
+ * PET NFC
  * etiqueta.css
  *************************************************/
 
@@ -11,17 +11,57 @@
 
 body{
 
-    background:#f5f5f5;
+    font-family:Arial,Helvetica,sans-serif;
+
+    background:#ececec;
 
     display:flex;
 
-    justify-content:center;
+    flex-direction:column;
 
     align-items:center;
 
+    justify-content:flex-start;
+
     min-height:100vh;
 
-    font-family:Arial, Helvetica, sans-serif;
+    padding:30px;
+
+}
+
+.toolbar{
+
+    margin-bottom:20px;
+
+    display:flex;
+
+    gap:12px;
+
+}
+
+.toolbar button{
+
+    background:#0d6efd;
+
+    color:#fff;
+
+    border:none;
+
+    padding:10px 18px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    transition:.2s;
+
+}
+
+.toolbar button:hover{
+
+    background:#0b5ed7;
 
 }
 
@@ -29,31 +69,35 @@ body{
 
     position:relative;
 
-    width:100mm;
+    width:10cm;
 
-    height:150mm;
+    height:15cm;
 
     background:#fff;
 
     overflow:hidden;
 
-    box-shadow:0 0 20px rgba(0,0,0,.15);
+    box-shadow:0 10px 30px rgba(0,0,0,.20);
 
 }
 
-.fundo{
+.base{
+
+    position:absolute;
+
+    inset:0;
 
     width:100%;
 
     height:100%;
 
-    display:block;
+    object-fit:cover;
 
 }
 
-/* ===========================
+/* ==========================================
    QR CODE
-=========================== */
+========================================== */
 
 #qrcode{
 
@@ -61,83 +105,111 @@ body{
 
     left:50%;
 
-    top:48mm;
+    top:58%;
 
-    transform:translateX(-50%);
+    transform:translate(-50%,-50%);
+
+    width:170px;
+
+    height:170px;
+
+    background:#fff;
+
+    padding:8px;
+
+    border-radius:10px;
 
 }
 
-/* ===========================
+/* ==========================================
    TOKEN
-=========================== */
+========================================== */
 
 #token{
 
     position:absolute;
 
-    left:0;
+    left:50%;
 
-    right:0;
+    bottom:70px;
 
-    top:112mm;
+    transform:translateX(-50%);
 
-    text-align:center;
-
-    font-size:18px;
+    font-size:20px;
 
     font-weight:bold;
 
     color:#000;
 
+    text-align:center;
+
+    width:90%;
+
 }
 
-/* ===========================
-   LINK
-=========================== */
+/* ==========================================
+   URL
+========================================== */
 
 #url{
 
     position:absolute;
 
-    left:10mm;
+    left:50%;
 
-    right:10mm;
+    bottom:35px;
 
-    top:122mm;
+    transform:translateX(-50%);
+
+    width:92%;
 
     text-align:center;
 
-    font-size:10px;
+    font-size:11px;
 
-    color:#444;
+    color:#333;
 
-    word-break:break-word;
-
-}
-
-/* ===========================
-   IMPRESSÃO
-=========================== */
-
-@page{
-
-    size:100mm 150mm;
-
-    margin:0;
+    word-break:break-all;
 
 }
+
+/*************************************************
+ * IMPRESSÃO
+ *************************************************/
 
 @media print{
 
     body{
 
-        background:white;
+        background:#fff;
+
+        padding:0;
+
+    }
+
+    .toolbar{
+
+        display:none;
 
     }
 
     .etiqueta{
 
         box-shadow:none;
+
+        margin:0;
+
+        width:10cm;
+
+        height:15cm;
+
+    }
+
+    @page{
+
+        size:10cm 15cm;
+
+        margin:0;
 
     }
 
