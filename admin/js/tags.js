@@ -161,13 +161,29 @@ async function criarNovaTag() {
 }
 
 /* ===================================================
-   VISUALIZAR ETIQUETA (TESTE)
+   VISUALIZAR ETIQUETA
 =================================================== */
 
 function abrirEtiqueta() {
 
-    alert("Botão funcionando!\n\nToken: " +
-        document.getElementById("btnEtiqueta").dataset.token);
+    const token =
+        document.getElementById("btnEtiqueta").dataset.token;
+
+    if (!token) {
+
+        alert("Token não encontrado.");
+
+        return;
+
+    }
+
+    window.open(
+
+        "etiqueta.html?token=" + token,
+
+        "_blank"
+
+    );
 
 }
 
