@@ -150,8 +150,6 @@ async function criarNovaTag() {
     document.getElementById("novaUrl").value =
         resposta.url;
 
-    // Guarda o token no botão da etiqueta
-
     document
         .getElementById("btnEtiqueta")
         .dataset.token = resposta.token;
@@ -163,30 +161,13 @@ async function criarNovaTag() {
 }
 
 /* ===================================================
-   VISUALIZAR ETIQUETA
+   VISUALIZAR ETIQUETA (TESTE)
 =================================================== */
 
 function abrirEtiqueta() {
 
-    const token = document
-        .getElementById("btnEtiqueta")
-        .dataset.token;
-
-    if (!token) {
-
-        alert("Token não encontrado.");
-
-        return;
-
-    }
-
-    window.open(
-
-        "etiqueta.html?token=" + token,
-
-        "_blank"
-
-    );
+    alert("Botão funcionando!\n\nToken: " +
+        document.getElementById("btnEtiqueta").dataset.token);
 
 }
 
