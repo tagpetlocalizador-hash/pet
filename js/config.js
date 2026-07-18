@@ -15,20 +15,15 @@
 
 const CONFIG = {
 
-    // URL do Apps Script (Deploy Web App)
     API_URL: "https://script.google.com/macros/s/AKfycbyUaF8EHlWZcgL0T3alf438MPNpeHgPm_dLqSrwiUGvIj4ggDrDcr3vSOCflCg8aVvQ/exec",
 
-    // Nome do sistema
     APP_NAME: "PET NFC",
 
-    // Imagem padrão do pet
     FOTO_PADRAO: "img/pet-default.png",
 
-    // Tempo máximo das requisições (ms)
     TIMEOUT: 15000
 
 };
-
 
 /*
 |--------------------------------------------------------------------------
