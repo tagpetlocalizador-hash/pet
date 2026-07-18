@@ -1,11 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Etiqueta Linka Gift</title>
+
+    <link rel="stylesheet" href="css/etiqueta.css">
+
+</head>
+
+<body>
+
 <div class="etiqueta">
 
-    <img src="img/etiqueta-base.png" class="base">
+    <!-- Arte de fundo -->
+    <img
+        src="img/etiqueta-base.png"
+        class="fundo"
+        alt="Etiqueta">
 
-    <div id="qr"></div>
+    <!-- QR CODE -->
+    <div id="qrcode"></div>
 
+    <!-- TOKEN -->
     <div id="token"></div>
 
-    <div id="link"></div>
+    <!-- LINK -->
+    <div id="url"></div>
 
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script src="js/config.js"></script>
+
+<script src="js/api.js"></script>
+
+<script src="js/etiqueta.js"></script>
+
+</body>
+
+</html>
