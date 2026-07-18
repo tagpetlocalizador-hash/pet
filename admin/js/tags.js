@@ -89,21 +89,23 @@ async function carregarTags() {
 
                 </button>
 
-                <button
-                    class="btn btn-sm btn-warning"
-                    title="Resetar">
-
-                    <i class="bi bi-arrow-clockwise"></i>
-
-                </button>
+                
 
                 <button
-                    class="btn btn-sm btn-secondary"
-                    title="Bloquear">
+    class="btn btn-sm btn-warning"
+    title="Resetar"
+    onclick="resetarTagConfirm('${tag.token}')">
 
-                    <i class="bi bi-lock"></i>
+    <i class="bi bi-arrow-clockwise"></i>
 
-                </button>
+</button>
+<button
+    class="btn btn-sm btn-secondary"
+    title="Bloquear">
+
+    <i class="bi bi-lock"></i>
+
+</button>
 
                 <button
                     class="btn btn-sm btn-danger"
@@ -122,7 +124,33 @@ async function carregarTags() {
     });
 
 }
+/* ===================================================
+   RESETAR TAG
+=================================================== */
 
+async function resetarTagConfirm(token) {
+
+    const confirmar = confirm(
+        "Deseja realmente resetar esta TAG?\n\nO vínculo com o pet será removido."
+    );
+
+    if (!confirmar) return;
+
+    const resposta = await resetarTag(token);
+
+    if (!resposta.sucesso) {
+
+        alert(resposta.mensagem);
+
+        return;
+
+    }
+
+    alert(resposta.mensagem);
+
+    carregarTags();
+
+}
 /* ===================================================
    NOVA TAG
 =================================================== */
