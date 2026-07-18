@@ -1,0 +1,46 @@
+.etiqueta{
+
+    position:relative;
+
+    width:100mm;
+
+    height:150mm;
+
+}
+
+.base{
+
+    width:100%;
+    height:100%;
+
+}
+
+#qr{
+
+    position:absolute;
+
+    left:30mm;
+
+    top:42mm;
+
+}
+
+#token{
+
+    position:absolute;
+
+    left:20mm;
+
+    top:108mm;
+
+}
+
+#link{
+
+    position:absolute;
+
+    left:12mm;
+
+    top:120mm;
+
+}
