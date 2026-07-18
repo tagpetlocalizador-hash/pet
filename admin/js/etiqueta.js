@@ -1,7 +1,7 @@
 /*************************************************
  * PET NFC
  * etiqueta.js
- * Versão 3.0.0
+ * Versão 3.1.0
  *************************************************/
 
 let token = "";
@@ -30,7 +30,7 @@ async function iniciar() {
 
     }
 
-    console.log(Object.keys(tag));
+    console.log("Token recebido:", token);
 
     await carregarEtiqueta();
 
@@ -60,18 +60,16 @@ async function carregarEtiqueta() {
 
         console.log("TAG:", tag);
 
-        // TESTE VISUAL
-        document.getElementById("token").style.background = "yellow";
-        document.getElementById("url").style.background = "lime";
-        document.getElementById("qrcode").style.border = "4px solid red";
-
+        // Monta a URL usando o token
         const url = CONFIG.URL_SITE + "?token=" + tag.token;
 
-document.getElementById("token").innerHTML = tag.token;
+        // Preenche os dados na etiqueta
+        document.getElementById("token").innerText = tag.token;
 
-document.getElementById("url").innerHTML = url;
+        document.getElementById("url").innerText = url;
 
-gerarQRCode(url);
+        // Gera o QR Code
+        gerarQRCode(url);
 
     }
 
