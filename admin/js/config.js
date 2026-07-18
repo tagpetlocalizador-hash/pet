@@ -1,11 +1,16 @@
 /*************************************************
  * PET NFC ADMIN
  * config.js
+ * Versão 2.0.0
  *************************************************/
 
 const CONFIG = {
 
-    API_URL: "https://script.google.com/macros/s/AKfycbyUaF8EHlWZcgL0T3alf438MPNpeHgPm_dLqSrwiUGvIj4ggDrDcr3vSOCflCg8aVvQ/exec"
+    // Google Apps Script
+    API_URL: "https://script.google.com/macros/s/AKfycbyUaF8EHlWZcgL0T3alf438MPNpeHgPm_dLqSrwiUGvIj4ggDrDcr3vSOCflCg8aVvQ/exec",
+
+    // Página pública do PET
+    URL_SITE: "https://tagpetlocalizador-hash.github.io/pet"
 
 };
 
