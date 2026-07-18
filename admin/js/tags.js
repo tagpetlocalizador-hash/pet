@@ -166,8 +166,9 @@ async function criarNovaTag() {
 
 function abrirEtiqueta() {
 
-    const token =
-        document.getElementById("btnEtiqueta").dataset.token;
+    const token = document
+        .getElementById("btnEtiqueta")
+        .dataset.token;
 
     if (!token) {
 
@@ -177,13 +178,11 @@ function abrirEtiqueta() {
 
     }
 
-    window.open(
+    const url = "etiqueta.html?token=" + token;
 
-        "etiqueta.html?token=" + token,
+    console.log("Abrindo:", url);
 
-        "_blank"
-
-    );
+    window.location.href = url;
 
 }
 
