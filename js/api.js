@@ -1,7 +1,7 @@
 /*************************************************
  * PET NFC
  * api.js
- * Versão 1.1.0
+ * Versão 1.2.0
  *************************************************/
 
 
@@ -14,23 +14,51 @@ async function apiGet(action, params = {}) {
 
         const url = new URL(CONFIG.API_URL);
 
-        url.searchParams.append("action", action);
+        url.searchParams.set(
+            "action",
+            action
+        );
 
-        Object.keys(params).forEach(key => {
+        Object.keys(params).forEach(function (key) {
 
-            url.searchParams.append(
-                key,
-                params[key]
+            if (
+                params[key] !== undefined &&
+                params[key] !== null
+            ) {
+
+                url.searchParams.set(
+                    key,
+                    params[key]
+                );
+
+            }
+
+        });
+
+
+        const response = await fetch(
+
+            url.toString(),
+
+            {
+
+                method: "GET",
+
+                cache: "no-store"
+
+            }
+
+        );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Servidor respondeu com status " +
+                response.status
             );
 
-        });
-
-
-        const response = await fetch(url.toString(), {
-
-            method: "GET"
-
-        });
+        }
 
 
         return await response.json();
@@ -38,14 +66,17 @@ async function apiGet(action, params = {}) {
 
     } catch (erro) {
 
-        console.error(erro);
+        console.error(
+            "Erro na requisição GET:",
+            erro
+        );
 
         return {
 
             sucesso: false,
 
             mensagem:
-            "Erro ao conectar com o servidor."
+                "Erro ao conectar com o servidor."
 
         };
 
@@ -54,14 +85,12 @@ async function apiGet(action, params = {}) {
 }
 
 
-
 /**
  * Requisição POST
  */
 async function apiPost(dados = {}) {
 
     try {
-
 
         const response = await fetch(
 
@@ -74,14 +103,13 @@ async function apiPost(dados = {}) {
                 headers: {
 
                     /*
-                    Evita preflight CORS
-                    no Google Apps Script
-                    */
+                     * text/plain evita preflight CORS
+                     * no Google Apps Script.
+                     */
 
-                    "Content-Type": "text/plain"
+                    "Content-Type": "text/plain;charset=utf-8"
 
                 },
-
 
                 body: JSON.stringify(dados)
 
@@ -90,28 +118,38 @@ async function apiPost(dados = {}) {
         );
 
 
+        if (!response.ok) {
+
+            throw new Error(
+                "Servidor respondeu com status " +
+                response.status
+            );
+
+        }
+
+
         return await response.json();
 
 
     } catch (erro) {
 
-
-        console.error(erro);
-
+        console.error(
+            "Erro na requisição POST:",
+            erro
+        );
 
         return {
 
             sucesso: false,
 
             mensagem:
-            "Erro ao conectar com o servidor."
+                "Erro ao conectar com o servidor."
 
         };
 
     }
 
 }
-
 
 
 /*************************************************
@@ -136,55 +174,48 @@ async function buscarPet(token) {
 }
 
 
-
 async function cadastrarPet(dados) {
 
+    return await apiPost({
 
-    dados.action =
-        ACTION.CADASTRAR_PET;
+        ...dados,
 
+        action: ACTION.CADASTRAR_PET
 
-    return await apiPost(dados);
-
+    });
 
 }
-
 
 
 async function editarPet(dados) {
 
+    return await apiPost({
 
-    dados.action =
-        ACTION.EDITAR_PET;
+        ...dados,
 
+        action: ACTION.EDITAR_PET
 
-    return await apiPost(dados);
-
+    });
 
 }
-
 
 
 async function atualizarFoto(token, foto) {
 
-
     return await apiPost({
 
         action:
-        ACTION.ATUALIZAR_FOTO,
+            ACTION.ATUALIZAR_FOTO,
 
+        token:
+            token,
 
-        token: token,
-
-
-        foto: foto
-
+        foto:
+            foto
 
     });
 
-
 }
-
 
 
 async function enviarLocalizacao(
@@ -193,23 +224,20 @@ async function enviarLocalizacao(
     longitude
 ) {
 
-
     return await apiPost({
 
         action:
-        ACTION.LOCALIZACAO,
+            ACTION.LOCALIZACAO,
 
+        token:
+            token,
 
-        token: token,
+        latitude:
+            latitude,
 
-
-        latitude: latitude,
-
-
-        longitude: longitude
-
+        longitude:
+            longitude
 
     });
-
 
 }
