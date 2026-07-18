@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cadastro do Pet</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#e8f5e9;
+    padding:20px;
+}
+
+.card{
+    max-width:500px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    margin-bottom:15px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    background:#4CAF50;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>Cadastro do Pet</h2>
+
+<input id="pet" placeholder="Nome do pet">
+
+<input id="tutor" placeholder="Nome do tutor">
+
+<input id="whats" placeholder="WhatsApp">
+
+<input id="email" placeholder="Email">
+
+<input type="file" id="foto">
+
+<button onclick="cadastrar()">
+Cadastrar
+</button>
+
+</div>
+
+<script>
+
+const idTag =
+new URLSearchParams(location.search).get("id");
+
+console.log("ID:",idTag);
+
+</script>
+
+</body>
+</html>
