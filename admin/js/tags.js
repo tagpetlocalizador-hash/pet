@@ -23,6 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .getElementById("btnCopiar")
         .addEventListener("click", copiarLink);
 
+    document
+        .getElementById("btnEtiqueta")
+        .addEventListener("click", abrirEtiqueta);
+
     carregarTags();
 
 });
@@ -146,9 +150,43 @@ async function criarNovaTag() {
     document.getElementById("novaUrl").value =
         resposta.url;
 
+    // Guarda o token no botão da etiqueta
+
+    document
+        .getElementById("btnEtiqueta")
+        .dataset.token = resposta.token;
+
     modalNovaTag.show();
 
     carregarTags();
+
+}
+
+/* ===================================================
+   VISUALIZAR ETIQUETA
+=================================================== */
+
+function abrirEtiqueta() {
+
+    const token = document
+        .getElementById("btnEtiqueta")
+        .dataset.token;
+
+    if (!token) {
+
+        alert("Token não encontrado.");
+
+        return;
+
+    }
+
+    window.open(
+
+        "etiqueta.html?token=" + token,
+
+        "_blank"
+
+    );
 
 }
 
