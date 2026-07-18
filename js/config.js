@@ -16,7 +16,7 @@
 const CONFIG = {
 
     // URL do Apps Script (Deploy Web App)
-    API_URL: "https://script.google.com/macros/s/AKfycbzeaMZYQgy-62laTvHMSmeSUGKWvxkwxl_rlxJIhI02r7S10Xi6IqGj42Zj-5kOs8Yx/exec",
+    API_URL: "https://script.google.com/macros/s/AKfycbzMGHUroixDdkFrf4IdcAR2kmSQMms0TYTx6nfzS2upwVv8_BtxaAwwdntPVitX__PM/exec",
 
     // Nome do sistema
     APP_NAME: "PET NFC",
