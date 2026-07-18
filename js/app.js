@@ -1,16 +1,72 @@
 /*************************************************
  * PET NFC
  * app.js
- * Versão 1.0.0
+ * Versão 1.1.0
  *************************************************/
 
 let petAtual = null;
+
 
 /* ===================================================
    INICIALIZAÇÃO
 =================================================== */
 
-document.addEventListener("DOMContentLoaded", iniciarSistema);
+document.addEventListener("DOMContentLoaded", function () {
+
+    configurarEventos();
+
+    iniciarSistema();
+
+});
+
+
+/* ===================================================
+   EVENTOS
+=================================================== */
+
+function configurarEventos() {
+
+    const campoFoto =
+        document.getElementById("foto");
+
+    const btnCadastrar =
+        document.getElementById("btnCadastrar");
+
+    const btnLocalizacao =
+        document.getElementById("btnLocalizacao");
+
+
+    if (campoFoto) {
+
+        campoFoto.addEventListener(
+            "change",
+            mostrarPreviewFoto
+        );
+
+    }
+
+
+    if (btnCadastrar) {
+
+        btnCadastrar.addEventListener(
+            "click",
+            salvarCadastro
+        );
+
+    }
+
+
+    if (btnLocalizacao) {
+
+        btnLocalizacao.addEventListener(
+            "click",
+            enviarMinhaLocalizacao
+        );
+
+    }
+
+}
+
 
 /* ===================================================
    INICIAR
@@ -22,17 +78,22 @@ async function iniciarSistema() {
 
     if (!TOKEN) {
 
-        mostrarErro("Token da TAG não informado.");
+        mostrarErro(
+            "Token da TAG não informado."
+        );
 
         return;
 
     }
 
-    const resposta = await buscarPet(TOKEN);
+    const resposta =
+        await buscarPet(TOKEN);
 
     if (!resposta.sucesso) {
 
-        mostrarErro(resposta.mensagem);
+        mostrarErro(
+            resposta.mensagem
+        );
 
         return;
 
@@ -40,7 +101,9 @@ async function iniciarSistema() {
 
     petAtual = resposta;
 
-    if (resposta.status === STATUS.LIVRE) {
+    if (
+        resposta.status === STATUS.LIVRE
+    ) {
 
         mostrarCadastro();
 
@@ -54,50 +117,119 @@ async function iniciarSistema() {
 
 }
 
+
 /* ===================================================
    TELAS
 =================================================== */
 
 function esconderTudo() {
 
-    document.getElementById("loading").style.display = "none";
-    document.getElementById("cadastro").style.display = "none";
-    document.getElementById("perfil").style.display = "none";
-    document.getElementById("mensagem").style.display = "none";
+    const loading =
+        document.getElementById("loading");
+
+    const cadastro =
+        document.getElementById("cadastro");
+
+    const perfil =
+        document.getElementById("perfil");
+
+    const mensagem =
+        document.getElementById("mensagem");
+
+
+    if (loading) {
+
+        loading.style.display = "none";
+
+    }
+
+
+    if (cadastro) {
+
+        cadastro.style.display = "none";
+
+    }
+
+
+    if (perfil) {
+
+        perfil.style.display = "none";
+
+    }
+
+
+    if (mensagem) {
+
+        mensagem.style.display = "none";
+
+    }
 
 }
+
 
 function mostrarLoading() {
 
     esconderTudo();
 
-    document.getElementById("loading").style.display = "block";
+    const loading =
+        document.getElementById("loading");
+
+    if (loading) {
+
+        loading.style.display = "block";
+
+    }
 
 }
+
 
 function mostrarCadastro() {
 
     esconderTudo();
 
-    document.getElementById("cadastro").style.display = "block";
+    const cadastro =
+        document.getElementById("cadastro");
+
+    if (cadastro) {
+
+        cadastro.style.display = "block";
+
+    }
 
 }
+
 
 function mostrarPerfil() {
 
     esconderTudo();
 
-    document.getElementById("perfil").style.display = "block";
+    const perfil =
+        document.getElementById("perfil");
+
+    if (perfil) {
+
+        perfil.style.display = "block";
+
+    }
 
 }
+
 
 function mostrarMensagem() {
 
     esconderTudo();
 
-    document.getElementById("mensagem").style.display = "block";
+    const mensagem =
+        document.getElementById("mensagem");
+
+    if (mensagem) {
+
+        mensagem.style.display = "block";
+
+    }
 
 }
+
 
 /* ===================================================
    PERFIL
@@ -105,145 +237,641 @@ function mostrarMensagem() {
 
 function carregarPerfil(dados) {
 
-    document.getElementById("perfilNomePet").innerText =
-        dados.nome_pet || "";
+    const perfilNomePet =
+        document.getElementById(
+            "perfilNomePet"
+        );
 
-    document.getElementById("perfilTutor").innerText =
-        dados.nome_tutor || "";
+    const perfilTutor =
+        document.getElementById(
+            "perfilTutor"
+        );
 
-    document.getElementById("fotoPerfil").src =
-        dados.foto || CONFIG.FOTO_PADRAO;
+    const fotoPerfil =
+        document.getElementById(
+            "fotoPerfil"
+        );
 
-}
 
-/* ===================================================
-   FOTO
-=================================================== */
+    if (perfilNomePet) {
 
-const campoFoto = document.getElementById("foto");
+        perfilNomePet.innerText =
+            dados.nome_pet || "";
 
-if (campoFoto) {
+    }
 
-    campoFoto.addEventListener("change", function () {
 
-        const arquivo = this.files[0];
+    if (perfilTutor) {
 
-        if (!arquivo) return;
+        perfilTutor.innerText =
+            dados.nome_tutor || "";
 
-        const reader = new FileReader();
+    }
 
-        reader.onload = function (e) {
 
-            document.getElementById("previewFoto").src =
-                e.target.result;
+    if (fotoPerfil) {
+
+        if (dados.foto) {
+
+            /*
+             * URL retornada pelo Google Drive.
+             */
+            fotoPerfil.src = dados.foto;
+
+            fotoPerfil.style.display =
+                "block";
+
+        } else {
+
+            /*
+             * Evita erro 404 enquanto não
+             * existe foto padrão no projeto.
+             */
+            fotoPerfil.removeAttribute("src");
+
+            fotoPerfil.style.display =
+                "none";
+
+        }
+
+
+        fotoPerfil.onerror = function () {
+
+            console.error(
+                "Não foi possível carregar a foto:",
+                dados.foto
+            );
+
+            this.style.display = "none";
 
         };
 
-        reader.readAsDataURL(arquivo);
-
-    });
+    }
 
 }
+
+
+/* ===================================================
+   FOTO - PREVIEW
+=================================================== */
+
+function mostrarPreviewFoto(evento) {
+
+    const arquivo =
+        evento.target.files[0];
+
+    if (!arquivo) {
+
+        return;
+
+    }
+
+
+    if (
+        !arquivo.type.startsWith("image/")
+    ) {
+
+        alert(
+            "Selecione um arquivo de imagem."
+        );
+
+        evento.target.value = "";
+
+        return;
+
+    }
+
+
+    const previewFoto =
+        document.getElementById(
+            "previewFoto"
+        );
+
+    if (!previewFoto) {
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload = function (eventoReader) {
+
+        previewFoto.src =
+            eventoReader.target.result;
+
+        previewFoto.style.display =
+            "block";
+
+    };
+
+
+    reader.onerror = function () {
+
+        alert(
+            "Não foi possível ler a imagem."
+        );
+
+    };
+
+
+    reader.readAsDataURL(arquivo);
+
+}
+
+
+/* ===================================================
+   REDUZIR FOTO
+=================================================== */
+
+/**
+ * Reduz a imagem antes de enviar ao Apps Script.
+ * A imagem final será JPEG com no máximo 900px.
+ */
+function reduzirFoto(arquivo) {
+
+    return new Promise(
+        function (resolve, reject) {
+
+            const reader =
+                new FileReader();
+
+
+            reader.onerror = function () {
+
+                reject(
+                    new Error(
+                        "Não foi possível ler a foto."
+                    )
+                );
+
+            };
+
+
+            reader.onload =
+                function (eventoReader) {
+
+                    const imagem =
+                        new Image();
+
+
+                    imagem.onerror =
+                        function () {
+
+                            reject(
+                                new Error(
+                                    "Arquivo de imagem inválido."
+                                )
+                            );
+
+                        };
+
+
+                    imagem.onload =
+                        function () {
+
+                            const tamanhoMaximo =
+                                900;
+
+                            let largura =
+                                imagem.width;
+
+                            let altura =
+                                imagem.height;
+
+
+                            if (
+                                largura > altura &&
+                                largura > tamanhoMaximo
+                            ) {
+
+                                altura = Math.round(
+                                    altura *
+                                    tamanhoMaximo /
+                                    largura
+                                );
+
+                                largura =
+                                    tamanhoMaximo;
+
+                            } else if (
+                                altura > tamanhoMaximo
+                            ) {
+
+                                largura = Math.round(
+                                    largura *
+                                    tamanhoMaximo /
+                                    altura
+                                );
+
+                                altura =
+                                    tamanhoMaximo;
+
+                            }
+
+
+                            const canvas =
+                                document.createElement(
+                                    "canvas"
+                                );
+
+                            canvas.width =
+                                largura;
+
+                            canvas.height =
+                                altura;
+
+
+                            const contexto =
+                                canvas.getContext(
+                                    "2d"
+                                );
+
+
+                            if (!contexto) {
+
+                                reject(
+                                    new Error(
+                                        "Não foi possível processar a foto."
+                                    )
+                                );
+
+                                return;
+
+                            }
+
+
+                            /*
+                             * Fundo branco para imagens PNG
+                             * que possuem transparência.
+                             */
+                            contexto.fillStyle =
+                                "#ffffff";
+
+                            contexto.fillRect(
+                                0,
+                                0,
+                                largura,
+                                altura
+                            );
+
+
+                            contexto.drawImage(
+                                imagem,
+                                0,
+                                0,
+                                largura,
+                                altura
+                            );
+
+
+                            const fotoBase64 =
+                                canvas.toDataURL(
+                                    "image/jpeg",
+                                    0.82
+                                );
+
+
+                            resolve(fotoBase64);
+
+                        };
+
+
+                    imagem.src =
+                        eventoReader.target.result;
+
+                };
+
+
+            reader.readAsDataURL(arquivo);
+
+        }
+    );
+
+}
+
 
 /* ===================================================
    CADASTRO
 =================================================== */
 
-const btnCadastrar = document.getElementById("btnCadastrar");
+async function salvarCadastro(evento) {
 
-if (btnCadastrar) {
+    if (evento) {
 
-    btnCadastrar.addEventListener("click", salvarCadastro);
+        evento.preventDefault();
 
-}
+    }
 
-async function salvarCadastro() {
 
-    const dados = {
+    const campoNomePet =
+        document.getElementById("nomePet");
 
-        token: TOKEN,
+    const campoNomeTutor =
+        document.getElementById("nomeTutor");
 
-        nome_pet: document.getElementById("nomePet").value,
+    const campoWhatsapp =
+        document.getElementById("whatsapp");
 
-        nome_tutor: document.getElementById("nomeTutor").value,
+    const campoEmail =
+        document.getElementById("email");
 
-        whatsapp: document.getElementById("whatsapp").value,
+    const campoFoto =
+        document.getElementById("foto");
 
-        email: document.getElementById("email").value
+    const btnCadastrar =
+        document.getElementById(
+            "btnCadastrar"
+        );
 
-    };
 
-    const resposta = await cadastrarPet(dados);
+    const nomePet =
+        campoNomePet
+            ? campoNomePet.value.trim()
+            : "";
 
-    if (!resposta.sucesso) {
+    const nomeTutor =
+        campoNomeTutor
+            ? campoNomeTutor.value.trim()
+            : "";
 
-        alert(resposta.mensagem);
+    const whatsapp =
+        campoWhatsapp
+            ? campoWhatsapp.value.trim()
+            : "";
+
+    const email =
+        campoEmail
+            ? campoEmail.value.trim()
+            : "";
+
+    const arquivoFoto =
+        campoFoto &&
+        campoFoto.files.length > 0
+            ? campoFoto.files[0]
+            : null;
+
+
+    if (
+        !nomePet ||
+        !nomeTutor ||
+        !whatsapp ||
+        !email
+    ) {
+
+        alert(
+            "Preencha todos os campos."
+        );
 
         return;
 
     }
 
-    location.reload();
+
+    if (
+        arquivoFoto &&
+        !arquivoFoto.type.startsWith(
+            "image/"
+        )
+    ) {
+
+        alert(
+            "Selecione uma foto válida."
+        );
+
+        return;
+
+    }
+
+
+    if (btnCadastrar) {
+
+        btnCadastrar.disabled = true;
+
+        btnCadastrar.innerText =
+            "Cadastrando...";
+
+    }
+
+
+    try {
+
+        const dados = {
+
+            token: TOKEN,
+
+            nome_pet: nomePet,
+
+            nome_tutor: nomeTutor,
+
+            whatsapp: whatsapp,
+
+            email: email
+
+        };
+
+
+        /*
+         * Primeiro cadastra os dados do pet.
+         */
+        const respostaCadastro =
+            await cadastrarPet(dados);
+
+
+        if (!respostaCadastro.sucesso) {
+
+            alert(
+                respostaCadastro.mensagem
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Depois envia a foto ao Google Drive.
+         */
+        if (arquivoFoto) {
+
+            if (btnCadastrar) {
+
+                btnCadastrar.innerText =
+                    "Enviando foto...";
+
+            }
+
+
+            const fotoBase64 =
+                await reduzirFoto(
+                    arquivoFoto
+                );
+
+
+            const respostaFoto =
+                await atualizarFoto(
+                    TOKEN,
+                    fotoBase64
+                );
+
+
+            if (!respostaFoto.sucesso) {
+
+                alert(
+                    "O cadastro foi realizado, " +
+                    "mas a foto não foi enviada.\n\n" +
+                    respostaFoto.mensagem
+                );
+
+            }
+
+        }
+
+
+        /*
+         * Busca novamente os dados já atualizados,
+         * incluindo a URL da foto.
+         */
+        if (btnCadastrar) {
+
+            btnCadastrar.innerText =
+                "Carregando perfil...";
+
+        }
+
+
+        const respostaPet =
+            await buscarPet(TOKEN);
+
+
+        if (!respostaPet.sucesso) {
+
+            /*
+             * Recarrega como alternativa caso
+             * a busca final tenha algum erro.
+             */
+            location.reload();
+
+            return;
+
+        }
+
+
+        petAtual = respostaPet;
+
+        carregarPerfil(respostaPet);
+
+        mostrarPerfil();
+
+
+    } catch (erro) {
+
+        console.error(
+            "Erro no cadastro:",
+            erro
+        );
+
+        alert(
+            "Não foi possível concluir o cadastro."
+        );
+
+
+    } finally {
+
+        if (btnCadastrar) {
+
+            btnCadastrar.disabled = false;
+
+            btnCadastrar.innerText =
+                "Cadastrar";
+
+        }
+
+    }
 
 }
+
 
 /* ===================================================
    LOCALIZAÇÃO
 =================================================== */
 
-const btnLocalizacao = document.getElementById("btnLocalizacao");
-
-if (btnLocalizacao) {
-
-    btnLocalizacao.addEventListener("click", enviarMinhaLocalizacao);
-
-}
-
 function enviarMinhaLocalizacao() {
 
     if (!navigator.geolocation) {
 
-        alert("Seu navegador não suporta localização.");
+        alert(
+            "Seu navegador não suporta localização."
+        );
 
         return;
 
     }
 
-    navigator.geolocation.getCurrentPosition(
 
-        async function (posicao) {
+    navigator.geolocation
+        .getCurrentPosition(
 
-            const resposta = await enviarLocalizacao(
+            async function (posicao) {
 
-                TOKEN,
+                const resposta =
+                    await enviarLocalizacao(
 
-                posicao.coords.latitude,
+                        TOKEN,
 
-                posicao.coords.longitude
+                        posicao.coords.latitude,
 
-            );
+                        posicao.coords.longitude
 
-            if (resposta.sucesso) {
+                    );
 
-                mostrarMensagem();
 
-            } else {
+                if (resposta.sucesso) {
 
-                alert(resposta.mensagem);
+                    mostrarMensagem();
+
+                } else {
+
+                    alert(
+                        resposta.mensagem
+                    );
+
+                }
+
+            },
+
+
+            function (erro) {
+
+                console.error(
+                    "Erro de localização:",
+                    erro
+                );
+
+                alert(
+                    "Não foi possível obter sua localização."
+                );
+
+            },
+
+
+            {
+
+                enableHighAccuracy: true,
+
+                timeout: 15000,
+
+                maximumAge: 0
 
             }
 
-        },
-
-        function () {
-
-            alert("Não foi possível obter sua localização.");
-
-        }
-
-    );
+        );
 
 }
+
 
 /* ===================================================
    ERROS
@@ -261,12 +889,29 @@ function mostrarErro(msg) {
 
                 <h4>Erro</h4>
 
-                <p>${msg}</p>
+                <p>${escaparHTML(msg)}</p>
 
             </div>
 
         </div>
 
     `;
+
+}
+
+
+/**
+ * Evita inserir código HTML vindo
+ * de mensagens do servidor.
+ */
+function escaparHTML(texto) {
+
+    const elemento =
+        document.createElement("div");
+
+    elemento.innerText =
+        String(texto || "");
+
+    return elemento.innerHTML;
 
 }
