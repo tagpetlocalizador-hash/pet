@@ -65,13 +65,13 @@ async function carregarEtiqueta() {
         document.getElementById("url").style.background = "lime";
         document.getElementById("qrcode").style.border = "4px solid red";
 
-        document.getElementById("token").innerHTML =
-            tag.token || "TOKEN NÃO ENCONTRADO";
+        const url = CONFIG.URL_SITE + "?token=" + tag.token;
 
-        document.getElementById("url").innerHTML =
-            tag.url || "URL NÃO ENCONTRADA";
+document.getElementById("token").innerHTML = tag.token;
 
-        gerarQRCode(tag.url);
+document.getElementById("url").innerHTML = url;
+
+gerarQRCode(url);
 
     }
 
