@@ -1157,21 +1157,14 @@ function validarEmail(email) {
 
 function enviarMinhaLocalizacao() {
 
-    if (localizacaoEnviada) {
-
-        mostrarMensagem();
-
-        return;
-
-    }
-
+    /*
+     * O botão sempre tenta enviar novamente,
+     * mesmo que a localização automática já tenha sido enviada.
+     */
 
     if (enviandoLocalizacao) {
-
         return;
-
     }
-
 
     if (!navigator.geolocation) {
 
@@ -1181,26 +1174,20 @@ function enviarMinhaLocalizacao() {
         );
 
         return;
-
     }
-
 
     const btnLocalizacao =
         document.getElementById(
             "btnLocalizacao"
         );
 
-
-    enviandoLocalizacao =
-        true;
-
+    enviandoLocalizacao = true;
 
     alterarBotaoLocalizacao(
         btnLocalizacao,
         true,
         "Obtendo localização..."
     );
-
 
     navigator.geolocation.getCurrentPosition(
 
@@ -1214,39 +1201,29 @@ function enviarMinhaLocalizacao() {
                     "Enviando..."
                 );
 
-
                 const resposta =
                     await enviarLocalizacao(
-
                         TOKEN,
-
                         posicao.coords.latitude,
-
                         posicao.coords.longitude
-
                     );
-
 
                 if (
                     resposta &&
                     resposta.sucesso
                 ) {
 
-                    localizacaoEnviada =
-                        true;
+                    localizacaoEnviada = true;
 
                     mostrarMensagem();
 
                     return;
-
                 }
 
-
                 alert(
-                    resposta.mensagem ||
+                    resposta?.mensagem ||
                     "Não foi possível enviar a localização."
                 );
-
 
             } catch (erro) {
 
@@ -1259,11 +1236,9 @@ function enviarMinhaLocalizacao() {
                     "Não foi possível enviar a localização."
                 );
 
-
             } finally {
 
-                enviandoLocalizacao =
-                    false;
+                enviandoLocalizacao = false;
 
                 alterarBotaoLocalizacao(
                     btnLocalizacao,
@@ -1275,7 +1250,6 @@ function enviarMinhaLocalizacao() {
 
         },
 
-
         function (erro) {
 
             console.error(
@@ -1283,10 +1257,7 @@ function enviarMinhaLocalizacao() {
                 erro
             );
 
-
-            enviandoLocalizacao =
-                false;
-
+            enviandoLocalizacao = false;
 
             alterarBotaoLocalizacao(
                 btnLocalizacao,
@@ -1294,25 +1265,16 @@ function enviarMinhaLocalizacao() {
                 "Encontrei este Pet"
             );
 
-
             tratarErroLocalizacao(
                 erro
             );
 
         },
 
-
         {
-
-            enableHighAccuracy:
-                true,
-
-            timeout:
-                20000,
-
-            maximumAge:
-                0
-
+            enableHighAccuracy: true,
+            timeout: 20000,
+            maximumAge: 0
         }
 
     );
