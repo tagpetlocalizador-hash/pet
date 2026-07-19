@@ -124,14 +124,7 @@ async function iniciarSistema() {
 
         console.log("Resposta completa da API:", resposta);
 
-        alert(
-            JSON.stringify(
-                resposta,
-                null,
-                2
-            )
-        );
-
+        
         // ==========================
 
         if (!resposta || !resposta.sucesso) {
