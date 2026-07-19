@@ -1,7 +1,7 @@
 /*************************************************
  * PET NFC
  * api.js
- * Versão 1.2.0
+ * Versão 1.3.0
  *************************************************/
 
 
@@ -102,16 +102,13 @@ async function apiPost(dados = {}) {
 
                 headers: {
 
-                    /*
-                     * text/plain evita preflight CORS
-                     * no Google Apps Script.
-                     */
-
-                    "Content-Type": "text/plain;charset=utf-8"
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
 
                 },
 
-                body: JSON.stringify(dados)
+                body:
+                    JSON.stringify(dados)
 
             }
 
@@ -180,7 +177,8 @@ async function cadastrarPet(dados) {
 
         ...dados,
 
-        action: ACTION.CADASTRAR_PET
+        action:
+            ACTION.CADASTRAR_PET
 
     });
 
@@ -193,7 +191,8 @@ async function editarPet(dados) {
 
         ...dados,
 
-        action: ACTION.EDITAR_PET
+        action:
+            ACTION.EDITAR_PET
 
     });
 
@@ -218,26 +217,83 @@ async function atualizarFoto(token, foto) {
 }
 
 
+/**
+ * Envia localização sem tentar ler a resposta.
+ * Isso evita bloqueio CORS no navegador.
+ */
 async function enviarLocalizacao(
     token,
     latitude,
     longitude
 ) {
 
-    return await apiPost({
+    try {
 
-        action:
-            ACTION.LOCALIZACAO,
+        await fetch(
 
-        token:
-            token,
+            CONFIG.API_URL,
 
-        latitude:
-            latitude,
+            {
 
-        longitude:
-            longitude
+                method: "POST",
 
-    });
+                headers: {
+
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+
+                },
+
+                body: JSON.stringify({
+
+                    action:
+                        ACTION.LOCALIZACAO,
+
+                    token:
+                        token,
+
+                    latitude:
+                        latitude,
+
+                    longitude:
+                        longitude
+
+                }),
+
+                mode:
+                    "no-cors"
+
+            }
+
+        );
+
+
+        return {
+
+            sucesso: true,
+
+            mensagem:
+                "Localização enviada."
+
+        };
+
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao enviar localização:",
+            erro
+        );
+
+        return {
+
+            sucesso: false,
+
+            mensagem:
+                "Erro ao conectar com o servidor."
+
+        };
+
+    }
 
 }
