@@ -12,29 +12,59 @@
 
     <meta
         name="theme-color"
-        content="#245b35"
+        content="#2E7D32"
     >
 
     <title>Recuperar senha | PET NFC</title>
 
-    <!-- CSS -->
+
+    <!-- GOOGLE FONTS -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- FONT AWESOME -->
+
     <link
         rel="stylesheet"
-        href="../assets/css/tutor.css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- CSS CORRETO -->
+
+    <link
+        rel="stylesheet"
+        href="css/tutor.css"
     >
 
 </head>
 
-<body class="pagina-login">
+
+<body>
 
 
-    <main class="container-login">
+    <main class="pagina-login">
 
 
-        <section class="card-login">
+        <div class="container-login">
 
 
-            <!-- CABEÇALHO -->
+            <!-- LOGO -->
 
             <header class="cabecalho-login">
 
@@ -44,144 +74,238 @@
                     class="logo-login"
                 >
 
-                <div class="icone-login">
-                    🔐
-                </div>
-
-                <span class="etiqueta-login">
-                    Área do tutor
-                </span>
-
-                <h1 class="titulo-login">
-                    Recuperar senha
-                </h1>
-
-                <p class="subtitulo-login">
-                    Informe o e-mail utilizado no cadastro
-                </p>
-
             </header>
 
 
 
-            <!-- FORMULÁRIO -->
+            <!-- CARD -->
 
-            <form
-                id="formRecuperacao"
-                class="formulario-login"
-                novalidate
-            >
+            <section class="card-login">
 
 
-                <div class="grupo-campo">
+                <!-- ÍCONE -->
 
-                    <label
-                        for="email"
-                        class="rotulo-campo"
-                    >
-                        E-mail
-                    </label>
+                <div class="icone-login">
 
-                    <div class="campo-com-icone">
-
-                        <span
-                            class="icone-campo"
-                            aria-hidden="true"
-                        >
-                            ✉
-                        </span>
-
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            class="campo-login"
-                            placeholder="seuemail@exemplo.com"
-                            autocomplete="email"
-                            required
-                        >
-
-                    </div>
+                    <i
+                        class="fa-solid fa-key"
+                        aria-hidden="true"
+                    ></i>
 
                 </div>
 
 
 
-                <button
-                    type="submit"
-                    id="botaoEnviar"
-                    class="botao-login"
+                <!-- TÍTULO -->
+
+                <div class="titulo-login">
+
+                    <span class="etiqueta-login">
+
+                        <i
+                            class="fa-solid fa-shield-dog"
+                            aria-hidden="true"
+                        ></i>
+
+                        Área do tutor
+
+                    </span>
+
+
+                    <h1>
+                        Recuperar senha
+                    </h1>
+
+
+                    <p>
+                        Informe o e-mail utilizado no cadastro.
+                        Enviaremos as instruções para criar uma
+                        nova senha.
+                    </p>
+
+                </div>
+
+
+
+                <!-- FORMULÁRIO -->
+
+                <form
+                    id="formRecuperacao"
+                    class="formulario-login"
+                    novalidate
                 >
 
-                    <span
-                        id="iconeBotao"
-                        aria-hidden="true"
+
+                    <!-- E-MAIL -->
+
+                    <div class="campo-grupo">
+
+                        <label for="email">
+
+                            <i
+                                class="fa-solid fa-envelope"
+                                aria-hidden="true"
+                            ></i>
+
+                            E-mail
+
+                        </label>
+
+
+                        <div class="campo-com-icone">
+
+                            <i
+                                class="fa-regular fa-envelope"
+                                aria-hidden="true"
+                            ></i>
+
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="seuemail@exemplo.com"
+                                autocomplete="email"
+                                inputmode="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- BOTÃO -->
+
+                    <button
+                        type="submit"
+                        id="botaoEnviar"
+                        class="botao-entrar"
                     >
-                        ➤
-                    </span>
-
-                    <span id="textoBotao">
-                        Enviar instruções
-                    </span>
-
-                </button>
 
 
+                        <span class="texto-botao">
+
+                            <i
+                                class="fa-solid fa-paper-plane"
+                                aria-hidden="true"
+                            ></i>
+
+                            Enviar instruções
+
+                        </span>
+
+
+                        <span class="loading-botao">
+
+                            <span
+                                class="spinner"
+                                aria-hidden="true"
+                            ></span>
+
+                            Enviando...
+
+                        </span>
+
+
+                    </button>
+
+
+
+                    <!-- MENSAGEM -->
+
+                    <div
+                        id="mensagem"
+                        class="mensagem-login"
+                        role="alert"
+                        aria-live="polite"
+                    >
+
+                        <i
+                            id="iconeMensagem"
+                            class="fa-solid fa-circle-info"
+                            aria-hidden="true"
+                        ></i>
+
+                        <span id="textoMensagem"></span>
+
+                    </div>
+
+
+                </form>
+
+
+
+                <!-- AVISO -->
 
                 <div
-                    id="mensagem"
-                    class="mensagem-login"
-                    role="alert"
-                    aria-live="polite"
-                ></div>
-
-
-            </form>
-
-
-
-            <!-- AVISO -->
-
-            <div class="aviso-seguranca">
-
-                <span
-                    class="icone-aviso"
-                    aria-hidden="true"
+                    class="mensagem-login aviso mostrar"
+                    style="margin-top: 22px;"
                 >
-                    ℹ
+
+                    <i
+                        class="fa-solid fa-circle-info"
+                        aria-hidden="true"
+                    ></i>
+
+                    <span>
+                        Por segurança, não informamos se o
+                        e-mail está ou não cadastrado.
+                        Verifique também a pasta de spam ou
+                        lixo eletrônico.
+                    </span>
+
+                </div>
+
+
+
+                <!-- VOLTAR -->
+
+                <a
+                    href="login.html"
+                    class="link-recuperar"
+                    style="
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 8px;
+                        margin-top: 24px;
+                    "
+                >
+
+                    <i
+                        class="fa-solid fa-arrow-left"
+                        aria-hidden="true"
+                    ></i>
+
+                    Voltar para o login
+
+                </a>
+
+
+            </section>
+
+
+
+            <!-- RODAPÉ -->
+
+            <footer class="rodape-login">
+
+                <span>
+                    Identificação digital e proteção para seu pet
                 </span>
 
-                <p>
-                    Por segurança, a página não informa se o
-                    e-mail está ou não cadastrado. Verifique
-                    também a pasta de spam ou lixo eletrônico.
-                </p>
 
-            </div>
+                <img
+                    src="../assets/img/logo.png"
+                    alt="PET NFC"
+                >
 
-
-
-            <!-- VOLTAR -->
-
-            <a
-                href="login.html"
-                class="link-voltar"
-            >
-                ← Voltar para o login
-            </a>
+            </footer>
 
 
-        </section>
-
-
-
-        <footer class="rodape-login">
-
-            <p>
-                Identificação digital e proteção para seu pet
-            </p>
-
-        </footer>
+        </div>
 
 
     </main>
@@ -189,10 +313,11 @@
 
 
     <!--
-        A ORDEM DOS SCRIPTS É OBRIGATÓRIA.
+        ORDEM OBRIGATÓRIA:
 
-        Primeiro config.js.
-        Depois api.js.
+        1. config.js
+        2. api.js
+        3. código da página
     -->
 
     <script src="../assets/js/config.js"></script>
@@ -222,20 +347,39 @@
                 "botaoEnviar"
             );
 
-        const textoBotao =
-            document.getElementById(
-                "textoBotao"
-            );
-
-        const iconeBotao =
-            document.getElementById(
-                "iconeBotao"
-            );
-
         const mensagem =
             document.getElementById(
                 "mensagem"
             );
+
+        const textoMensagem =
+            document.getElementById(
+                "textoMensagem"
+            );
+
+        const iconeMensagem =
+            document.getElementById(
+                "iconeMensagem"
+            );
+
+
+
+        /********************************************
+         * LIMPAR MENSAGEM
+         ********************************************/
+
+        function limparMensagem() {
+
+            mensagem.className =
+                "mensagem-login";
+
+            textoMensagem.textContent =
+                "";
+
+            iconeMensagem.className =
+                "fa-solid fa-circle-info";
+
+        }
 
 
 
@@ -248,71 +392,66 @@
             tipo
         ) {
 
-            mensagem.textContent = texto;
+            textoMensagem.textContent =
+                texto;
+
 
             mensagem.className =
-                "mensagem-login " +
-                "mensagem-" +
+                "mensagem-login mostrar " +
                 tipo;
 
-        }
 
+            if (tipo === "sucesso") {
 
-
-        /********************************************
-         * LIMPAR MENSAGEM
-         ********************************************/
-
-        function limparMensagem() {
-
-            mensagem.textContent = "";
-
-            mensagem.className =
-                "mensagem-login";
-
-        }
-
-
-
-        /********************************************
-         * CARREGAMENTO
-         ********************************************/
-
-        function definirCarregamento(
-            carregando
-        ) {
-
-            botaoEnviar.disabled =
-                carregando;
-
-            campoEmail.disabled =
-                carregando;
-
-            if (carregando) {
-
-                textoBotao.textContent =
-                    "Enviando...";
-
-                iconeBotao.textContent =
-                    "⏳";
-
-                botaoEnviar.classList.add(
-                    "carregando"
-                );
+                iconeMensagem.className =
+                    "fa-solid fa-circle-check";
 
             } else {
 
-                textoBotao.textContent =
-                    "Enviar instruções";
-
-                iconeBotao.textContent =
-                    "➤";
-
-                botaoEnviar.classList.remove(
-                    "carregando"
-                );
+                iconeMensagem.className =
+                    "fa-solid fa-circle-exclamation";
 
             }
+
+        }
+
+
+
+        /********************************************
+         * ATIVAR CARREGAMENTO
+         ********************************************/
+
+        function ativarCarregamento() {
+
+            botaoEnviar.disabled =
+                true;
+
+            campoEmail.disabled =
+                true;
+
+            botaoEnviar.classList.add(
+                "carregando"
+            );
+
+        }
+
+
+
+        /********************************************
+         * DESATIVAR CARREGAMENTO
+         ********************************************/
+
+        function desativarCarregamento() {
+
+            botaoEnviar.disabled =
+                false;
+
+            campoEmail.disabled =
+                false;
+
+            botaoEnviar.classList.remove(
+                "carregando"
+            );
 
         }
 
@@ -334,7 +473,29 @@
 
 
         /********************************************
-         * ENVIAR FORMULÁRIO
+         * AO DIGITAR, REMOVE O ERRO
+         ********************************************/
+
+        campoEmail.addEventListener(
+
+            "input",
+
+            function() {
+
+                campoEmail.classList.remove(
+                    "campo-erro"
+                );
+
+                limparMensagem();
+
+            }
+
+        );
+
+
+
+        /********************************************
+         * ENVIAR RECUPERAÇÃO
          ********************************************/
 
         formRecuperacao.addEventListener(
@@ -349,12 +510,22 @@
 
 
                 const email =
-                    campoEmail.value
+                    campoEmail
+                        .value
                         .trim()
                         .toLowerCase();
 
 
+
+                /*
+                 * CAMPO VAZIO
+                 */
+
                 if (!email) {
+
+                    campoEmail.classList.add(
+                        "campo-erro"
+                    );
 
                     exibirMensagem(
                         "Informe seu endereço de e-mail.",
@@ -368,7 +539,16 @@
                 }
 
 
+
+                /*
+                 * E-MAIL INVÁLIDO
+                 */
+
                 if (!emailValido(email)) {
+
+                    campoEmail.classList.add(
+                        "campo-erro"
+                    );
 
                     exibirMensagem(
                         "Informe um endereço de e-mail válido.",
@@ -382,10 +562,33 @@
                 }
 
 
-                definirCarregamento(true);
+
+                ativarCarregamento();
+
 
 
                 try {
+
+                    /*
+                     * VERIFICA SE CONFIG FOI CARREGADO
+                     */
+
+                    if (
+                        typeof CONFIG ===
+                        "undefined"
+                    ) {
+
+                        throw new Error(
+                            "CONFIG não foi carregado."
+                        );
+
+                    }
+
+
+
+                    /*
+                     * VERIFICA SE API FOI CARREGADA
+                     */
 
                     if (
                         typeof API ===
@@ -393,11 +596,16 @@
                     ) {
 
                         throw new Error(
-                            "O arquivo api.js não foi carregado."
+                            "API não foi carregada."
                         );
 
                     }
 
+
+
+                    /*
+                     * VERIFICA FUNÇÃO
+                     */
 
                     if (
                         typeof API
@@ -406,11 +614,16 @@
                     ) {
 
                         throw new Error(
-                            "A função solicitarRecuperacao não foi encontrada."
+                            "Função solicitarRecuperacao não encontrada."
                         );
 
                     }
 
+
+
+                    /*
+                     * ENVIA PARA O APPS SCRIPT
+                     */
 
                     const resposta =
                         await API
@@ -419,10 +632,24 @@
                             );
 
 
+
+                    /*
+                     * RESPOSTA DE SUCESSO
+                     */
+
                     if (
                         resposta &&
                         resposta.sucesso
                     ) {
+
+                        campoEmail.classList.remove(
+                            "campo-erro"
+                        );
+
+                        campoEmail.classList.add(
+                            "campo-sucesso"
+                        );
+
 
                         exibirMensagem(
 
@@ -434,9 +661,15 @@
 
                         );
 
+
                         formRecuperacao.reset();
 
                     } else {
+
+                        campoEmail.classList.add(
+                            "campo-erro"
+                        );
+
 
                         exibirMensagem(
 
@@ -453,9 +686,15 @@
                 } catch (erro) {
 
                     console.error(
-                        "Erro ao solicitar recuperação:",
+                        "Erro ao recuperar senha:",
                         erro
                     );
+
+
+                    campoEmail.classList.add(
+                        "campo-erro"
+                    );
+
 
                     exibirMensagem(
                         "Erro ao conectar ao servidor.",
@@ -464,7 +703,7 @@
 
                 } finally {
 
-                    definirCarregamento(false);
+                    desativarCarregamento();
 
                 }
 
