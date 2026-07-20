@@ -97,27 +97,60 @@ form.addEventListener("submit", async function(e){
 
     }
 
-    btnEntrar.disabled=true;
+    btnEntrar.disabled = true;
 
     btnEntrar.classList.add("carregando");
 
     try{
 
         // ==========================
-        // Aqui será ligado ao Apps Script
+        // Login no Apps Script
         // ==========================
 
-        const resposta={
-            sucesso:false,
-            mensagem:"Login ainda não conectado ao servidor."
-        };
+        const resposta = await API.login(
 
+            email.value.trim(),
+
+            senha.value
+
+        );
 
         if(resposta.sucesso){
 
+            // Salva sessão
+
+            localStorage.setItem(
+
+                "pet_nfc_token_login",
+
+                resposta.token_login
+
+            );
+
+            localStorage.setItem(
+
+                "pet_nfc_nome_pet",
+
+                resposta.nome_pet || ""
+
+            );
+
+            localStorage.setItem(
+
+                "pet_nfc_nome_tutor",
+
+                resposta.nome_tutor || ""
+
+            );
+
             mostrarMensagem(
+
+                resposta.mensagem ||
+
                 "Login realizado com sucesso!",
+
                 "sucesso"
+
             );
 
             setTimeout(()=>{
@@ -128,21 +161,29 @@ form.addEventListener("submit", async function(e){
 
         }else{
 
-            mostrarMensagem(resposta.mensagem);
+            mostrarMensagem(
+
+                resposta.mensagem ||
+
+                "Não foi possível realizar o login."
+
+            );
 
         }
 
     }catch(erro){
 
-        mostrarMensagem(
-            "Erro ao conectar com o servidor."
-        );
-
         console.error(erro);
+
+        mostrarMensagem(
+
+            "Erro ao conectar com o servidor."
+
+        );
 
     }
 
-    btnEntrar.disabled=false;
+    btnEntrar.disabled = false;
 
     btnEntrar.classList.remove("carregando");
 
