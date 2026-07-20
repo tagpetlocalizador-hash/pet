@@ -1,260 +1,1482 @@
 /*************************************************
  * PET NFC
- * style.css
- * Versão 1.0.0
+ * Página pública
+ * LINKA Gift
+ * Versão 2.0.0
  *************************************************/
 
+
 /* ===========================
-   GERAL
+   VARIÁVEIS
 =========================== */
+
+:root{
+
+    --verde-principal:#2E7D32;
+    --verde-secundario:#43A047;
+    --verde-escuro:#1B5E20;
+    --verde-claro:#E8F5E9;
+
+    --whatsapp:#25D366;
+    --whatsapp-escuro:#128C4A;
+
+    --azul:#1976D2;
+    --azul-escuro:#0D47A1;
+
+    --amarelo:#F9A825;
+    --amarelo-escuro:#F57F17;
+
+    --vermelho:#D32F2F;
+
+    --fundo:#F3F8F4;
+    --card:#FFFFFF;
+
+    --texto:#1F2937;
+    --texto-secundario:#6B7280;
+
+    --borda:#E2E8E4;
+
+    --sombra:
+        0 18px 45px rgba(26,72,38,.12);
+
+    --sombra-leve:
+        0 8px 25px rgba(26,72,38,.08);
+
+    --radius:28px;
+    --radius-menor:18px;
+
+}
+
+
+/* ===========================
+   RESET
+=========================== */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
 
 body{
-    background:#f5f7fb;
-    font-family:Arial,Helvetica,sans-serif;
-    color:#333;
+
+    min-height:100vh;
+
+    font-family:
+        "Poppins",
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color:var(--texto);
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(67,160,71,.16),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(46,125,50,.12),
+            transparent 36%
+        ),
+        var(--fundo);
+
 }
 
-.container{
-    max-width:550px;
-}
 
 /* ===========================
-   LOGO
+   PÁGINA
 =========================== */
 
-.logo{
-    width:140px;
-    margin:auto;
+.pagina-pet{
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+
+    padding:22px 14px;
+
+}
+
+.container-pet{
+
+    width:100%;
+    max-width:520px;
+
+}
+
+
+/* ===========================
+   CABEÇALHO
+=========================== */
+
+.cabecalho{
+
+    display:flex;
+    justify-content:center;
+
+    margin-bottom:20px;
+
+}
+
+.marca{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:10px 18px;
+
+    background:rgba(255,255,255,.82);
+
+    border:1px solid rgba(255,255,255,.9);
+
+    border-radius:50px;
+
+    box-shadow:var(--sombra-leve);
+
+    backdrop-filter:blur(10px);
+
+}
+
+.icone-marca{
+
+    width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#FFFFFF;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--verde-secundario),
+            var(--verde-principal)
+        );
+
+    border-radius:50%;
+
+    font-size:19px;
+
+}
+
+.marca strong{
+
     display:block;
-}
 
-/* ===========================
-   CARDS
-=========================== */
+    color:var(--verde-escuro);
 
-.card{
-
-    border:none;
-
-    border-radius:20px;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-
-}
-
-/* ===========================
-   FOTO PET
-=========================== */
-
-#previewFoto,
-#fotoPerfil{
-
-    object-fit:cover;
-
-    border:5px solid #ffffff;
-
-    background:#ececec;
-
-    box-shadow:0 5px 20px rgba(0,0,0,.15);
-
-}
-
-/* ===========================
-   TÍTULOS
-=========================== */
-
-h2{
-
+    font-size:15px;
     font-weight:700;
 
-    color:#0d6efd;
+    letter-spacing:.5px;
 
 }
 
-h3{
+.marca span{
 
-    font-weight:700;
+    display:block;
 
-}
+    color:var(--texto-secundario);
 
-h4{
-
-    font-weight:700;
+    font-size:11px;
 
 }
+
 
 /* ===========================
-   FORMULÁRIOS
+   CONTEÚDO
 =========================== */
 
-.form-control{
+.conteudo-principal{
 
-    border-radius:12px;
-
-    padding:12px;
-
-    border:1px solid #d7d7d7;
+    animation:
+        aparecer .45s ease;
 
 }
 
-.form-control:focus{
+.card-pet{
 
-    border-color:#0d6efd;
+    position:relative;
 
-    box-shadow:0 0 0 .2rem rgba(13,110,253,.2);
+    overflow:hidden;
 
-}
+    background:var(--card);
 
-/* ===========================
-   BOTÕES
-=========================== */
+    border:1px solid rgba(255,255,255,.9);
 
-.btn{
+    border-radius:var(--radius);
 
-    border-radius:14px;
-
-    padding:14px;
-
-    font-size:17px;
-
-    font-weight:bold;
+    box-shadow:var(--sombra);
 
 }
 
-.btn-primary{
-
-    background:#0d6efd;
-
-    border:none;
-
-}
-
-.btn-primary:hover{
-
-    background:#0b5ed7;
-
-}
-
-.btn-success{
-
-    background:#198754;
-
-    border:none;
-
-}
-
-.btn-success:hover{
-
-    background:#157347;
-
-}
 
 /* ===========================
    LOADING
 =========================== */
 
-#loading{
+.tela-central{
 
-    padding:70px 0;
+    min-height:430px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+}
+
+.loading-card{
+
+    width:100%;
+
+    padding:60px 25px;
+
+    text-align:center;
+
+    background:var(--card);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--sombra);
 
 }
 
-.spinner-border{
+.loading-patas{
 
-    width:60px;
+    margin-bottom:14px;
 
-    height:60px;
+    color:var(--verde-secundario);
+
+    font-size:42px;
+
+    animation:pulso 1.3s infinite;
 
 }
+
+.spinner-pet{
+
+    width:48px;
+    height:48px;
+
+    margin-bottom:18px;
+
+    color:var(--verde-principal);
+
+}
+
+.loading-card h2{
+
+    margin-bottom:5px;
+
+    color:var(--texto);
+
+    font-size:20px;
+    font-weight:700;
+
+}
+
+.loading-card p{
+
+    color:var(--texto-secundario);
+
+    font-size:14px;
+
+}
+
 
 /* ===========================
    PERFIL
 =========================== */
 
-#perfilNomePet{
+.card-perfil{
 
-    margin-top:20px;
-
-    color:#222;
+    padding-bottom:26px;
 
 }
 
-#perfilTutor{
+.faixa-superior{
 
-    font-size:18px;
+    position:relative;
+
+    height:125px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--verde-secundario),
+            var(--verde-principal)
+        );
 
 }
+
+.faixa-superior::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:-5%;
+    bottom:-40px;
+
+    width:110%;
+    height:75px;
+
+    background:var(--card);
+
+    border-radius:50% 50% 0 0;
+
+}
+
+.decoracao-pata{
+
+    position:absolute;
+
+    color:rgba(255,255,255,.12);
+
+    font-size:55px;
+
+}
+
+.pata-esquerda{
+
+    top:12px;
+    left:25px;
+
+    transform:rotate(-18deg);
+
+}
+
+.pata-direita{
+
+    top:22px;
+    right:27px;
+
+    transform:rotate(22deg);
+
+}
+
+.perfil-foto-area{
+
+    position:relative;
+
+    width:170px;
+
+    margin:-88px auto 0;
+
+    z-index:2;
+
+}
+
+.perfil-foto-moldura{
+
+    width:170px;
+    height:170px;
+
+    padding:6px;
+
+    background:#FFFFFF;
+
+    border-radius:50%;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.18);
+
+}
+
+.perfil-foto-moldura img{
+
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+
+    background:#EDF2EE;
+
+    border-radius:50%;
+
+}
+
+.selo-identificado{
+
+    position:absolute;
+
+    right:7px;
+    bottom:11px;
+
+    width:37px;
+    height:37px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#FFFFFF;
+
+    background:var(--verde-secundario);
+
+    border:4px solid #FFFFFF;
+
+    border-radius:50%;
+
+    font-size:17px;
+    font-weight:700;
+
+}
+
+.perfil-identidade{
+
+    padding:18px 24px 0;
+
+    text-align:center;
+
+}
+
+.etiqueta-pet{
+
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+
+    padding:7px 13px;
+
+    color:var(--verde-escuro);
+
+    background:var(--verde-claro);
+
+    border-radius:30px;
+
+    font-size:11px;
+    font-weight:600;
+
+    text-transform:uppercase;
+    letter-spacing:.4px;
+
+}
+
+.perfil-identidade h1{
+
+    margin:12px 0 16px;
+
+    color:var(--texto);
+
+    font-size:31px;
+    font-weight:700;
+
+}
+
+.tutor-info{
+
+    max-width:315px;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    margin:auto;
+
+    padding:13px 15px;
+
+    text-align:left;
+
+    background:#F8FAF8;
+
+    border:1px solid var(--borda);
+
+    border-radius:16px;
+
+}
+
+.tutor-icone{
+
+    min-width:44px;
+    width:44px;
+    height:44px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:var(--verde-principal);
+
+    background:var(--verde-claro);
+
+    border-radius:50%;
+
+    font-size:21px;
+
+}
+
+.tutor-info span{
+
+    display:block;
+
+    color:var(--texto-secundario);
+
+    font-size:11px;
+
+}
+
+.tutor-info strong{
+
+    display:block;
+
+    color:var(--texto);
+
+    font-size:15px;
+    font-weight:600;
+
+}
+
+.separador{
+
+    height:1px;
+
+    margin:24px;
+
+    background:var(--borda);
+
+}
+
 
 /* ===========================
-   ALERTAS
+   TEXTO DE AJUDA
 =========================== */
 
-.alert{
+.texto-ajuda{
+
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+
+    margin:0 24px 20px;
+
+}
+
+.icone-ajuda{
+
+    min-width:42px;
+    width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#FFFFFF;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--verde-secundario),
+            var(--verde-principal)
+        );
+
+    border-radius:14px;
+
+}
+
+.texto-ajuda strong{
+
+    display:block;
+
+    margin-bottom:3px;
+
+    font-size:14px;
+    font-weight:600;
+
+}
+
+.texto-ajuda p{
+
+    margin:0;
+
+    color:var(--texto-secundario);
+
+    font-size:12px;
+    line-height:1.5;
+
+}
+
+
+/* ===========================
+   BOTÕES DO PERFIL
+=========================== */
+
+.acoes-perfil{
+
+    display:grid;
+    gap:12px;
+
+    padding:0 24px;
+
+}
+
+.botao-acao{
+
+    min-height:72px;
+
+    display:flex;
+    align-items:center;
+    gap:13px;
+
+    padding:13px 16px;
+
+    color:#FFFFFF;
+
+    border:none;
+    border-radius:18px;
+
+    text-decoration:none;
+
+    box-shadow:
+        0 9px 22px rgba(0,0,0,.11);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        filter .2s ease;
+
+}
+
+.botao-acao:hover{
+
+    color:#FFFFFF;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 13px 28px rgba(0,0,0,.15);
+
+    filter:brightness(.98);
+
+}
+
+.botao-acao:active{
+
+    transform:scale(.98);
+
+}
+
+.botao-whatsapp{
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--whatsapp),
+            var(--whatsapp-escuro)
+        );
+
+}
+
+.botao-ligar{
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--azul),
+            var(--azul-escuro)
+        );
+
+}
+
+.botao-icone{
+
+    min-width:45px;
+    width:45px;
+    height:45px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(255,255,255,.18);
+
+    border-radius:14px;
+
+    font-size:22px;
+
+}
+
+.botao-texto{
+
+    flex:1;
+
+}
+
+.botao-texto small{
+
+    display:block;
+
+    color:rgba(255,255,255,.82);
+
+    font-size:10px;
+
+}
+
+.botao-texto strong{
+
+    display:block;
+
+    font-size:15px;
+    font-weight:600;
+
+}
+
+.seta-botao{
+
+    font-size:20px;
+
+}
+
+.botao-localizacao{
+
+    width:100%;
+    min-height:72px;
+
+    display:flex;
+    align-items:center;
+    gap:13px;
+
+    padding:13px 16px;
+
+    color:#FFFFFF;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--amarelo),
+            var(--amarelo-escuro)
+        );
+
+    border:none;
+    border-radius:18px;
+
+    text-align:left;
+
+    box-shadow:
+        0 9px 22px rgba(249,168,37,.25);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+
+}
+
+.botao-localizacao:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 13px 28px rgba(249,168,37,.30);
+
+}
+
+.botao-localizacao:active{
+
+    transform:scale(.98);
+
+}
+
+.localizacao-icone{
+
+    min-width:45px;
+    width:45px;
+    height:45px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(255,255,255,.2);
+
+    border-radius:14px;
+
+    font-size:22px;
+
+}
+
+.botao-localizacao strong{
+
+    display:block;
+
+    font-size:15px;
+    font-weight:600;
+
+}
+
+.botao-localizacao small{
+
+    display:block;
+
+    color:rgba(255,255,255,.86);
+
+    font-size:10px;
+
+}
+
+
+/* ===========================
+   AVISO DE LOCALIZAÇÃO
+=========================== */
+
+.aviso-localizacao{
+
+    display:flex;
+    align-items:flex-start;
+    gap:9px;
+
+    margin:18px 24px 0;
+    padding:12px 14px;
+
+    color:#4B5563;
+
+    background:#F7FAF8;
+
+    border:1px solid var(--borda);
+    border-radius:14px;
+
+}
+
+.aviso-localizacao i{
+
+    margin-top:1px;
+
+    color:var(--verde-principal);
+
+    font-size:17px;
+
+}
+
+.aviso-localizacao p{
+
+    margin:0;
+
+    font-size:10px;
+    line-height:1.5;
+
+}
+
+
+/* ===========================
+   CADASTRO
+=========================== */
+
+.card-cadastro{
+
+    padding:27px 24px;
+
+}
+
+.titulo-secao{
+
+    display:flex;
+    align-items:flex-start;
+    gap:13px;
+
+    margin-bottom:25px;
+
+}
+
+.icone-titulo{
+
+    min-width:47px;
+    width:47px;
+    height:47px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#FFFFFF;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--verde-secundario),
+            var(--verde-principal)
+        );
 
     border-radius:15px;
 
+    font-size:22px;
+
 }
+
+.titulo-secao h1{
+
+    margin:0 0 4px;
+
+    font-size:21px;
+    font-weight:700;
+
+}
+
+.titulo-secao p{
+
+    margin:0;
+
+    color:var(--texto-secundario);
+
+    font-size:12px;
+    line-height:1.5;
+
+}
+
+.area-foto-cadastro{
+
+    margin-bottom:25px;
+
+    text-align:center;
+
+}
+
+.moldura-foto{
+
+    position:relative;
+
+    width:150px;
+    height:150px;
+
+    margin:0 auto 12px;
+
+}
+
+.moldura-foto img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    background:#EDF2EE;
+
+    border:5px solid #FFFFFF;
+    border-radius:50%;
+
+    box-shadow:
+        0 9px 25px rgba(0,0,0,.15);
+
+}
+
+.botao-camera{
+
+    position:absolute;
+
+    right:3px;
+    bottom:6px;
+
+    width:43px;
+    height:43px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#FFFFFF;
+
+    background:var(--verde-principal);
+
+    border:4px solid #FFFFFF;
+    border-radius:50%;
+
+    cursor:pointer;
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+
+}
+
+.botao-camera:hover{
+
+    background:var(--verde-escuro);
+
+    transform:scale(1.06);
+
+}
+
+.input-foto{
+
+    display:none;
+
+}
+
+.area-foto-cadastro span{
+
+    color:var(--texto-secundario);
+
+    font-size:11px;
+
+}
+
+.formulario-pet{
+
+    display:grid;
+    gap:17px;
+
+}
+
+.campo-grupo label{
+
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    margin-bottom:7px;
+
+    color:#374151;
+
+    font-size:12px;
+    font-weight:600;
+
+}
+
+.campo-grupo label i{
+
+    color:var(--verde-principal);
+
+}
+
+.campo-pet{
+
+    width:100%;
+    height:50px;
+
+    padding:0 15px;
+
+    color:var(--texto);
+
+    background:#FAFCFA;
+
+    border:1px solid var(--borda);
+    border-radius:14px;
+
+    font-family:inherit;
+    font-size:14px;
+
+    outline:none;
+
+    transition:
+        border .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+
+}
+
+.campo-pet::placeholder{
+
+    color:#9CA3AF;
+
+}
+
+.campo-pet:focus{
+
+    background:#FFFFFF;
+
+    border-color:var(--verde-secundario);
+
+    box-shadow:
+        0 0 0 4px rgba(67,160,71,.12);
+
+}
+
+
+/* ===========================
+   BOTÃO PRINCIPAL
+=========================== */
+
+.botao-principal{
+
+    width:100%;
+    min-height:54px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+
+    padding:13px 18px;
+
+    color:#FFFFFF;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--verde-secundario),
+            var(--verde-principal)
+        );
+
+    border:none;
+    border-radius:16px;
+
+    font-family:inherit;
+    font-size:14px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 22px rgba(46,125,50,.22);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+
+}
+
+.botao-principal:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 14px 28px rgba(46,125,50,.28);
+
+}
+
+.botao-principal:active{
+
+    transform:scale(.98);
+
+}
+
+.botao-principal:disabled{
+
+    opacity:.65;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+
+
+/* ===========================
+   MENSAGEM DE SUCESSO
+=========================== */
+
+.card-mensagem{
+
+    padding:45px 28px;
+
+    text-align:center;
+
+}
+
+.icone-sucesso{
+
+    width:90px;
+    height:90px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin:0 auto 18px;
+
+    color:#FFFFFF;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--verde-secundario),
+            var(--verde-principal)
+        );
+
+    border-radius:50%;
+
+    font-size:44px;
+
+    box-shadow:
+        0 12px 28px rgba(46,125,50,.25);
+
+}
+
+.etiqueta-sucesso{
+
+    display:inline-block;
+
+    margin-bottom:10px;
+    padding:6px 12px;
+
+    color:var(--verde-escuro);
+
+    background:var(--verde-claro);
+
+    border-radius:30px;
+
+    font-size:10px;
+    font-weight:600;
+
+    text-transform:uppercase;
+
+}
+
+.card-mensagem h1{
+
+    margin-bottom:10px;
+
+    font-size:25px;
+    font-weight:700;
+
+}
+
+.card-mensagem p{
+
+    margin-bottom:24px;
+
+    color:var(--texto-secundario);
+
+    font-size:13px;
+    line-height:1.6;
+
+}
+
+
+/* ===========================
+   ERRO
+=========================== */
+
+.card-erro{
+
+    padding:45px 28px;
+
+    text-align:center;
+
+}
+
+.icone-erro{
+
+    width:80px;
+    height:80px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin:0 auto 18px;
+
+    color:#FFFFFF;
+
+    background:var(--vermelho);
+
+    border-radius:50%;
+
+    font-size:34px;
+
+}
+
+.card-erro h1{
+
+    margin-bottom:10px;
+
+    font-size:22px;
+    font-weight:700;
+
+}
+
+.card-erro p{
+
+    margin:0;
+
+    color:var(--texto-secundario);
+
+    font-size:13px;
+    line-height:1.6;
+
+}
+
+
+/* ===========================
+   RODAPÉ
+=========================== */
+
+.rodape{
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    margin-top:20px;
+    padding:15px 10px 5px;
+
+}
+
+.rodape span{
+
+    margin-bottom:7px;
+
+    color:var(--texto-secundario);
+
+    font-size:10px;
+
+}
+
+.rodape img{
+
+    width:110px;
+    max-height:45px;
+
+    object-fit:contain;
+
+}
+
 
 /* ===========================
    ANIMAÇÕES
 =========================== */
 
-.card{
-
-    animation:fade .4s ease;
-
-}
-
-@keyframes fade{
+@keyframes aparecer{
 
     from{
 
         opacity:0;
-
-        transform:translateY(15px);
+        transform:translateY(16px);
 
     }
 
     to{
 
         opacity:1;
-
         transform:translateY(0);
 
     }
 
 }
 
+@keyframes pulso{
+
+    0%,
+    100%{
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        transform:scale(1.12);
+
+    }
+
+}
+
+
 /* ===========================
-   MOBILE
+   RESPONSIVIDADE
 =========================== */
 
 @media(max-width:576px){
 
-    h2{
+    .pagina-pet{
 
-        font-size:28px;
-
-    }
-
-    h3{
-
-        font-size:24px;
+        padding:14px 10px 20px;
 
     }
 
-    .btn{
+    .cabecalho{
 
-        font-size:16px;
+        margin-bottom:14px;
 
     }
 
-    #previewFoto,
-    #fotoPerfil{
+    .card-pet{
 
-        width:150px;
+        border-radius:23px;
 
-        height:150px;
+    }
+
+    .faixa-superior{
+
+        height:115px;
+
+    }
+
+    .perfil-foto-area{
+
+        width:155px;
+
+        margin-top:-80px;
+
+    }
+
+    .perfil-foto-moldura{
+
+        width:155px;
+        height:155px;
+
+    }
+
+    .perfil-identidade{
+
+        padding-left:18px;
+        padding-right:18px;
+
+    }
+
+    .perfil-identidade h1{
+
+        font-size:27px;
+
+    }
+
+    .acoes-perfil{
+
+        padding-left:18px;
+        padding-right:18px;
+
+    }
+
+    .texto-ajuda{
+
+        margin-left:18px;
+        margin-right:18px;
+
+    }
+
+    .aviso-localizacao{
+
+        margin-left:18px;
+        margin-right:18px;
+
+    }
+
+    .separador{
+
+        margin-left:18px;
+        margin-right:18px;
+
+    }
+
+    .card-cadastro{
+
+        padding:24px 18px;
+
+    }
+
+}
+
+@media(min-width:768px){
+
+    .pagina-pet{
+
+        padding-top:35px;
 
     }
 
