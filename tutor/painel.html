@@ -1,1 +1,1002 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <title>Painel do Tutor | PET NFC</title>
+
+    <meta
+        name="description"
+        content="Gerencie os dados do seu pet e as informações da sua conta PET NFC.">
+
+    <meta
+        name="theme-color"
+        content="#2E7D32">
+
+    <!-- Google Fonts -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+        rel="stylesheet">
+
+    <!-- CSS -->
+
+    <link
+        href="../assets/css/tutor.css"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- TELA DE CARREGAMENTO -->
+
+<div
+    id="telaCarregamento"
+    class="tela-carregamento">
+
+    <div class="carregamento-conteudo">
+
+        <span class="spinner-grande"></span>
+
+        <p>
+            Carregando seus dados...
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- PÁGINA DO PAINEL -->
+
+<main
+    id="paginaPainel"
+    class="pagina-painel"
+    hidden>
+
+    <div class="container-painel">
+
+
+        <!-- CABEÇALHO -->
+
+        <header class="cabecalho-painel">
+
+            <a
+                href="../index.html"
+                class="marca-painel"
+                aria-label="Voltar para a página inicial">
+
+                <img
+                    src="../assets/img/logo.png"
+                    alt="LINKA Gift"
+                    class="logo-painel"
+                    onerror="this.style.display='none'">
+
+            </a>
+
+
+            <div class="acoes-cabecalho-painel">
+
+                <div class="usuario-cabecalho">
+
+                    <span class="icone-usuario-cabecalho">
+
+                        <i class="bi bi-person-fill"></i>
+
+                    </span>
+
+                    <div>
+
+                        <span>
+                            Olá,
+                        </span>
+
+                        <strong id="nomeTutorCabecalho">
+                            Tutor
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    id="btnSair"
+                    type="button"
+                    class="botao-sair-painel">
+
+                    <i class="bi bi-box-arrow-right"></i>
+
+                    <span>
+                        Sair
+                    </span>
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- APRESENTAÇÃO -->
+
+        <section class="apresentacao-painel">
+
+            <div>
+
+                <span class="etiqueta-painel">
+
+                    <i class="bi bi-paw-fill"></i>
+
+                    Área do Tutor
+
+                </span>
+
+                <h1>
+                    Painel do Tutor
+                </h1>
+
+                <p>
+                    Atualize os dados do seu pet e mantenha as informações
+                    de contato sempre corretas.
+                </p>
+
+            </div>
+
+            <div class="icone-apresentacao-painel">
+
+                <i class="bi bi-person-heart"></i>
+
+            </div>
+
+        </section>
+
+
+        <!-- MENSAGEM GERAL -->
+
+        <div
+            id="mensagemPainel"
+            class="mensagem-painel"
+            role="alert"
+            aria-live="polite">
+
+            <i class="bi bi-info-circle-fill"></i>
+
+            <span></span>
+
+        </div>
+
+
+        <!-- CONTEÚDO PRINCIPAL -->
+
+        <div class="grade-painel">
+
+
+            <!-- COLUNA ESQUERDA -->
+
+            <div class="coluna-principal-painel">
+
+
+                <!-- CARD FOTO -->
+
+                <section class="card-painel card-foto-pet">
+
+                    <div class="cabecalho-card-painel">
+
+                        <div>
+
+                            <span class="icone-titulo-card">
+
+                                <i class="bi bi-image"></i>
+
+                            </span>
+
+                            <div>
+
+                                <h2>
+                                    Foto do pet
+                                </h2>
+
+                                <p>
+                                    Escolha uma foto clara para facilitar a identificação.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="conteudo-foto-pet">
+
+                        <div class="foto-pet-painel">
+
+                            <img
+                                id="fotoPet"
+                                src="../assets/img/pet-placeholder.png"
+                                alt="Foto do pet"
+                                onerror="this.src='../assets/img/logo.png'">
+
+                            <span
+                                id="indicadorFoto"
+                                class="indicador-foto">
+
+                                <i class="bi bi-camera-fill"></i>
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="acoes-foto-pet">
+
+                            <strong id="nomePetFoto">
+                                Meu pet
+                            </strong>
+
+                            <p>
+                                Formatos aceitos: JPG, JPEG, PNG ou WEBP.
+                            </p>
+
+                            <label
+                                for="inputFoto"
+                                class="botao-selecionar-foto">
+
+                                <i class="bi bi-upload"></i>
+
+                                Escolher nova foto
+
+                            </label>
+
+                            <input
+                                id="inputFoto"
+                                type="file"
+                                accept="image/jpeg,image/png,image/webp"
+                                hidden>
+
+                            <button
+                                id="btnRemoverFoto"
+                                type="button"
+                                class="botao-remover-foto">
+
+                                <i class="bi bi-trash3"></i>
+
+                                Remover foto selecionada
+
+                            </button>
+
+                            <span
+                                id="nomeArquivoFoto"
+                                class="nome-arquivo-foto">
+
+                                Nenhuma nova foto selecionada.
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- CARD DADOS -->
+
+                <section class="card-painel">
+
+                    <div class="cabecalho-card-painel">
+
+                        <div>
+
+                            <span class="icone-titulo-card">
+
+                                <i class="bi bi-pencil-square"></i>
+
+                            </span>
+
+                            <div>
+
+                                <h2>
+                                    Dados do pet e do tutor
+                                </h2>
+
+                                <p>
+                                    Confira e atualize as informações abaixo.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <form
+                        id="formDadosTutor"
+                        class="formulario-painel"
+                        novalidate>
+
+
+                        <!-- NOME DO PET -->
+
+                        <div class="campo-grupo">
+
+                            <label for="nomePet">
+
+                                <i class="bi bi-paw-fill"></i>
+
+                                Nome do pet
+
+                            </label>
+
+                            <div class="campo-com-icone">
+
+                                <i class="bi bi-paw"></i>
+
+                                <input
+                                    id="nomePet"
+                                    name="nome_pet"
+                                    type="text"
+                                    placeholder="Digite o nome do pet"
+                                    autocomplete="off"
+                                    maxlength="80"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- NOME DO TUTOR -->
+
+                        <div class="campo-grupo">
+
+                            <label for="nomeTutor">
+
+                                <i class="bi bi-person-fill"></i>
+
+                                Nome do tutor
+
+                            </label>
+
+                            <div class="campo-com-icone">
+
+                                <i class="bi bi-person"></i>
+
+                                <input
+                                    id="nomeTutor"
+                                    name="nome_tutor"
+                                    type="text"
+                                    placeholder="Digite o nome do tutor"
+                                    autocomplete="name"
+                                    maxlength="100"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- WHATSAPP -->
+
+                        <div class="campo-grupo">
+
+                            <label for="whatsapp">
+
+                                <i class="bi bi-whatsapp"></i>
+
+                                WhatsApp
+
+                            </label>
+
+                            <div class="campo-com-icone">
+
+                                <i class="bi bi-phone"></i>
+
+                                <input
+                                    id="whatsapp"
+                                    name="whatsapp"
+                                    type="tel"
+                                    placeholder="(00) 00000-0000"
+                                    autocomplete="tel"
+                                    inputmode="numeric"
+                                    maxlength="20"
+                                    required>
+
+                            </div>
+
+                            <small>
+                                Informe o número com DDD.
+                            </small>
+
+                        </div>
+
+
+                        <!-- E-MAIL -->
+
+                        <div class="campo-grupo">
+
+                            <label for="emailTutor">
+
+                                <i class="bi bi-envelope-fill"></i>
+
+                                E-mail
+
+                            </label>
+
+                            <div class="campo-com-icone">
+
+                                <i class="bi bi-envelope"></i>
+
+                                <input
+                                    id="emailTutor"
+                                    name="email"
+                                    type="email"
+                                    placeholder="Digite o e-mail"
+                                    autocomplete="email"
+                                    maxlength="120"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- TOKEN DA TAG -->
+
+                        <div class="campo-grupo campo-token-tag">
+
+                            <label for="tokenTag">
+
+                                <i class="bi bi-nfc"></i>
+
+                                Identificação da tag
+
+                            </label>
+
+                            <div class="campo-com-icone">
+
+                                <i class="bi bi-upc-scan"></i>
+
+                                <input
+                                    id="tokenTag"
+                                    name="token"
+                                    type="text"
+                                    readonly>
+
+                            </div>
+
+                            <small>
+                                Esta identificação não pode ser alterada.
+                            </small>
+
+                        </div>
+
+
+                        <!-- BOTÃO SALVAR -->
+
+                        <button
+                            id="btnSalvarDados"
+                            type="submit"
+                            class="botao-salvar-painel">
+
+                            <span class="texto-botao">
+
+                                <i class="bi bi-check-circle"></i>
+
+                                Salvar alterações
+
+                            </span>
+
+                            <span class="loading-botao">
+
+                                <span class="spinner"></span>
+
+                                Salvando...
+
+                            </span>
+
+                        </button>
+
+                    </form>
+
+                </section>
+
+            </div>
+
+
+            <!-- COLUNA DIREITA -->
+
+            <aside class="coluna-lateral-painel">
+
+
+                <!-- CARD RESUMO -->
+
+                <section class="card-painel card-resumo-pet">
+
+                    <div class="cabecalho-card-painel">
+
+                        <div>
+
+                            <span class="icone-titulo-card">
+
+                                <i class="bi bi-card-heading"></i>
+
+                            </span>
+
+                            <div>
+
+                                <h2>
+                                    Resumo
+                                </h2>
+
+                                <p>
+                                    Informações atuais da identificação.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="resumo-pet-painel">
+
+                        <div class="item-resumo-painel">
+
+                            <span>
+
+                                <i class="bi bi-paw-fill"></i>
+
+                            </span>
+
+                            <div>
+
+                                <small>
+                                    Pet
+                                </small>
+
+                                <strong id="resumoNomePet">
+                                    Não informado
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="item-resumo-painel">
+
+                            <span>
+
+                                <i class="bi bi-person-fill"></i>
+
+                            </span>
+
+                            <div>
+
+                                <small>
+                                    Tutor
+                                </small>
+
+                                <strong id="resumoNomeTutor">
+                                    Não informado
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="item-resumo-painel">
+
+                            <span>
+
+                                <i class="bi bi-whatsapp"></i>
+
+                            </span>
+
+                            <div>
+
+                                <small>
+                                    WhatsApp
+                                </small>
+
+                                <strong id="resumoWhatsapp">
+                                    Não informado
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="item-resumo-painel">
+
+                            <span>
+
+                                <i class="bi bi-envelope-fill"></i>
+
+                            </span>
+
+                            <div>
+
+                                <small>
+                                    E-mail
+                                </small>
+
+                                <strong id="resumoEmail">
+                                    Não informado
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- CARD ALTERAR SENHA -->
+
+                <section class="card-painel">
+
+                    <div class="cabecalho-card-painel">
+
+                        <div>
+
+                            <span class="icone-titulo-card">
+
+                                <i class="bi bi-shield-lock"></i>
+
+                            </span>
+
+                            <div>
+
+                                <h2>
+                                    Alterar senha
+                                </h2>
+
+                                <p>
+                                    Crie uma senha segura para proteger sua conta.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <form
+                        id="formAlterarSenha"
+                        class="formulario-painel"
+                        novalidate>
+
+
+                        <!-- SENHA ATUAL -->
+
+                        <div class="campo-grupo">
+
+                            <label for="senhaAtual">
+
+                                <i class="bi bi-lock-fill"></i>
+
+                                Senha atual
+
+                            </label>
+
+                            <div class="campo-com-icone">
+
+                                <i class="bi bi-lock"></i>
+
+                                <input
+                                    id="senhaAtual"
+                                    name="senha_atual"
+                                    type="password"
+                                    placeholder="Digite sua senha atual"
+                                    autocomplete="current-password"
+                                    maxlength="100"
+                                    required>
+
+                                <button
+                                    type="button"
+                                    class="botao-mostrar-senha"
+                                    data-campo-senha="senhaAtual"
+                                    aria-label="Mostrar senha atual">
+
+                                    <i class="bi bi-eye"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- NOVA SENHA -->
+
+                        <div class="campo-grupo">
+
+                            <label for="novaSenha">
+
+                                <i class="bi bi-key-fill"></i>
+
+                                Nova senha
+
+                            </label>
+
+                            <div class="campo-com-icone">
+
+                                <i class="bi bi-key"></i>
+
+                                <input
+                                    id="novaSenha"
+                                    name="nova_senha"
+                                    type="password"
+                                    placeholder="Digite a nova senha"
+                                    autocomplete="new-password"
+                                    minlength="6"
+                                    maxlength="100"
+                                    required>
+
+                                <button
+                                    type="button"
+                                    class="botao-mostrar-senha"
+                                    data-campo-senha="novaSenha"
+                                    aria-label="Mostrar nova senha">
+
+                                    <i class="bi bi-eye"></i>
+
+                                </button>
+
+                            </div>
+
+                            <small>
+                                Use pelo menos 6 caracteres.
+                            </small>
+
+                        </div>
+
+
+                        <!-- CONFIRMAR SENHA -->
+
+                        <div class="campo-grupo">
+
+                            <label for="confirmarNovaSenha">
+
+                                <i class="bi bi-shield-check"></i>
+
+                                Confirmar nova senha
+
+                            </label>
+
+                            <div class="campo-com-icone">
+
+                                <i class="bi bi-shield-lock"></i>
+
+                                <input
+                                    id="confirmarNovaSenha"
+                                    name="confirmar_nova_senha"
+                                    type="password"
+                                    placeholder="Repita a nova senha"
+                                    autocomplete="new-password"
+                                    minlength="6"
+                                    maxlength="100"
+                                    required>
+
+                                <button
+                                    type="button"
+                                    class="botao-mostrar-senha"
+                                    data-campo-senha="confirmarNovaSenha"
+                                    aria-label="Mostrar confirmação da senha">
+
+                                    <i class="bi bi-eye"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- MENSAGEM SENHA -->
+
+                        <div
+                            id="mensagemSenha"
+                            class="mensagem-painel"
+                            role="alert"
+                            aria-live="polite">
+
+                            <i class="bi bi-info-circle-fill"></i>
+
+                            <span></span>
+
+                        </div>
+
+
+                        <!-- BOTÃO ALTERAR SENHA -->
+
+                        <button
+                            id="btnAlterarSenha"
+                            type="submit"
+                            class="botao-secundario-painel">
+
+                            <span class="texto-botao">
+
+                                <i class="bi bi-shield-check"></i>
+
+                                Alterar senha
+
+                            </span>
+
+                            <span class="loading-botao">
+
+                                <span class="spinner"></span>
+
+                                Alterando...
+
+                            </span>
+
+                        </button>
+
+                    </form>
+
+                </section>
+
+
+                <!-- CARD SEGURANÇA -->
+
+                <section class="card-painel card-seguranca-painel">
+
+                    <div class="icone-seguranca-painel">
+
+                        <i class="bi bi-shield-check"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Seus dados estão protegidos
+                        </h3>
+
+                        <p>
+                            Nunca compartilhe sua senha ou o acesso ao painel
+                            com pessoas desconhecidas.
+                        </p>
+
+                    </div>
+
+                </section>
+
+
+                <!-- VOLTAR -->
+
+                <a
+                    href="../index.html"
+                    class="link-voltar-painel">
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Voltar para a página principal
+
+                </a>
+
+            </aside>
+
+        </div>
+
+
+        <!-- RODAPÉ -->
+
+        <footer class="rodape-painel">
+
+            <span>
+                Desenvolvido por
+            </span>
+
+            <img
+                src="../assets/img/logo.png"
+                alt="LINKA Gift"
+                onerror="this.style.display='none'">
+
+        </footer>
+
+    </div>
+
+</main>
+
+
+<!-- MODAL DE CONFIRMAÇÃO DO LOGOUT -->
+
+<div
+    id="modalSair"
+    class="modal-painel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="tituloModalSair"
+    hidden>
+
+    <div class="fundo-modal-painel"></div>
+
+    <div class="conteudo-modal-painel">
+
+        <div class="icone-modal-painel">
+
+            <i class="bi bi-box-arrow-right"></i>
+
+        </div>
+
+        <h2 id="tituloModalSair">
+            Sair da conta?
+        </h2>
+
+        <p>
+            Você precisará informar seu e-mail e senha para acessar
+            novamente o painel.
+        </p>
+
+        <div class="acoes-modal-painel">
+
+            <button
+                id="btnCancelarSair"
+                type="button"
+                class="botao-cancelar-modal">
+
+                Cancelar
+
+            </button>
+
+            <button
+                id="btnConfirmarSair"
+                type="button"
+                class="botao-confirmar-modal">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                Sair
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- SCRIPTS -->
+
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/painel.js"></script>
+
+</body>
+
+</html>
