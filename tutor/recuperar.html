@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -8,875 +7,473 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1">
-
-    <title>Recuperar senha | PET NFC</title>
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <meta
         name="theme-color"
-        content="#2E7D32">
+        content="#245b35"
+    >
 
-    <meta
-        name="description"
-        content="Recuperação de acesso à área do tutor PET NFC.">
+    <title>Recuperar senha | PET NFC</title>
 
-    <!-- Google Fonts -->
+    <!-- CSS -->
     <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com">
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
-        rel="stylesheet">
-
-    <!-- CSS da área do tutor -->
-    <link
-        href="css/tutor.css"
-        rel="stylesheet">
-
-    <style>
-
-        /*
-         * Ajustes exclusivos desta página.
-         * O restante do visual utiliza o mesmo tutor/css/tutor.css
-         * empregado na tela de login.
-         */
-
-        .texto-orientacao-recuperacao {
-
-            margin:
-                -12px 0 24px;
-
-            color:
-                var(--texto-secundario, #6B7280);
-
-            text-align: center;
-            font-size: 13px;
-            line-height: 1.65;
-
-        }
-
-        .link-voltar-login {
-
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-
-            margin-top: 22px;
-
-            color:
-                var(--verde-principal, #2E7D32);
-
-            font-size: 13px;
-            font-weight: 600;
-
-            transition:
-                color 0.2s ease,
-                transform 0.2s ease;
-
-        }
-
-        .link-voltar-login:hover {
-
-            color:
-                var(--verde-secundario, #43A047);
-
-            text-decoration: underline;
-            transform: translateX(-2px);
-
-        }
-
-        .caixa-informacao-recuperacao {
-
-            display: flex;
-            align-items: flex-start;
-            gap: 11px;
-
-            margin-top: 20px;
-            padding: 14px 15px;
-
-            color: #526158;
-            background: #F5FAF6;
-
-            border:
-                1px solid #DCEADF;
-
-            border-radius: 13px;
-
-            font-size: 12px;
-            line-height: 1.55;
-
-        }
-
-        .caixa-informacao-recuperacao i {
-
-            margin-top: 2px;
-
-            color:
-                var(--verde-principal, #2E7D32);
-
-            flex-shrink: 0;
-            font-size: 16px;
-
-        }
-
-        .card-login.recuperacao-concluida
-        .formulario-recuperacao,
-
-        .card-login.recuperacao-concluida
-        .caixa-informacao-recuperacao {
-
-            display: none;
-
-        }
-
-        .resultado-recuperacao {
-
-            display: none;
-
-            padding:
-                8px 0 2px;
-
-            text-align: center;
-
-        }
-
-        .card-login.recuperacao-concluida
-        .resultado-recuperacao {
-
-            display: block;
-
-            animation:
-                aparecerMensagem 0.35s ease both;
-
-        }
-
-        .icone-recuperacao-sucesso {
-
-            width: 72px;
-            height: 72px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            margin:
-                0 auto 20px;
-
-            color: #FFFFFF;
-            background:
-                linear-gradient(
-                    145deg,
-                    var(--verde-principal, #2E7D32),
-                    var(--verde-secundario, #43A047)
-                );
-
-            border-radius: 50%;
-
-            box-shadow:
-                0 12px 26px rgba(46, 125, 50, 0.28);
-
-            font-size: 31px;
-
-        }
-
-        .resultado-recuperacao h2 {
-
-            margin-bottom: 10px;
-
-            color:
-                var(--texto-principal, #1F2937);
-
-            font-size: 23px;
-            font-weight: 700;
-
-        }
-
-        .resultado-recuperacao p {
-
-            margin: 0;
-
-            color:
-                var(--texto-secundario, #6B7280);
-
-            font-size: 13px;
-            line-height: 1.65;
-
-        }
-
-        .email-confirmacao {
-
-            display: block;
-
-            margin-top: 8px;
-
-            color:
-                var(--verde-principal, #2E7D32);
-
-            font-weight: 700;
-            overflow-wrap: anywhere;
-
-        }
-
-        .resultado-recuperacao
-        .link-voltar-login {
-
-            margin-top: 25px;
-
-        }
-
-        @media (max-width: 520px) {
-
-            .texto-orientacao-recuperacao {
-
-                font-size: 12px;
-
-            }
-
-            .resultado-recuperacao h2 {
-
-                font-size: 21px;
-
-            }
-
-        }
-
-    </style>
+        rel="stylesheet"
+        href="../assets/css/tutor.css"
+    >
 
 </head>
 
-<body>
+<body class="pagina-login">
 
-<main class="pagina-login">
 
-    <div class="container-login">
+    <main class="container-login">
 
-        <!-- ================= CABEÇALHO ================= -->
-        <header class="cabecalho-login">
 
-            <a
-                href="login.html"
-                aria-label="Voltar para o login">
+        <section class="card-login">
+
+
+            <!-- CABEÇALHO -->
+
+            <header class="cabecalho-login">
 
                 <img
-                    src="../assets/img/logo-pet-nfc.png"
-                    class="logo-login"
+                    src="../assets/img/logo.png"
                     alt="PET NFC"
-                    onerror="this.style.display='none'">
+                    class="logo-login"
+                >
 
-            </a>
-
-        </header>
-
-
-        <!-- ================= CARD ================= -->
-        <section
-            id="cardRecuperacao"
-            class="card-login">
-
-            <div class="icone-login">
-
-                <i class="bi bi-key-fill"></i>
-
-            </div>
-
-
-            <div class="titulo-login">
+                <div class="icone-login">
+                    🔐
+                </div>
 
                 <span class="etiqueta-login">
-
-                    <i class="bi bi-shield-lock-fill"></i>
-
                     Área do tutor
-
                 </span>
 
-                <h1>
+                <h1 class="titulo-login">
                     Recuperar senha
                 </h1>
 
-                <p>
+                <p class="subtitulo-login">
                     Informe o e-mail utilizado no cadastro
                 </p>
 
-            </div>
+            </header>
 
 
-            <!-- ================= FORMULÁRIO ================= -->
-            <div class="formulario-recuperacao">
 
-                <p class="texto-orientacao-recuperacao">
+            <!-- FORMULÁRIO -->
 
-                    Enviaremos as instruções de recuperação para o seu e-mail,
-                    caso exista uma conta cadastrada com esse endereço.
-
-                </p>
-
-
-                <form
-                    id="formRecuperacao"
-                    novalidate>
-
-                    <div class="grupo-campo">
-
-                        <label for="email">
-
-                            E-mail
-
-                        </label>
-
-                        <div class="campo-com-icone">
-
-                            <i class="bi bi-envelope-fill"></i>
-
-                            <input
-                                id="email"
-                                name="email"
-                                type="email"
-                                inputmode="email"
-                                autocomplete="email"
-                                maxlength="120"
-                                placeholder="Digite seu e-mail"
-                                aria-describedby="mensagemRecuperacao"
-                                required>
-
-                        </div>
-
-                    </div>
+            <form
+                id="formRecuperacao"
+                class="formulario-login"
+                novalidate
+            >
 
 
-                    <button
-                        id="btnRecuperar"
-                        type="submit"
-                        class="botao-entrar">
+                <div class="grupo-campo">
 
-                        <span class="texto-botao">
+                    <label
+                        for="email"
+                        class="rotulo-campo"
+                    >
+                        E-mail
+                    </label>
 
-                            <i class="bi bi-send-fill"></i>
-
-                            Enviar instruções
-
-                        </span>
+                    <div class="campo-com-icone">
 
                         <span
-                            class="loading-botao"
-                            aria-hidden="true">
-
-                            <span class="spinner"></span>
-
-                            Enviando...
-
+                            class="icone-campo"
+                            aria-hidden="true"
+                        >
+                            ✉
                         </span>
 
-                    </button>
-
-
-                    <div
-                        id="mensagemRecuperacao"
-                        class="mensagem-login"
-                        role="alert"
-                        aria-live="polite">
-
-                        <i
-                            id="iconeMensagem"
-                            class="bi bi-exclamation-circle-fill"></i>
-
-                        <span id="textoMensagem"></span>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="campo-login"
+                            placeholder="seuemail@exemplo.com"
+                            autocomplete="email"
+                            required
+                        >
 
                     </div>
 
-                </form>
+                </div>
 
 
-                <div class="caixa-informacao-recuperacao">
 
-                    <i class="bi bi-info-circle-fill"></i>
+                <button
+                    type="submit"
+                    id="botaoEnviar"
+                    class="botao-login"
+                >
 
-                    <span>
-
-                        Por segurança, a página não informa se o e-mail está ou
-                        não cadastrado. Verifique também a pasta de spam ou lixo
-                        eletrônico.
-
+                    <span
+                        id="iconeBotao"
+                        aria-hidden="true"
+                    >
+                        ➤
                     </span>
 
-                </div>
+                    <span id="textoBotao">
+                        Enviar instruções
+                    </span>
+
+                </button>
 
 
-                <div style="text-align:center;">
 
-                    <a
-                        href="login.html"
-                        class="link-voltar-login">
-
-                        <i class="bi bi-arrow-left"></i>
-
-                        Voltar para o login
-
-                    </a>
-
-                </div>
-
-            </div>
+                <div
+                    id="mensagem"
+                    class="mensagem-login"
+                    role="alert"
+                    aria-live="polite"
+                ></div>
 
 
-            <!-- ================= RESULTADO ================= -->
-            <div
-                id="resultadoRecuperacao"
-                class="resultado-recuperacao"
-                aria-live="polite">
+            </form>
 
-                <div class="icone-recuperacao-sucesso">
 
-                    <i class="bi bi-envelope-check-fill"></i>
 
-                </div>
+            <!-- AVISO -->
 
-                <h2>
-                    Solicitação enviada
-                </h2>
+            <div class="aviso-seguranca">
+
+                <span
+                    class="icone-aviso"
+                    aria-hidden="true"
+                >
+                    ℹ
+                </span>
 
                 <p>
-
-                    Caso exista uma conta vinculada ao e-mail informado,
-                    você receberá as instruções para recuperar o acesso.
-
-                    <strong
-                        id="emailConfirmacao"
-                        class="email-confirmacao">
-                    </strong>
-
+                    Por segurança, a página não informa se o
+                    e-mail está ou não cadastrado. Verifique
+                    também a pasta de spam ou lixo eletrônico.
                 </p>
 
-                <a
-                    href="login.html"
-                    class="link-voltar-login">
-
-                    <i class="bi bi-arrow-left"></i>
-
-                    Voltar para o login
-
-                </a>
-
             </div>
+
+
+
+            <!-- VOLTAR -->
+
+            <a
+                href="login.html"
+                class="link-voltar"
+            >
+                ← Voltar para o login
+            </a>
+
 
         </section>
 
 
-        <!-- ================= RODAPÉ ================= -->
+
         <footer class="rodape-login">
 
-            <span>
+            <p>
                 Identificação digital e proteção para seu pet
-            </span>
-
-            <img
-                src="../assets/img/logo-linka-gift.png"
-                alt="LINKA Gift"
-                onerror="this.style.display='none'">
+            </p>
 
         </footer>
 
-    </div>
 
-</main>
-
-
-<!-- API compartilhada do projeto -->
-<script src="../assets/js/api.js"></script>
-
-<script>
-
-    /*************************************************
-     * PET NFC
-     * tutor/recuperar.html
-     * Recuperação de senha do tutor
-     *************************************************/
+    </main>
 
 
-    document.addEventListener(
-        "DOMContentLoaded",
-        function () {
 
-            const formulario =
-                document.getElementById(
-                    "formRecuperacao"
-                );
+    <!--
+        A ORDEM DOS SCRIPTS É OBRIGATÓRIA.
 
-            const campoEmail =
-                document.getElementById(
-                    "email"
-                );
+        Primeiro config.js.
+        Depois api.js.
+    -->
+
+    <script src="../assets/js/config.js"></script>
+
+    <script src="../assets/js/api.js"></script>
 
 
-            formulario.addEventListener(
-                "submit",
-                solicitarRecuperacao
+
+    <script>
+
+        /********************************************
+         * ELEMENTOS
+         ********************************************/
+
+        const formRecuperacao =
+            document.getElementById(
+                "formRecuperacao"
             );
-
-
-            campoEmail.addEventListener(
-                "input",
-                function () {
-
-                    campoEmail.classList.remove(
-                        "campo-erro",
-                        "campo-sucesso"
-                    );
-
-                    esconderMensagem();
-
-                }
-            );
-
-
-            campoEmail.focus();
-
-        }
-    );
-
-
-    /* ===================================================
-       ENVIAR SOLICITAÇÃO
-    =================================================== */
-
-    async function solicitarRecuperacao(evento) {
-
-        evento.preventDefault();
-
 
         const campoEmail =
             document.getElementById(
                 "email"
             );
 
-        const btnRecuperar =
+        const botaoEnviar =
             document.getElementById(
-                "btnRecuperar"
+                "botaoEnviar"
             );
 
-        const email =
-            String(
-                campoEmail.value || ""
-            )
-                .trim()
-                .toLowerCase();
-
-
-        esconderMensagem();
-
-        campoEmail.classList.remove(
-            "campo-erro",
-            "campo-sucesso"
-        );
-
-
-        if (!email) {
-
-            marcarErro(
-                campoEmail,
-                "Informe o seu e-mail."
+        const textoBotao =
+            document.getElementById(
+                "textoBotao"
             );
 
-            return;
+        const iconeBotao =
+            document.getElementById(
+                "iconeBotao"
+            );
+
+        const mensagem =
+            document.getElementById(
+                "mensagem"
+            );
+
+
+
+        /********************************************
+         * EXIBIR MENSAGEM
+         ********************************************/
+
+        function exibirMensagem(
+            texto,
+            tipo
+        ) {
+
+            mensagem.textContent = texto;
+
+            mensagem.className =
+                "mensagem-login " +
+                "mensagem-" +
+                tipo;
 
         }
 
 
-        if (!validarEmailRecuperacao(email)) {
 
-            marcarErro(
-                campoEmail,
-                "Informe um endereço de e-mail válido."
-            );
+        /********************************************
+         * LIMPAR MENSAGEM
+         ********************************************/
 
-            return;
+        function limparMensagem() {
+
+            mensagem.textContent = "";
+
+            mensagem.className =
+                "mensagem-login";
 
         }
 
 
-        alterarBotaoRecuperacao(
-            btnRecuperar,
-            true
-        );
 
+        /********************************************
+         * CARREGAMENTO
+         ********************************************/
 
-        try {
+        function definirCarregamento(
+            carregando
+        ) {
 
-            /*
-             * Utiliza a função já existente em:
-             * assets/js/api.js
-             *
-             * API.solicitarRecuperacao(email)
-             *
-             * Essa função envia ao Apps Script:
-             *
-             * action: "solicitarRecuperacao"
-             * email: e-mail informado
-             */
+            botaoEnviar.disabled =
+                carregando;
 
-            if (
-                typeof API === "undefined" ||
-                typeof API.solicitarRecuperacao !==
-                "function"
-            ) {
+            campoEmail.disabled =
+                carregando;
 
-                throw new Error(
-                    "A função API.solicitarRecuperacao não foi encontrada em assets/js/api.js."
+            if (carregando) {
+
+                textoBotao.textContent =
+                    "Enviando...";
+
+                iconeBotao.textContent =
+                    "⏳";
+
+                botaoEnviar.classList.add(
+                    "carregando"
+                );
+
+            } else {
+
+                textoBotao.textContent =
+                    "Enviar instruções";
+
+                iconeBotao.textContent =
+                    "➤";
+
+                botaoEnviar.classList.remove(
+                    "carregando"
                 );
 
             }
 
-
-            const resposta =
-                await API.solicitarRecuperacao(
-                    email
-                );
+        }
 
 
-            if (
-                !resposta ||
-                resposta.sucesso !== true
-            ) {
 
-                mostrarMensagem(
-                    (
+        /********************************************
+         * VALIDAR E-MAIL
+         ********************************************/
+
+        function emailValido(email) {
+
+            const expressao =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            return expressao.test(email);
+
+        }
+
+
+
+        /********************************************
+         * ENVIAR FORMULÁRIO
+         ********************************************/
+
+        formRecuperacao.addEventListener(
+
+            "submit",
+
+            async function(evento) {
+
+                evento.preventDefault();
+
+                limparMensagem();
+
+
+                const email =
+                    campoEmail.value
+                        .trim()
+                        .toLowerCase();
+
+
+                if (!email) {
+
+                    exibirMensagem(
+                        "Informe seu endereço de e-mail.",
+                        "erro"
+                    );
+
+                    campoEmail.focus();
+
+                    return;
+
+                }
+
+
+                if (!emailValido(email)) {
+
+                    exibirMensagem(
+                        "Informe um endereço de e-mail válido.",
+                        "erro"
+                    );
+
+                    campoEmail.focus();
+
+                    return;
+
+                }
+
+
+                definirCarregamento(true);
+
+
+                try {
+
+                    if (
+                        typeof API ===
+                        "undefined"
+                    ) {
+
+                        throw new Error(
+                            "O arquivo api.js não foi carregado."
+                        );
+
+                    }
+
+
+                    if (
+                        typeof API
+                            .solicitarRecuperacao !==
+                        "function"
+                    ) {
+
+                        throw new Error(
+                            "A função solicitarRecuperacao não foi encontrada."
+                        );
+
+                    }
+
+
+                    const resposta =
+                        await API
+                            .solicitarRecuperacao(
+                                email
+                            );
+
+
+                    if (
                         resposta &&
-                        resposta.mensagem
-                    ) ||
-                    "Não foi possível enviar as instruções. Tente novamente.",
-                    "erro"
-                );
+                        resposta.sucesso
+                    ) {
 
-                campoEmail.classList.add(
-                    "campo-erro"
-                );
+                        exibirMensagem(
 
-                return;
+                            resposta.mensagem ||
+
+                            "As instruções de recuperação foram enviadas para o seu e-mail.",
+
+                            "sucesso"
+
+                        );
+
+                        formRecuperacao.reset();
+
+                    } else {
+
+                        exibirMensagem(
+
+                            resposta?.mensagem ||
+
+                            "Não foi possível enviar as instruções de recuperação.",
+
+                            "erro"
+
+                        );
+
+                    }
+
+                } catch (erro) {
+
+                    console.error(
+                        "Erro ao solicitar recuperação:",
+                        erro
+                    );
+
+                    exibirMensagem(
+                        "Erro ao conectar ao servidor.",
+                        "erro"
+                    );
+
+                } finally {
+
+                    definirCarregamento(false);
+
+                }
 
             }
 
-
-            campoEmail.classList.add(
-                "campo-sucesso"
-            );
-
-
-            concluirRecuperacao(
-                email
-            );
-
-
-        } catch (erro) {
-
-            console.error(
-                "Erro ao recuperar senha:",
-                erro
-            );
-
-
-            mostrarMensagem(
-                "Não foi possível conectar ao sistema. Verifique sua internet e tente novamente.",
-                "erro"
-            );
-
-
-        } finally {
-
-            alterarBotaoRecuperacao(
-                btnRecuperar,
-                false
-            );
-
-        }
-
-    }
-
-
-    /* ===================================================
-       VALIDAÇÃO
-    =================================================== */
-
-    function validarEmailRecuperacao(email) {
-
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-            .test(email);
-
-    }
-
-
-    function marcarErro(
-        campo,
-        mensagem
-    ) {
-
-        campo.classList.add(
-            "campo-erro"
         );
 
-        mostrarMensagem(
-            mensagem,
-            "erro"
-        );
+    </script>
 
-        campo.focus();
-
-    }
-
-
-    /* ===================================================
-       MENSAGENS
-    =================================================== */
-
-    function mostrarMensagem(
-        texto,
-        tipo
-    ) {
-
-        const caixa =
-            document.getElementById(
-                "mensagemRecuperacao"
-            );
-
-        const textoMensagem =
-            document.getElementById(
-                "textoMensagem"
-            );
-
-        const iconeMensagem =
-            document.getElementById(
-                "iconeMensagem"
-            );
-
-
-        caixa.classList.remove(
-            "erro",
-            "sucesso",
-            "aviso",
-            "mostrar"
-        );
-
-
-        caixa.classList.add(
-            tipo || "aviso",
-            "mostrar"
-        );
-
-
-        textoMensagem.textContent =
-            texto;
-
-
-        if (tipo === "sucesso") {
-
-            iconeMensagem.className =
-                "bi bi-check-circle-fill";
-
-        } else if (tipo === "aviso") {
-
-            iconeMensagem.className =
-                "bi bi-info-circle-fill";
-
-        } else {
-
-            iconeMensagem.className =
-                "bi bi-exclamation-circle-fill";
-
-        }
-
-    }
-
-
-    function esconderMensagem() {
-
-        const caixa =
-            document.getElementById(
-                "mensagemRecuperacao"
-            );
-
-
-        caixa.classList.remove(
-            "mostrar",
-            "erro",
-            "sucesso",
-            "aviso"
-        );
-
-    }
-
-
-    /* ===================================================
-       BOTÃO
-    =================================================== */
-
-    function alterarBotaoRecuperacao(
-        botao,
-        carregando
-    ) {
-
-        botao.disabled =
-            carregando;
-
-        botao.classList.toggle(
-            "carregando",
-            carregando
-        );
-
-        botao.setAttribute(
-            "aria-busy",
-            carregando
-                ? "true"
-                : "false"
-        );
-
-    }
-
-
-    /* ===================================================
-       CONCLUSÃO
-    =================================================== */
-
-    function concluirRecuperacao(email) {
-
-        const card =
-            document.getElementById(
-                "cardRecuperacao"
-            );
-
-        const emailConfirmacao =
-            document.getElementById(
-                "emailConfirmacao"
-            );
-
-
-        emailConfirmacao.textContent =
-            email;
-
-
-        card.classList.add(
-            "recuperacao-concluida"
-        );
-
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-    }
-
-</script>
 
 </body>
 
