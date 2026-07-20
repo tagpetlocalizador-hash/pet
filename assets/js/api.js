@@ -1,81 +1,51 @@
-// =======================================
-// PET NFC
-// Comunicação com o Apps Script
-// assets/js/api.js
-// =======================================
+/*************************************************
+ * PET NFC
+ * API
+ * assets/js/api.js
+ * Versão 1.0.0
+ *************************************************/
 
 const API = {
 
     /**
-     * Envia uma solicitação POST ao Apps Script.
+     * ==========================================
+     * ENVIA REQUISIÇÃO POST
+     * ==========================================
      */
     async enviar(action, dados = {}) {
 
         try {
 
-            if (
-                typeof CONFIG === "undefined" ||
-                !CONFIG.API_URL
-            ) {
+            const resposta = await fetch(CONFIG.API_URL, {
 
-                throw new Error(
-                    "A URL da API não foi configurada."
-                );
+                method: "POST",
 
-            }
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8"
+                },
 
-            const resposta = await fetch(
-                CONFIG.API_URL,
-                {
-                    method: "POST",
+                body: JSON.stringify({
 
-                    headers: {
-                        "Content-Type": "text/plain;charset=utf-8"
-                    },
+                    action: action,
 
-                    body: JSON.stringify({
-                        action: action,
-                        ...dados
-                    })
-                }
-            );
+                    ...dados
 
-            const texto = await resposta.text();
+                })
 
-            let resultado;
+            });
 
-            try {
-
-                resultado = JSON.parse(texto);
-
-            } catch (erro) {
-
-                console.error(
-                    "Resposta inválida do servidor:",
-                    texto
-                );
-
-                return {
-                    sucesso: false,
-                    mensagem:
-                        "O servidor retornou uma resposta inválida."
-                };
-
-            }
-
-            return resultado;
+            return await resposta.json();
 
         } catch (erro) {
 
-            console.error(
-                "Erro na comunicação com a API:",
-                erro
-            );
+            console.error("Erro API:", erro);
 
             return {
+
                 sucesso: false,
-                mensagem:
-                    "Não foi possível conectar ao servidor."
+
+                mensagem: "Erro ao conectar ao servidor."
+
             };
 
         }
@@ -83,149 +53,212 @@ const API = {
     },
 
 
+
     /**
-     * Login do tutor.
+     * ==========================================
+     * LOGIN
+     * ==========================================
      */
     async login(email, senha) {
 
         return await this.enviar(
+
             "login",
+
             {
-                email: String(email || "").trim(),
-                senha: String(senha || "")
+
+                email,
+
+                senha
+
             }
+
         );
 
     },
 
 
+
     /**
-     * Logout do tutor.
+     * ==========================================
+     * LOGOUT
+     * ==========================================
      */
-    async logout(tokenLogin) {
+    async logout(token_login) {
 
         return await this.enviar(
+
             "logout",
+
             {
-                token_login: tokenLogin
+
+                token_login
+
             }
+
         );
 
     },
 
 
+
     /**
-     * Atualiza os dados do tutor.
+     * ==========================================
+     * ATUALIZAR TUTOR
+     * ==========================================
      */
-    async atualizarTutor(tokenLogin, dados) {
+    async atualizarTutor(token_login, dados) {
 
         return await this.enviar(
+
             "atualizarTutor",
+
             {
-                token_login: tokenLogin,
+
+                token_login,
+
                 ...dados
+
             }
+
         );
 
     },
 
 
+
     /**
-     * Altera a senha do tutor.
+     * ==========================================
+     * ALTERAR SENHA
+     * ==========================================
      */
     async alterarSenha(
-        tokenLogin,
-        senhaAtual,
-        novaSenha
+
+        token_login,
+
+        senha_atual,
+
+        nova_senha
+
     ) {
 
         return await this.enviar(
+
             "alterarSenha",
+
             {
-                token_login: tokenLogin,
-                senha_atual: senhaAtual,
-                nova_senha: novaSenha
+
+                token_login,
+
+                senha_atual,
+
+                nova_senha
+
             }
+
         );
 
     },
 
 
+
     /**
-     * Solicita recuperação de senha.
+     * ==========================================
+     * SOLICITAR RECUPERAÇÃO
+     * ==========================================
      */
     async solicitarRecuperacao(email) {
 
         return await this.enviar(
+
             "solicitarRecuperacao",
+
             {
-                email: String(email || "").trim()
+
+                email
+
             }
+
         );
 
     },
 
 
+
     /**
-     * Redefine a senha usando o token recebido.
+     * ==========================================
+     * REDEFINIR SENHA
+     * ==========================================
      */
     async redefinirSenha(
-        tokenRecuperacao,
-        novaSenha
+
+        token,
+
+        nova_senha
+
     ) {
 
         return await this.enviar(
+
             "redefinirSenha",
+
             {
-                token_recuperacao: tokenRecuperacao,
-                nova_senha: novaSenha
+
+                token,
+
+                nova_senha
+
             }
+
         );
 
     },
 
 
+
     /**
-     * Valida o token de login usando GET.
+     * ==========================================
+     * VALIDAR LOGIN
+     * ==========================================
      */
-    async validarLogin(tokenLogin) {
+    async validarLogin(token_login) {
 
         try {
 
-            const url = new URL(
-                CONFIG.API_URL
-            );
+            const url =
 
-            url.searchParams.set(
-                "action",
-                "validarLogin"
-            );
+                CONFIG.API_URL +
 
-            url.searchParams.set(
-                "token_login",
-                tokenLogin
-            );
+                "?action=validarLogin" +
 
-            const resposta = await fetch(
-                url.toString(),
-                {
-                    method: "GET"
-                }
-            );
+                "&token_login=" +
+
+                encodeURIComponent(token_login);
+
+            const resposta =
+
+                await fetch(url);
 
             return await resposta.json();
 
         } catch (erro) {
 
             console.error(
-                "Erro ao validar login:",
+
+                "Erro validarLogin:",
+
                 erro
+
             );
 
             return {
+
                 sucesso: false,
+
                 mensagem:
-                    "Não foi possível validar o acesso."
+
+                    "Erro ao validar sessão."
+
             };
 
         }
