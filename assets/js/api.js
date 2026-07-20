@@ -2,10 +2,79 @@
  * PET NFC
  * API
  * assets/js/api.js
- * Versão 1.0.0
+ * Versão 1.1.0
  *************************************************/
 
 const API = {
+
+    /**
+     * ==========================================
+     * VERIFICAR CONFIGURAÇÃO
+     * ==========================================
+     */
+    verificarConfiguracao() {
+
+        if (
+            typeof CONFIG === "undefined" ||
+            !CONFIG.API_URL
+        ) {
+
+            throw new Error(
+                "A URL da API não foi configurada."
+            );
+
+        }
+
+    },
+
+
+    /**
+     * ==========================================
+     * INTERPRETAR RESPOSTA
+     * ==========================================
+     */
+    async interpretarResposta(resposta) {
+
+        const texto = await resposta.text();
+
+        if (!texto) {
+
+            return {
+
+                sucesso: false,
+
+                mensagem:
+                    "O servidor retornou uma resposta vazia."
+
+            };
+
+        }
+
+
+        try {
+
+            return JSON.parse(texto);
+
+        } catch (erro) {
+
+            console.error(
+                "Resposta inválida do servidor:",
+                texto
+            );
+
+            return {
+
+                sucesso: false,
+
+                mensagem:
+                    "O servidor retornou uma resposta inválida."
+
+            };
+
+        }
+
+    },
+
 
     /**
      * ==========================================
@@ -16,35 +85,76 @@ const API = {
 
         try {
 
-            const resposta = await fetch(CONFIG.API_URL, {
+            this.verificarConfiguracao();
 
-                method: "POST",
 
-                headers: {
-                    "Content-Type": "text/plain;charset=utf-8"
-                },
+            const resposta = await fetch(
+                CONFIG.API_URL,
+                {
 
-                body: JSON.stringify({
+                    method: "POST",
 
-                    action: action,
+                    headers: {
 
-                    ...dados
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
 
-                })
+                    },
 
-            });
+                    body: JSON.stringify({
 
-            return await resposta.json();
+                        action,
+
+                        ...dados
+
+                    }),
+
+                    redirect: "follow",
+
+                    cache: "no-store"
+
+                }
+            );
+
+
+            if (!resposta.ok) {
+
+                console.error(
+                    "Erro HTTP:",
+                    resposta.status,
+                    resposta.statusText
+                );
+
+                return {
+
+                    sucesso: false,
+
+                    mensagem:
+                        "O servidor apresentou um erro. Código: " +
+                        resposta.status
+
+                };
+
+            }
+
+
+            return await this.interpretarResposta(
+                resposta
+            );
 
         } catch (erro) {
 
-            console.error("Erro API:", erro);
+            console.error(
+                "Erro API:",
+                erro
+            );
 
             return {
 
                 sucesso: false,
 
-                mensagem: "Erro ao conectar ao servidor."
+                mensagem:
+                    "Erro ao conectar com o servidor."
 
             };
 
@@ -52,6 +162,93 @@ const API = {
 
     },
 
+
+    /**
+     * ==========================================
+     * ENVIA REQUISIÇÃO GET
+     * ==========================================
+     */
+    async consultar(action, dados = {}) {
+
+        try {
+
+            this.verificarConfiguracao();
+
+
+            const parametros =
+                new URLSearchParams({
+
+                    action,
+
+                    ...dados
+
+                });
+
+
+            const url =
+                CONFIG.API_URL +
+                "?" +
+                parametros.toString();
+
+
+            const resposta = await fetch(
+                url,
+                {
+
+                    method: "GET",
+
+                    redirect: "follow",
+
+                    cache: "no-store"
+
+                }
+            );
+
+
+            if (!resposta.ok) {
+
+                console.error(
+                    "Erro HTTP:",
+                    resposta.status,
+                    resposta.statusText
+                );
+
+                return {
+
+                    sucesso: false,
+
+                    mensagem:
+                        "O servidor apresentou um erro. Código: " +
+                        resposta.status
+
+                };
+
+            }
+
+
+            return await this.interpretarResposta(
+                resposta
+            );
+
+        } catch (erro) {
+
+            console.error(
+                "Erro de consulta à API:",
+                erro
+            );
+
+            return {
+
+                sucesso: false,
+
+                mensagem:
+                    "Erro ao conectar com o servidor."
+
+            };
+
+        }
+
+    },
 
 
     /**
@@ -67,16 +264,19 @@ const API = {
 
             {
 
-                email,
+                email:
+                    String(email || "")
+                        .trim()
+                        .toLowerCase(),
 
-                senha
+                senha:
+                    String(senha || "")
 
             }
 
         );
 
     },
-
 
 
     /**
@@ -92,7 +292,8 @@ const API = {
 
             {
 
-                token_login
+                token_login:
+                    String(token_login || "")
 
             }
 
@@ -101,13 +302,15 @@ const API = {
     },
 
 
-
     /**
      * ==========================================
      * ATUALIZAR TUTOR
      * ==========================================
      */
-    async atualizarTutor(token_login, dados) {
+    async atualizarTutor(
+        token_login,
+        dados = {}
+    ) {
 
         return await this.enviar(
 
@@ -115,7 +318,8 @@ const API = {
 
             {
 
-                token_login,
+                token_login:
+                    String(token_login || ""),
 
                 ...dados
 
@@ -126,20 +330,15 @@ const API = {
     },
 
 
-
     /**
      * ==========================================
      * ALTERAR SENHA
      * ==========================================
      */
     async alterarSenha(
-
         token_login,
-
         senha_atual,
-
         nova_senha
-
     ) {
 
         return await this.enviar(
@@ -148,18 +347,20 @@ const API = {
 
             {
 
-                token_login,
+                token_login:
+                    String(token_login || ""),
 
-                senha_atual,
+                senha_atual:
+                    String(senha_atual || ""),
 
-                nova_senha
+                nova_senha:
+                    String(nova_senha || "")
 
             }
 
         );
 
     },
-
 
 
     /**
@@ -175,14 +376,16 @@ const API = {
 
             {
 
-                email
+                email:
+                    String(email || "")
+                        .trim()
+                        .toLowerCase()
 
             }
 
         );
 
     },
-
 
 
     /**
@@ -191,11 +394,8 @@ const API = {
      * ==========================================
      */
     async redefinirSenha(
-
         token,
-
         nova_senha
-
     ) {
 
         return await this.enviar(
@@ -204,16 +404,17 @@ const API = {
 
             {
 
-                token,
+                token:
+                    String(token || ""),
 
-                nova_senha
+                nova_senha:
+                    String(nova_senha || "")
 
             }
 
         );
 
     },
-
 
 
     /**
@@ -223,45 +424,18 @@ const API = {
      */
     async validarLogin(token_login) {
 
-        try {
+        return await this.consultar(
 
-            const url =
+            "validarLogin",
 
-                CONFIG.API_URL +
+            {
 
-                "?action=validarLogin" +
+                token_login:
+                    String(token_login || "")
 
-                "&token_login=" +
+            }
 
-                encodeURIComponent(token_login);
-
-            const resposta =
-
-                await fetch(url);
-
-            return await resposta.json();
-
-        } catch (erro) {
-
-            console.error(
-
-                "Erro validarLogin:",
-
-                erro
-
-            );
-
-            return {
-
-                sucesso: false,
-
-                mensagem:
-
-                    "Erro ao validar sessão."
-
-            };
-
-        }
+        );
 
     }
 
