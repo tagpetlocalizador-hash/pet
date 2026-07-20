@@ -1,1 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <title>Área do Tutor | PET NFC</title>
+
+    <meta
+        name="theme-color"
+        content="#2E7D32">
+
+    <!-- Google Fonts -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+        rel="stylesheet">
+
+    <!-- CSS do tutor -->
+    <link
+        href="css/tutor.css"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+<main class="pagina-login">
+
+    <div class="container-login">
+
+        <!-- LOGO SUPERIOR -->
+
+        <header class="cabecalho-login">
+
+            <img
+                src="../img/logo.png"
+                alt="LINKA Gift"
+                class="logo-login"
+                onerror="this.style.display='none'">
+
+        </header>
+
+
+        <!-- CARD DE LOGIN -->
+
+        <section class="card-login">
+
+            <div class="icone-login">
+
+                <i class="bi bi-person-fill"></i>
+
+            </div>
+
+
+            <div class="titulo-login">
+
+                <span class="etiqueta-login">
+
+                    <i class="bi bi-paw-fill"></i>
+
+                    Área do Tutor
+
+                </span>
+
+                <h1>
+                    Bem-vindo!
+                </h1>
+
+                <p>
+                    Acesse sua conta para gerenciar os dados do seu pet.
+                </p>
+
+            </div>
+
+
+            <!-- FORMULÁRIO -->
+
+            <form
+                id="formLogin"
+                class="formulario-login"
+                novalidate>
+
+                <div class="campo-grupo">
+
+                    <label for="email">
+
+                        <i class="bi bi-envelope-fill"></i>
+
+                        E-mail
+
+                    </label>
+
+                    <div class="campo-com-icone">
+
+                        <i class="bi bi-envelope"></i>
+
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            placeholder="Digite seu e-mail"
+                            autocomplete="email"
+                            maxlength="120"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="campo-grupo">
+
+                    <label for="senha">
+
+                        <i class="bi bi-lock-fill"></i>
+
+                        Senha
+
+                    </label>
+
+                    <div class="campo-com-icone">
+
+                        <i class="bi bi-lock"></i>
+
+                        <input
+                            id="senha"
+                            name="senha"
+                            type="password"
+                            placeholder="Digite sua senha"
+                            autocomplete="current-password"
+                            maxlength="100"
+                            required>
+
+                        <button
+                            id="btnMostrarSenha"
+                            type="button"
+                            class="botao-mostrar-senha"
+                            aria-label="Mostrar senha">
+
+                            <i class="bi bi-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="opcoes-login">
+
+                    <label class="lembrar-login">
+
+                        <input
+                            id="lembrar"
+                            type="checkbox">
+
+                        <span class="checkbox-personalizado"></span>
+
+                        <span>
+                            Lembrar de mim
+                        </span>
+
+                    </label>
+
+
+                    <a
+                        href="recuperar.html"
+                        class="link-recuperar">
+
+                        Esqueci minha senha
+
+                    </a>
+
+                </div>
+
+
+                <button
+                    id="btnEntrar"
+                    type="submit"
+                    class="botao-entrar">
+
+                    <span class="texto-botao">
+
+                        <i class="bi bi-box-arrow-in-right"></i>
+
+                        Entrar
+
+                    </span>
+
+                    <span class="loading-botao">
+
+                        <span class="spinner"></span>
+
+                        Entrando...
+
+                    </span>
+
+                </button>
+
+            </form>
+
+
+            <!-- MENSAGEM -->
+
+            <div
+                id="mensagemLogin"
+                class="mensagem-login"
+                role="alert"
+                aria-live="polite">
+
+                <i class="bi bi-info-circle-fill"></i>
+
+                <span></span>
+
+            </div>
+
+        </section>
+
+
+        <!-- RODAPÉ -->
+
+        <footer class="rodape-login">
+
+            <span>
+                Desenvolvido por
+            </span>
+
+            <img
+                src="../img/logo.png"
+                alt="LINKA Gift"
+                onerror="this.style.display='none'">
+
+        </footer>
+
+    </div>
+
+</main>
+
+
+<script src="../js/config.js"></script>
+<script src="../js/api.js"></script>
+<script src="js/login.js"></script>
+
+</body>
+
+</html>
