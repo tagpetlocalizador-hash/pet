@@ -9,11 +9,25 @@
         name="viewport"
         content="width=device-width, initial-scale=1">
 
-    <title>PET NFC</title>
+    <title>PET NFC | LINKA Gift</title>
 
     <meta
         name="theme-color"
-        content="#0d6efd">
+        content="#2E7D32">
+
+    <!-- Google Fonts -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- Bootstrap -->
     <link
@@ -32,332 +46,505 @@
 
 </head>
 
-<body class="bg-light">
+<body>
 
-<div class="container py-4">
+<main class="pagina-pet">
 
-    <!-- LOGO -->
+    <div class="container-pet">
 
-    <div class="text-center mb-4">
+        <!-- ================= CABEÇALHO ================= -->
 
-        <img
-            src="img/logo.png"
-            alt="PET NFC"
-            class="img-fluid"
-            style="max-width:140px;"
-            onerror="this.style.display='none'">
+        <header class="cabecalho">
 
-        <h2 class="fw-bold mt-3">
+            <div class="marca">
 
-            PET NFC
+                <div class="icone-marca">
 
-        </h2>
-
-    </div>
-
-
-    <!-- ================= LOADING ================= -->
-
-    <div id="loading">
-
-        <div class="text-center">
-
-            <div
-                class="spinner-border text-primary mb-3"
-                role="status">
-
-                <span class="visually-hidden">
-                    Carregando...
-                </span>
-
-            </div>
-
-            <h5>
-                Carregando...
-            </h5>
-
-        </div>
-
-    </div>
-
-
-    <!-- ================= CADASTRO ================= -->
-
-    <div
-        id="cadastro"
-        style="display:none;">
-
-        <div class="card shadow border-0">
-
-            <div class="card-body p-4">
-
-                <h4 class="text-center mb-4">
-                    Cadastro do Pet
-                </h4>
-
-                <div class="text-center mb-3">
-
-                    <img
-                        id="previewFoto"
-                        src="img/pet-default.png"
-                        alt="Foto do pet"
-                        class="rounded-circle border object-fit-cover"
-                        width="150"
-                        height="150"
-                        onerror="this.style.display='none'">
+                    <i class="bi bi-heart-fill"></i>
 
                 </div>
 
-                <div class="mb-3">
+                <div>
 
-                    <label
-                        for="foto"
-                        class="form-label">
+                    <strong>PET NFC</strong>
 
-                        Foto do pet
+                    <span>Identificação digital</span>
 
-                    </label>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= LOADING ================= -->
+
+        <section
+            id="loading"
+            class="tela-central">
+
+            <div class="loading-card">
+
+                <div class="loading-patas">
+
+                    <i class="bi bi-paw-fill"></i>
+
+                </div>
+
+                <div
+                    class="spinner-border spinner-pet"
+                    role="status">
+
+                    <span class="visually-hidden">
+                        Carregando...
+                    </span>
+
+                </div>
+
+                <h2>
+                    Carregando perfil
+                </h2>
+
+                <p>
+                    Aguarde um instante...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CADASTRO ================= -->
+
+        <section
+            id="cadastro"
+            class="conteudo-principal"
+            style="display:none;">
+
+            <div class="card-pet card-cadastro">
+
+                <div class="titulo-secao">
+
+                    <div class="icone-titulo">
+
+                        <i class="bi bi-paw-fill"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h1>
+                            Cadastro do Pet
+                        </h1>
+
+                        <p>
+                            Preencha os dados para ativar esta identificação.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="area-foto-cadastro">
+
+                    <div class="moldura-foto">
+
+                        <img
+                            id="previewFoto"
+                            src="img/pet-default.png"
+                            alt="Foto do pet"
+                            onerror="this.src='img/pet-default.png'">
+
+                        <label
+                            for="foto"
+                            class="botao-camera"
+                            aria-label="Selecionar foto">
+
+                            <i class="bi bi-camera-fill"></i>
+
+                        </label>
+
+                    </div>
 
                     <input
                         type="file"
                         id="foto"
-                        class="form-control"
+                        class="input-foto"
                         accept="image/*">
 
-                </div>
-
-                <div class="mb-3">
-
-                    <label
-                        for="nomePet"
-                        class="form-label">
-
-                        Nome do Pet
-
-                    </label>
-
-                    <input
-                        id="nomePet"
-                        type="text"
-                        class="form-control"
-                        maxlength="50"
-                        autocomplete="off"
-                        required>
+                    <span>
+                        Toque na câmera para adicionar uma foto
+                    </span>
 
                 </div>
 
-                <div class="mb-3">
 
-                    <label
-                        for="nomeTutor"
-                        class="form-label">
+                <div class="formulario-pet">
 
-                        Nome do Tutor
+                    <div class="campo-grupo">
 
-                    </label>
+                        <label for="nomePet">
 
-                    <input
-                        id="nomeTutor"
-                        type="text"
-                        class="form-control"
-                        maxlength="80"
-                        autocomplete="name"
-                        required>
+                            <i class="bi bi-heart-fill"></i>
+
+                            Nome do Pet
+
+                        </label>
+
+                        <input
+                            id="nomePet"
+                            type="text"
+                            class="campo-pet"
+                            maxlength="50"
+                            autocomplete="off"
+                            placeholder="Digite o nome do pet"
+                            required>
+
+                    </div>
+
+
+                    <div class="campo-grupo">
+
+                        <label for="nomeTutor">
+
+                            <i class="bi bi-person-fill"></i>
+
+                            Nome do Tutor
+
+                        </label>
+
+                        <input
+                            id="nomeTutor"
+                            type="text"
+                            class="campo-pet"
+                            maxlength="80"
+                            autocomplete="name"
+                            placeholder="Digite o nome do tutor"
+                            required>
+
+                    </div>
+
+
+                    <div class="campo-grupo">
+
+                        <label for="whatsapp">
+
+                            <i class="bi bi-whatsapp"></i>
+
+                            WhatsApp
+
+                        </label>
+
+                        <input
+                            id="whatsapp"
+                            type="tel"
+                            class="campo-pet"
+                            placeholder="Ex.: 11999999999"
+                            inputmode="numeric"
+                            autocomplete="tel"
+                            maxlength="20"
+                            required>
+
+                    </div>
+
+
+                    <div class="campo-grupo">
+
+                        <label for="email">
+
+                            <i class="bi bi-envelope-fill"></i>
+
+                            E-mail
+
+                        </label>
+
+                        <input
+                            id="email"
+                            type="email"
+                            class="campo-pet"
+                            autocomplete="email"
+                            maxlength="120"
+                            placeholder="Digite o e-mail do tutor"
+                            required>
+
+                    </div>
+
+
+                    <button
+                        id="btnCadastrar"
+                        type="button"
+                        class="botao-principal">
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        Ativar identificação
+
+                    </button>
 
                 </div>
-
-                <div class="mb-3">
-
-                    <label
-                        for="whatsapp"
-                        class="form-label">
-
-                        WhatsApp
-
-                    </label>
-
-                    <input
-                        id="whatsapp"
-                        type="tel"
-                        class="form-control"
-                        placeholder="Ex.: 11999999999"
-                        inputmode="numeric"
-                        autocomplete="tel"
-                        maxlength="20"
-                        required>
-
-                </div>
-
-                <div class="mb-4">
-
-                    <label
-                        for="email"
-                        class="form-label">
-
-                        E-mail
-
-                    </label>
-
-                    <input
-                        id="email"
-                        type="email"
-                        class="form-control"
-                        autocomplete="email"
-                        maxlength="120"
-                        required>
-
-                </div>
-
-                <button
-                    id="btnCadastrar"
-                    type="button"
-                    class="btn btn-primary w-100 btn-lg">
-
-                    <i class="bi bi-check-circle-fill me-1"></i>
-
-                    Cadastrar
-
-                </button>
 
             </div>
 
-        </div>
-
-    </div>
+        </section>
 
 
-    <!-- ================= PERFIL ================= -->
+        <!-- ================= PERFIL ================= -->
 
-    <div
-        id="perfil"
-        style="display:none;">
+        <section
+            id="perfil"
+            class="conteudo-principal"
+            style="display:none;">
 
-        <div class="card shadow border-0">
+            <article class="card-pet card-perfil">
 
-            <div class="card-body p-4">
+                <div class="faixa-superior">
 
-                <div class="text-center">
+                    <div class="decoracao-pata pata-esquerda">
 
-                    <img
-                        id="fotoPerfil"
-                        src="img/pet-default.png"
-                        alt="Foto do pet"
-                        class="rounded-circle border object-fit-cover"
-                        width="180"
-                        height="180"
-                        onerror="this.style.display='none'">
+                        <i class="bi bi-paw-fill"></i>
 
-                    <h3
-                        id="perfilNomePet"
-                        class="mt-3 fw-bold">
+                    </div>
 
-                        Nome do Pet
+                    <div class="decoracao-pata pata-direita">
 
-                    </h3>
+                        <i class="bi bi-paw-fill"></i>
 
-                    <p
-                        id="perfilTutor"
-                        class="text-muted mb-0">
-
-                        Tutor
-
-                    </p>
+                    </div>
 
                 </div>
 
-                <hr class="my-4">
 
-                <div class="d-grid gap-3">
+                <div class="perfil-foto-area">
 
-                    <a
-                        id="btnLigar"
-                        href="#"
-                        class="btn btn-primary btn-lg">
+                    <div class="perfil-foto-moldura">
 
-                        <i class="bi bi-telephone-fill me-1"></i>
+                        <img
+                            id="fotoPerfil"
+                            src="img/pet-default.png"
+                            alt="Foto do pet"
+                            onerror="this.src='img/pet-default.png'">
 
-                        Ligar para o tutor
+                    </div>
 
-                    </a>
+                    <div class="selo-identificado">
+
+                        <i class="bi bi-check-lg"></i>
+
+                    </div>
+
+                </div>
+
+
+                <div class="perfil-identidade">
+
+                    <span class="etiqueta-pet">
+
+                        <i class="bi bi-paw-fill"></i>
+
+                        Pet identificado
+
+                    </span>
+
+                    <h1 id="perfilNomePet">
+                        Nome do Pet
+                    </h1>
+
+                    <div class="tutor-info">
+
+                        <div class="tutor-icone">
+
+                            <i class="bi bi-person-fill"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Tutor responsável
+                            </span>
+
+                            <strong id="perfilTutor">
+                                Tutor
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="separador"></div>
+
+
+                <div class="texto-ajuda">
+
+                    <div class="icone-ajuda">
+
+                        <i class="bi bi-heart-fill"></i>
+
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Ajude este pet a voltar para casa
+                        </strong>
+
+                        <p>
+                            Entre em contato com o tutor utilizando uma das opções abaixo.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="acoes-perfil">
 
                     <a
                         id="btnWhatsapp"
                         href="#"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="btn btn-success btn-lg">
+                        class="botao-acao botao-whatsapp">
 
-                        <i class="bi bi-whatsapp me-1"></i>
+                        <span class="botao-icone">
 
-                        Chamar no WhatsApp
+                            <i class="bi bi-whatsapp"></i>
+
+                        </span>
+
+                        <span class="botao-texto">
+
+                            <small>
+                                Enviar mensagem
+                            </small>
+
+                            <strong>
+                                WhatsApp
+                            </strong>
+
+                        </span>
+
+                        <i class="bi bi-chevron-right seta-botao"></i>
 
                     </a>
+
+
+                    <a
+                        id="btnLigar"
+                        href="#"
+                        class="botao-acao botao-ligar">
+
+                        <span class="botao-icone">
+
+                            <i class="bi bi-telephone-fill"></i>
+
+                        </span>
+
+                        <span class="botao-texto">
+
+                            <small>
+                                Fazer uma ligação
+                            </small>
+
+                            <strong>
+                                Ligar para o tutor
+                            </strong>
+
+                        </span>
+
+                        <i class="bi bi-chevron-right seta-botao"></i>
+
+                    </a>
+
 
                     <button
                         id="btnLocalizacao"
                         type="button"
-                        class="btn btn-warning btn-lg">
+                        class="botao-localizacao">
 
-                        <i class="bi bi-geo-alt-fill me-1"></i>
+                        <span class="localizacao-icone">
 
-                        Encontrei este Pet
+                            <i class="bi bi-geo-alt-fill"></i>
+
+                        </span>
+
+                        <span>
+
+                            <strong>
+                                Encontrei este pet
+                            </strong>
+
+                            <small>
+                                Compartilhar minha localização
+                            </small>
+
+                        </span>
 
                     </button>
 
                 </div>
 
+
                 <div
                     id="avisoLocalizacao"
-                    class="alert alert-info text-center mt-4 mb-0">
+                    class="aviso-localizacao">
 
-                    <i class="bi bi-info-circle-fill"></i>
+                    <i class="bi bi-shield-check"></i>
 
-                    Ao tocar em “Encontrei este Pet”, você poderá compartilhar sua localização com o tutor.
+                    <p>
 
-                </div>
+                        Sua localização será utilizada somente para ajudar o tutor a encontrar este pet.
 
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ================= MENSAGEM ================= -->
-
-    <div
-        id="mensagem"
-        style="display:none;"
-        class="mt-4">
-
-        <div class="card shadow border-0">
-
-            <div class="card-body text-center p-4">
-
-                <div
-                    class="text-success mb-3"
-                    style="font-size:55px;">
-
-                    <i class="bi bi-check-circle-fill"></i>
+                    </p>
 
                 </div>
 
-                <h4>
+            </article>
+
+        </section>
+
+
+        <!-- ================= MENSAGEM ================= -->
+
+        <section
+            id="mensagem"
+            class="conteudo-principal"
+            style="display:none;">
+
+            <div class="card-pet card-mensagem">
+
+                <div class="icone-sucesso">
+
+                    <i class="bi bi-check-lg"></i>
+
+                </div>
+
+                <span class="etiqueta-sucesso">
+                    Envio concluído
+                </span>
+
+                <h1>
                     Localização enviada
-                </h4>
+                </h1>
 
-                <p class="mb-3">
+                <p>
 
                     Obrigado por ajudar.
 
-                    A localização foi enviada ao tutor do pet.
+                    O tutor recebeu a localização deste pet.
 
                 </p>
 
                 <button
                     id="btnVoltarPerfil"
                     type="button"
-                    class="btn btn-primary">
+                    class="botao-principal">
+
+                    <i class="bi bi-arrow-left"></i>
 
                     Voltar ao perfil
 
@@ -365,33 +552,53 @@
 
             </div>
 
-        </div>
+        </section>
+
+
+        <!-- ================= ERRO ================= -->
+
+        <section
+            id="erroSistema"
+            class="conteudo-principal"
+            style="display:none;">
+
+            <div class="card-pet card-erro">
+
+                <div class="icone-erro">
+
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+
+                </div>
+
+                <h1>
+                    Não foi possível abrir esta TAG
+                </h1>
+
+                <p id="textoErroSistema"></p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RODAPÉ ================= -->
+
+        <footer class="rodape">
+
+            <span>
+                Desenvolvido por
+            </span>
+
+            <img
+                src="img/logo.png"
+                alt="LINKA Gift"
+                onerror="this.style.display='none'">
+
+        </footer>
 
     </div>
 
-
-    <!-- ================= ERRO ================= -->
-
-    <div
-        id="erroSistema"
-        style="display:none;">
-
-        <div class="alert alert-danger text-center">
-
-            <h4>
-                Não foi possível abrir esta TAG
-            </h4>
-
-            <p
-                id="textoErroSistema"
-                class="mb-0">
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
+</main>
 
 
 <script src="js/config.js"></script>
