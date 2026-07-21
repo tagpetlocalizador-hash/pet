@@ -48,7 +48,11 @@ const estadoPainel = {
 ========================================================= */
 
 let elementos = {};
+let cropper = null;
 
+let imagemTemporaria = "";
+
+let arquivoTemporario = "";
 
 /* =========================================================
    INICIALIZAÇÃO
@@ -212,7 +216,19 @@ function mapearElementos() {
             document.getElementById("btnCancelarSair"),
 
         btnConfirmarSair:
-            document.getElementById("btnConfirmarSair")
+            document.getElementById("btnConfirmarSair"),
+       
+        modalFoto:
+             document.getElementById("modalFoto"),
+
+        imagemCropper:
+             document.getElementById("imagemCropper"),
+
+        btnCancelarFoto:
+             document.getElementById("btnCancelarFoto"),
+
+        btnUsarFoto:
+             document.getElementById("btnUsarFoto")
     };
 
 }
@@ -259,6 +275,39 @@ function configurarEventos() {
         );
 
     }
+   if (elementos.btnCancelarFoto) {
+
+    elementos.btnCancelarFoto.addEventListener(
+        "click",
+        fecharModalFoto
+    );
+
+}
+
+if (elementos.btnUsarFoto) {
+
+    elementos.btnUsarFoto.addEventListener(
+        "click",
+        confirmarRecorteFoto
+    );
+
+}
+
+if (elementos.modalFoto) {
+
+    const fundoFoto =
+        elementos.modalFoto.querySelector(".fundo-modal-painel");
+
+    if (fundoFoto) {
+
+        fundoFoto.addEventListener(
+            "click",
+            fecharModalFoto
+        );
+
+    }
+
+}
 
     if (elementos.whatsapp) {
 
@@ -360,15 +409,18 @@ function configurarEventos() {
     }
 
     document.addEventListener(
-        "keydown",
-        function (evento) {
+    "keydown",
+    function (evento) {
 
-            if (evento.key === "Escape") {
-                fecharModalSair();
-            }
-
+        if (evento.key !== "Escape") {
+            return;
         }
-    );
+
+        fecharModalFoto(false);
+        fecharModalSair();
+
+    }
+);
 
 }
 
@@ -575,33 +627,118 @@ function selecionarFoto(evento) {
         return;
     }
 
+    if (
+        typeof Cropper === "undefined"
+    ) {
+
+        evento.target.value = "";
+
+        mostrarMensagemGeral(
+            "O editor de imagem não foi carregado. Atualize a página e tente novamente.",
+            "erro"
+        );
+
+        return;
+    }
+
+    arquivoTemporario = arquivo.name;
+
     const leitor = new FileReader();
 
     leitor.onload = function () {
 
-        estadoPainel.fotoSelecionada =
-            leitor.result;
+        imagemTemporaria = String(leitor.result || "");
 
-        estadoPainel.nomeArquivoFoto =
-            arquivo.name;
+        if (
+            !imagemTemporaria ||
+            !elementos.imagemCropper
+        ) {
 
-        atualizarImagemPet(
-            estadoPainel.fotoSelecionada
-        );
-
-        atualizarTextoArquivoFoto();
-
-        if (elementos.indicadorFoto) {
-
-            elementos.indicadorFoto.classList.add(
-                "foto-alterada"
+            mostrarMensagemGeral(
+                "Não foi possível preparar a foto selecionada.",
+                "erro"
             );
 
+            return;
         }
+
+        if (cropper) {
+
+            cropper.destroy();
+
+            cropper = null;
+        }
+
+        elementos.imagemCropper.onload = function () {
+
+            elementos.imagemCropper.onload = null;
+
+            setTimeout(function () {
+
+                if (cropper) {
+
+                    cropper.destroy();
+
+                    cropper = null;
+                }
+
+                cropper = new Cropper(
+                    elementos.imagemCropper,
+                    {
+                        aspectRatio: 1,
+                        viewMode: 1,
+                        dragMode: "move",
+                        autoCropArea: 1,
+                        responsive: true,
+                        restore: false,
+                        guides: true,
+                        center: true,
+                        highlight: false,
+                        background: false,
+                        movable: true,
+                        zoomable: true,
+                        zoomOnWheel: true,
+                        zoomOnTouch: true,
+                        cropBoxMovable: true,
+                        cropBoxResizable: true,
+                        toggleDragModeOnDblclick: false,
+                        scalable: false,
+                        rotatable: false,
+                        checkOrientation: true
+                    }
+                );
+
+            }, 100);
+
+        };
+
+        elementos.imagemCropper.onerror = function () {
+
+            elementos.imagemCropper.onerror = null;
+
+            fecharModalFoto(true);
+
+            mostrarMensagemGeral(
+                "Não foi possível abrir a imagem selecionada.",
+                "erro"
+            );
+
+        };
+
+        abrirModalFoto();
+
+        elementos.imagemCropper.src =
+            imagemTemporaria;
 
     };
 
     leitor.onerror = function () {
+
+        evento.target.value = "";
+
+        imagemTemporaria = "";
+
+        arquivoTemporario = "";
 
         mostrarMensagemGeral(
             "Não foi possível ler a foto selecionada.",
@@ -624,6 +761,10 @@ function removerFotoSelecionada() {
     estadoPainel.fotoSelecionada = "";
 
     estadoPainel.nomeArquivoFoto = "";
+
+    imagemTemporaria = "";
+
+    arquivoTemporario = "";
 
     atualizarImagemPet(
         estadoPainel.fotoAtual
@@ -682,6 +823,209 @@ function atualizarTextoArquivoFoto() {
 
 }
 
+
+function abrirModalFoto() {
+
+    if (!elementos.modalFoto) {
+        return;
+    }
+
+    elementos.modalFoto.hidden = false;
+
+    document.body.style.overflow = "hidden";
+
+    setTimeout(function () {
+
+        elementos.modalFoto.classList.add(
+            "aberto"
+        );
+
+    }, 10);
+
+}
+
+
+function fecharModalFoto(cancelarSelecao = true) {
+
+    if (
+        !elementos.modalFoto ||
+        elementos.modalFoto.hidden
+    ) {
+        return;
+    }
+
+    elementos.modalFoto.classList.remove(
+        "aberto"
+    );
+
+    document.body.style.overflow = "";
+
+    if (cropper) {
+
+        cropper.destroy();
+
+        cropper = null;
+    }
+
+    if (elementos.imagemCropper) {
+
+        elementos.imagemCropper.onload = null;
+
+        elementos.imagemCropper.onerror = null;
+    }
+
+    if (cancelarSelecao) {
+
+        imagemTemporaria = "";
+
+        arquivoTemporario = "";
+
+        if (elementos.inputFoto) {
+            elementos.inputFoto.value = "";
+        }
+
+    }
+
+    setTimeout(function () {
+
+        elementos.modalFoto.hidden = true;
+
+        if (elementos.imagemCropper) {
+            elementos.imagemCropper.removeAttribute("src");
+        }
+
+    }, 200);
+
+}
+
+
+function confirmarRecorteFoto() {
+
+    limparMensagemGeral();
+
+    if (!cropper) {
+
+        mostrarMensagemGeral(
+            "A imagem ainda não está pronta para o recorte.",
+            "erro"
+        );
+
+        return;
+    }
+
+    if (elementos.btnUsarFoto) {
+        elementos.btnUsarFoto.disabled = true;
+    }
+
+    try {
+
+        const canvas = cropper.getCroppedCanvas({
+            width: 500,
+            height: 500,
+            minWidth: 300,
+            minHeight: 300,
+            maxWidth: 1000,
+            maxHeight: 1000,
+            imageSmoothingEnabled: true,
+            imageSmoothingQuality: "high",
+            fillColor: "#ffffff"
+        });
+
+        if (!canvas) {
+
+            throw new Error(
+                "Não foi possível gerar a imagem recortada."
+            );
+
+        }
+
+        const fotoRecortada =
+            canvas.toDataURL(
+                "image/jpeg",
+                0.9
+            );
+
+        if (
+            !fotoRecortada ||
+            !fotoRecortada.startsWith(
+                "data:image/jpeg"
+            )
+        ) {
+
+            throw new Error(
+                "Não foi possível preparar a foto recortada."
+            );
+
+        }
+
+        estadoPainel.fotoSelecionada =
+            fotoRecortada;
+
+        estadoPainel.nomeArquivoFoto =
+            gerarNomeFotoRecortada(
+                arquivoTemporario
+            );
+
+        atualizarImagemPet(
+            estadoPainel.fotoSelecionada
+        );
+
+        atualizarTextoArquivoFoto();
+
+        if (elementos.indicadorFoto) {
+
+            elementos.indicadorFoto.classList.add(
+                "foto-alterada"
+            );
+
+        }
+
+        imagemTemporaria = "";
+
+        arquivoTemporario = "";
+
+        fecharModalFoto(false);
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao recortar a foto:",
+            erro
+        );
+
+        mostrarMensagemGeral(
+            erro.message ||
+            "Não foi possível recortar a foto.",
+            "erro"
+        );
+
+    } finally {
+
+        if (elementos.btnUsarFoto) {
+            elementos.btnUsarFoto.disabled = false;
+        }
+
+    }
+
+}
+
+
+function gerarNomeFotoRecortada(nomeOriginal) {
+
+    const nome =
+        String(nomeOriginal || "foto-pet")
+            .trim()
+            .replace(/\.[^.]+$/, "")
+            .replace(/[^\wÀ-ÿ-]+/g, "-")
+            .replace(/-+/g, "-")
+            .replace(/^-|-$/g, "");
+
+    return (
+        nome ||
+        "foto-pet"
+    ) + ".jpg";
+
+}
 
 /* =========================================================
    SALVAR DADOS
