@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#2E7D32"
+    >
+
+    <title>Criar nova senha | PET NFC</title>
+
+
+    <!-- GOOGLE FONTS -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- FONT AWESOME -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- CSS -->
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/tutor.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <main class="pagina-login">
+
+
+        <div class="container-login">
+
+
+            <!-- LOGO -->
+
+            <header class="cabecalho-login">
+
+                <img
+                    src="../assets/img/logo.png"
+                    alt="LINKA Gift"
+                    class="logo-login"
+                >
+
+            </header>
+
+
+
+            <!-- CARD -->
+
+            <section class="card-login">
+
+
+                <!-- ÍCONE -->
+
+                <div class="icone-login">
+
+                    <i
+                        class="fa-solid fa-lock"
+                        aria-hidden="true"
+                    ></i>
+
+                </div>
+
+
+
+                <!-- TÍTULO -->
+
+                <div class="titulo-login">
+
+                    <span class="etiqueta-login">
+
+                        <i
+                            class="fa-solid fa-shield-dog"
+                            aria-hidden="true"
+                        ></i>
+
+                        Área do tutor
+
+                    </span>
+
+
+                    <h1>
+                        Criar nova senha
+                    </h1>
+
+
+                    <p>
+                        Digite e confirme sua nova senha de acesso.
+                    </p>
+
+                </div>
+
+
+
+                <!-- FORMULÁRIO -->
+
+                <form
+                    id="formRedefinir"
+                    class="formulario-login"
+                    novalidate
+                >
+
+
+                    <!-- NOVA SENHA -->
+
+                    <div class="campo-grupo">
+
+                        <label for="novaSenha">
+
+                            <i
+                                class="fa-solid fa-lock"
+                                aria-hidden="true"
+                            ></i>
+
+                            Nova senha
+
+                        </label>
+
+
+                        <div class="campo-com-icone">
+
+                            <i
+                                class="fa-solid fa-key"
+                                aria-hidden="true"
+                            ></i>
+
+
+                            <input
+                                type="password"
+                                id="novaSenha"
+                                name="novaSenha"
+                                placeholder="Digite a nova senha"
+                                autocomplete="new-password"
+                                minlength="6"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                id="mostrarNovaSenha"
+                                aria-label="Mostrar ou ocultar nova senha"
+                                style="
+                                    position:absolute;
+                                    right:16px;
+                                    top:50%;
+                                    transform:translateY(-50%);
+                                    border:none;
+                                    background:transparent;
+                                    cursor:pointer;
+                                    color:#75808d;
+                                    font-size:16px;
+                                    padding:4px;
+                                "
+                            >
+
+                                <i
+                                    class="fa-solid fa-eye"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CONFIRMAR SENHA -->
+
+                    <div class="campo-grupo">
+
+                        <label for="confirmarSenha">
+
+                            <i
+                                class="fa-solid fa-lock"
+                                aria-hidden="true"
+                            ></i>
+
+                            Confirmar nova senha
+
+                        </label>
+
+
+                        <div class="campo-com-icone">
+
+                            <i
+                                class="fa-solid fa-shield-halved"
+                                aria-hidden="true"
+                            ></i>
+
+
+                            <input
+                                type="password"
+                                id="confirmarSenha"
+                                name="confirmarSenha"
+                                placeholder="Digite novamente a nova senha"
+                                autocomplete="new-password"
+                                minlength="6"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                id="mostrarConfirmacao"
+                                aria-label="Mostrar ou ocultar confirmação da senha"
+                                style="
+                                    position:absolute;
+                                    right:16px;
+                                    top:50%;
+                                    transform:translateY(-50%);
+                                    border:none;
+                                    background:transparent;
+                                    cursor:pointer;
+                                    color:#75808d;
+                                    font-size:16px;
+                                    padding:4px;
+                                "
+                            >
+
+                                <i
+                                    class="fa-solid fa-eye"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ORIENTAÇÃO -->
+
+                    <div
+                        class="mensagem-login aviso mostrar"
+                        style="margin-top:4px;margin-bottom:18px;"
+                    >
+
+                        <i
+                            class="fa-solid fa-circle-info"
+                            aria-hidden="true"
+                        ></i>
+
+                        <span>
+                            A nova senha deve possuir pelo menos
+                            6 caracteres.
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- BOTÃO -->
+
+                    <button
+                        type="submit"
+                        id="botaoRedefinir"
+                        class="botao-entrar"
+                    >
+
+
+                        <span class="texto-botao">
+
+                            <i
+                                class="fa-solid fa-check"
+                                aria-hidden="true"
+                            ></i>
+
+                            Salvar nova senha
+
+                        </span>
+
+
+                        <span class="loading-botao">
+
+                            <span
+                                class="spinner"
+                                aria-hidden="true"
+                            ></span>
+
+                            Salvando...
+
+                        </span>
+
+
+                    </button>
+
+
+
+                    <!-- MENSAGEM -->
+
+                    <div
+                        id="mensagem"
+                        class="mensagem-login"
+                        role="alert"
+                        aria-live="polite"
+                    >
+
+                        <i
+                            id="iconeMensagem"
+                            class="fa-solid fa-circle-info"
+                            aria-hidden="true"
+                        ></i>
+
+                        <span id="textoMensagem"></span>
+
+                    </div>
+
+
+                </form>
+
+
+
+                <!-- LINK EXPIRADO OU INVÁLIDO -->
+
+                <div
+                    id="areaLinkInvalido"
+                    style="
+                        display:none;
+                        margin-top:22px;
+                        text-align:center;
+                    "
+                >
+
+                    <a
+                        href="recuperar.html"
+                        class="link-recuperar"
+                        style="
+                            display:flex;
+                            justify-content:center;
+                            align-items:center;
+                            gap:8px;
+                        "
+                    >
+
+                        <i
+                            class="fa-solid fa-rotate-right"
+                            aria-hidden="true"
+                        ></i>
+
+                        Solicitar novo link
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- VOLTAR -->
+
+                <a
+                    href="login.html"
+                    class="link-recuperar"
+                    style="
+                        display:flex;
+                        justify-content:center;
+                        align-items:center;
+                        gap:8px;
+                        margin-top:24px;
+                    "
+                >
+
+                    <i
+                        class="fa-solid fa-arrow-left"
+                        aria-hidden="true"
+                    ></i>
+
+                    Voltar para o login
+
+                </a>
+
+
+            </section>
+
+
+
+            <!-- RODAPÉ -->
+
+            <footer class="rodape-login">
+
+                <span>
+                    Identificação digital e proteção para seu pet
+                </span>
+
+
+                <img
+                    src="../assets/img/logo.png"
+                    alt="LINKA Gift"
+                >
+
+            </footer>
+
+
+        </div>
+
+
+    </main>
+
+
+
+    <!--
+        ORDEM OBRIGATÓRIA:
+
+        1. config.js
+        2. api.js
+        3. código da página
+    -->
+
+    <script src="../assets/js/config.js"></script>
+
+    <script src="../assets/js/api.js"></script>
+
+
+
+    <script>
+
+        /********************************************
+         * ELEMENTOS
+         ********************************************/
+
+        const formRedefinir =
+            document.getElementById(
+                "formRedefinir"
+            );
+
+
+        const campoNovaSenha =
+            document.getElementById(
+                "novaSenha"
+            );
+
+
+        const campoConfirmarSenha =
+            document.getElementById(
+                "confirmarSenha"
+            );
+
+
+        const botaoRedefinir =
+            document.getElementById(
+                "botaoRedefinir"
+            );
+
+
+        const mensagem =
+            document.getElementById(
+                "mensagem"
+            );
+
+
+        const textoMensagem =
+            document.getElementById(
+                "textoMensagem"
+            );
+
+
+        const iconeMensagem =
+            document.getElementById(
+                "iconeMensagem"
+            );
+
+
+        const areaLinkInvalido =
+            document.getElementById(
+                "areaLinkInvalido"
+            );
+
+
+        const botaoMostrarNovaSenha =
+            document.getElementById(
+                "mostrarNovaSenha"
+            );
+
+
+        const botaoMostrarConfirmacao =
+            document.getElementById(
+                "mostrarConfirmacao"
+            );
+
+
+
+        /********************************************
+         * OBTER TOKEN DA URL
+         ********************************************/
+
+        const parametros =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const token =
+            String(
+                parametros.get("token") || ""
+            ).trim();
+
+
+
+        /********************************************
+         * LIMPAR MENSAGEM
+         ********************************************/
+
+        function limparMensagem() {
+
+            mensagem.className =
+                "mensagem-login";
+
+
+            textoMensagem.textContent =
+                "";
+
+
+            iconeMensagem.className =
+                "fa-solid fa-circle-info";
+
+        }
+
+
+
+        /********************************************
+         * EXIBIR MENSAGEM
+         ********************************************/
+
+        function exibirMensagem(
+            texto,
+            tipo
+        ) {
+
+            textoMensagem.textContent =
+                texto;
+
+
+            mensagem.className =
+                "mensagem-login mostrar " +
+                tipo;
+
+
+            if (tipo === "sucesso") {
+
+                iconeMensagem.className =
+                    "fa-solid fa-circle-check";
+
+            } else {
+
+                iconeMensagem.className =
+                    "fa-solid fa-circle-exclamation";
+
+            }
+
+        }
+
+
+
+        /********************************************
+         * ATIVAR CARREGAMENTO
+         ********************************************/
+
+        function ativarCarregamento() {
+
+            botaoRedefinir.disabled =
+                true;
+
+
+            campoNovaSenha.disabled =
+                true;
+
+
+            campoConfirmarSenha.disabled =
+                true;
+
+
+            botaoRedefinir.classList.add(
+                "carregando"
+            );
+
+        }
+
+
+
+        /********************************************
+         * DESATIVAR CARREGAMENTO
+         ********************************************/
+
+        function desativarCarregamento() {
+
+            botaoRedefinir.disabled =
+                false;
+
+
+            campoNovaSenha.disabled =
+                false;
+
+
+            campoConfirmarSenha.disabled =
+                false;
+
+
+            botaoRedefinir.classList.remove(
+                "carregando"
+            );
+
+        }
+
+
+
+        /********************************************
+         * BLOQUEAR FORMULÁRIO
+         ********************************************/
+
+        function bloquearFormulario() {
+
+            campoNovaSenha.disabled =
+                true;
+
+
+            campoConfirmarSenha.disabled =
+                true;
+
+
+            botaoRedefinir.disabled =
+                true;
+
+
+            formRedefinir.classList.add(
+                "formulario-desativado"
+            );
+
+
+            areaLinkInvalido.style.display =
+                "block";
+
+        }
+
+
+
+        /********************************************
+         * MOSTRAR OU OCULTAR SENHA
+         ********************************************/
+
+        function alternarVisibilidade(
+            campo,
+            botao
+        ) {
+
+            const icone =
+                botao.querySelector("i");
+
+
+            if (campo.type === "password") {
+
+                campo.type =
+                    "text";
+
+
+                icone.className =
+                    "fa-solid fa-eye-slash";
+
+            } else {
+
+                campo.type =
+                    "password";
+
+
+                icone.className =
+                    "fa-solid fa-eye";
+
+            }
+
+        }
+
+
+
+        botaoMostrarNovaSenha.addEventListener(
+
+            "click",
+
+            function() {
+
+                alternarVisibilidade(
+                    campoNovaSenha,
+                    botaoMostrarNovaSenha
+                );
+
+            }
+
+        );
+
+
+        botaoMostrarConfirmacao.addEventListener(
+
+            "click",
+
+            function() {
+
+                alternarVisibilidade(
+                    campoConfirmarSenha,
+                    botaoMostrarConfirmacao
+                );
+
+            }
+
+        );
+
+
+
+        /********************************************
+         * REMOVER ERROS AO DIGITAR
+         ********************************************/
+
+        campoNovaSenha.addEventListener(
+
+            "input",
+
+            function() {
+
+                campoNovaSenha.classList.remove(
+                    "campo-erro"
+                );
+
+
+                campoConfirmarSenha.classList.remove(
+                    "campo-erro"
+                );
+
+
+                limparMensagem();
+
+            }
+
+        );
+
+
+        campoConfirmarSenha.addEventListener(
+
+            "input",
+
+            function() {
+
+                campoNovaSenha.classList.remove(
+                    "campo-erro"
+                );
+
+
+                campoConfirmarSenha.classList.remove(
+                    "campo-erro"
+                );
+
+
+                limparMensagem();
+
+            }
+
+        );
+
+
+
+        /********************************************
+         * VALIDAR TOKEN AO ABRIR A PÁGINA
+         ********************************************/
+
+        if (!token) {
+
+            exibirMensagem(
+                "O link de recuperação é inválido ou está incompleto.",
+                "erro"
+            );
+
+
+            bloquearFormulario();
+
+        }
+
+
+
+        /********************************************
+         * ENVIAR NOVA SENHA
+         ********************************************/
+
+        formRedefinir.addEventListener(
+
+            "submit",
+
+            async function(evento) {
+
+                evento.preventDefault();
+
+
+                limparMensagem();
+
+
+                campoNovaSenha.classList.remove(
+                    "campo-erro"
+                );
+
+
+                campoConfirmarSenha.classList.remove(
+                    "campo-erro"
+                );
+
+
+                if (!token) {
+
+                    exibirMensagem(
+                        "O link de recuperação é inválido.",
+                        "erro"
+                    );
+
+
+                    bloquearFormulario();
+
+                    return;
+
+                }
+
+
+                const novaSenha =
+                    campoNovaSenha.value;
+
+
+                const confirmarSenha =
+                    campoConfirmarSenha.value;
+
+
+
+                /*
+                 * CAMPOS VAZIOS
+                 */
+
+                if (
+                    !novaSenha ||
+                    !confirmarSenha
+                ) {
+
+                    if (!novaSenha) {
+
+                        campoNovaSenha.classList.add(
+                            "campo-erro"
+                        );
+
+                    }
+
+
+                    if (!confirmarSenha) {
+
+                        campoConfirmarSenha.classList.add(
+                            "campo-erro"
+                        );
+
+                    }
+
+
+                    exibirMensagem(
+                        "Preencha os dois campos de senha.",
+                        "erro"
+                    );
+
+                    return;
+
+                }
+
+
+
+                /*
+                 * TAMANHO MÍNIMO
+                 */
+
+                if (novaSenha.length < 6) {
+
+                    campoNovaSenha.classList.add(
+                        "campo-erro"
+                    );
+
+
+                    exibirMensagem(
+                        "A nova senha deve possuir pelo menos 6 caracteres.",
+                        "erro"
+                    );
+
+
+                    campoNovaSenha.focus();
+
+                    return;
+
+                }
+
+
+
+                /*
+                 * CONFIRMAÇÃO DIFERENTE
+                 */
+
+                if (novaSenha !== confirmarSenha) {
+
+                    campoNovaSenha.classList.add(
+                        "campo-erro"
+                    );
+
+
+                    campoConfirmarSenha.classList.add(
+                        "campo-erro"
+                    );
+
+
+                    exibirMensagem(
+                        "As senhas digitadas não são iguais.",
+                        "erro"
+                    );
+
+
+                    campoConfirmarSenha.focus();
+
+                    return;
+
+                }
+
+
+
+                ativarCarregamento();
+
+
+
+                try {
+
+                    if (
+                        typeof CONFIG ===
+                        "undefined"
+                    ) {
+
+                        throw new Error(
+                            "CONFIG não foi carregado."
+                        );
+
+                    }
+
+
+                    if (
+                        typeof API ===
+                        "undefined"
+                    ) {
+
+                        throw new Error(
+                            "API não foi carregada."
+                        );
+
+                    }
+
+
+                    if (
+                        typeof API
+                            .redefinirSenha !==
+                        "function"
+                    ) {
+
+                        throw new Error(
+                            "Função redefinirSenha não encontrada."
+                        );
+
+                    }
+
+
+
+                    const resposta =
+                        await API.redefinirSenha(
+                            token,
+                            novaSenha
+                        );
+
+
+
+                    if (
+                        resposta &&
+                        resposta.sucesso
+                    ) {
+
+                        campoNovaSenha.classList.remove(
+                            "campo-erro"
+                        );
+
+
+                        campoConfirmarSenha.classList.remove(
+                            "campo-erro"
+                        );
+
+
+                        campoNovaSenha.classList.add(
+                            "campo-sucesso"
+                        );
+
+
+                        campoConfirmarSenha.classList.add(
+                            "campo-sucesso"
+                        );
+
+
+                        exibirMensagem(
+
+                            resposta.mensagem ||
+
+                            "Senha redefinida com sucesso.",
+
+                            "sucesso"
+
+                        );
+
+
+                        formRedefinir.reset();
+
+
+                        campoNovaSenha.disabled =
+                            true;
+
+
+                        campoConfirmarSenha.disabled =
+                            true;
+
+
+                        botaoRedefinir.disabled =
+                            true;
+
+
+                        botaoRedefinir.classList.remove(
+                            "carregando"
+                        );
+
+
+                        setTimeout(
+
+                            function() {
+
+                                window.location.href =
+                                    "login.html";
+
+                            },
+
+                            2500
+
+                        );
+
+
+                        return;
+
+                    }
+
+
+
+                    const textoErro =
+                        resposta?.mensagem ||
+
+                        "Não foi possível redefinir a senha.";
+
+
+                    exibirMensagem(
+                        textoErro,
+                        "erro"
+                    );
+
+
+                    const textoNormalizado =
+                        textoErro
+                            .toLowerCase();
+
+
+                    if (
+                        textoNormalizado.includes(
+                            "token"
+                        ) ||
+
+                        textoNormalizado.includes(
+                            "expir"
+                        ) ||
+
+                        textoNormalizado.includes(
+                            "link"
+                        )
+                    ) {
+
+                        bloquearFormulario();
+
+                    }
+
+
+                } catch (erro) {
+
+                    console.error(
+                        "Erro ao redefinir senha:",
+                        erro
+                    );
+
+
+                    exibirMensagem(
+                        "Erro ao conectar ao servidor.",
+                        "erro"
+                    );
+
+
+                } finally {
+
+                    if (
+                        !campoNovaSenha.disabled ||
+                        !campoConfirmarSenha.disabled
+                    ) {
+
+                        desativarCarregamento();
+
+                    }
+
+                }
+
+            }
+
+        );
+
+    </script>
+
+
+</body>
+
+</html>
