@@ -990,7 +990,55 @@
 
 </div>
 
+<!-- MODAL AJUSTAR FOTO -->
+<div id="modalFoto" class="modal-painel" hidden>
 
+    <div class="fundo-modal-painel"></div>
+
+    <div class="conteudo-modal-painel modal-cropper">
+
+        <h2>Ajustar foto</h2>
+
+        <p>
+            Ajuste a posição e o zoom da foto antes de salvar.
+        </p>
+
+        <div class="area-cropper">
+
+            <img
+                id="imagemCropper"
+                src=""
+                alt="Foto para ajuste">
+
+        </div>
+
+        <div class="acoes-modal-painel">
+
+            <button
+                id="btnCancelarFoto"
+                type="button"
+                class="botao-cancelar-modal">
+
+                Cancelar
+
+            </button>
+
+            <button
+                id="btnUsarFoto"
+                type="button"
+                class="botao-confirmar-modal">
+
+                <i class="bi bi-check-circle"></i>
+
+                Usar foto
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 <!-- SCRIPTS -->
 
 <script src="../assets/js/config.js"></script>
