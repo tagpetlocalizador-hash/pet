@@ -60,12 +60,14 @@ async function iniciarPainel() {
 
     configurarEventos();
 
-    const tokenLogin = localStorage.getItem(STORAGE.TOKEN);
+    const tokenLogin =
+    localStorage.getItem(STORAGE.TOKEN) ||
+    sessionStorage.getItem(STORAGE.TOKEN);
 
-    if (!tokenLogin) {
-        redirecionarLogin();
-        return;
-    }
+if (!tokenLogin) {
+    redirecionarLogin();
+    return;
+}
 
     estadoPainel.tokenLogin = tokenLogin;
 
@@ -1692,15 +1694,16 @@ function somenteNumeros(valor) {
 function limparSessao() {
 
     localStorage.removeItem(STORAGE.TOKEN);
-
     localStorage.removeItem(STORAGE.NOME_PET);
-
     localStorage.removeItem(STORAGE.NOME_TUTOR);
+
+    sessionStorage.removeItem(STORAGE.TOKEN);
+    sessionStorage.removeItem(STORAGE.NOME_PET);
+    sessionStorage.removeItem(STORAGE.NOME_TUTOR);
 
     estadoPainel.tokenLogin = "";
 
 }
-
 
 function tratarPossivelSessaoExpirada(erro) {
 
