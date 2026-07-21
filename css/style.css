@@ -1481,3 +1481,57 @@ body{
     }
 
 }
+/* =====================================================
+   ACESSO À ÁREA DO TUTOR
+===================================================== */
+
+.acesso-tutor-publico {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid #e5ebe6;
+    text-align: center;
+}
+
+.link-acesso-tutor {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 10px 15px;
+
+    color: #647067;
+    background: transparent;
+
+    border-radius: 10px;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.link-acesso-tutor i {
+    font-size: 16px;
+}
+
+.link-acesso-tutor:hover {
+    color: #2e7d32;
+    background: #edf7ef;
+    transform: translateY(-1px);
+}
+
+.link-acesso-tutor:focus-visible {
+    outline: 3px solid rgba(46, 125, 50, 0.25);
+    outline-offset: 3px;
+}
+
+.link-acesso-tutor:active {
+    transform: translateY(0);
+}
