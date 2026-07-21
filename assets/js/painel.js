@@ -920,24 +920,19 @@ async function atualizarFotoPet(fotoBase64) {
         "atualizarFoto",
         {
             token_login: estadoPainel.tokenLogin,
-            token: estadoPainel.tokenLogin,
-            foto: fotoBase64,
-            foto_pet: fotoBase64
+            token: elementos.tokenTag.value,
+            foto: fotoBase64
         }
     );
 
     if (!resposta || resposta.sucesso !== true) {
-
         throw new Error(
             resposta?.mensagem ||
-            resposta?.erro ||
             "Os dados foram atualizados, mas não foi possível salvar a foto."
         );
-
     }
 
     return resposta;
-
 }
 
 
