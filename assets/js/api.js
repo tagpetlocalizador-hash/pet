@@ -307,27 +307,23 @@ const API = {
      * ATUALIZAR TUTOR
      * ==========================================
      */
-    async atualizarTutor(
-        token_login,
-        dados = {}
-    ) {
+    async atualizarTutor(dados = {}) {
 
-        return await this.enviar(
+    return await this.enviar(
+        "atualizarTutor",
+        {
+            ...dados,
 
-            "atualizarTutor",
+            token_login:
+                String(
+                    dados.token_login ||
+                    dados.token ||
+                    ""
+                ).trim()
+        }
+    );
 
-            {
-
-                token_login:
-                    String(token_login || ""),
-
-                ...dados
-
-            }
-
-        );
-
-    },
+},
 
 
     /**
@@ -335,32 +331,33 @@ const API = {
      * ALTERAR SENHA
      * ==========================================
      */
-    async alterarSenha(
-        token_login,
-        senha_atual,
-        nova_senha
-    ) {
+    async alterarSenha(dados = {}) {
 
-        return await this.enviar(
+    return await this.enviar(
+        "alterarSenha",
+        {
+            ...dados,
 
-            "alterarSenha",
+            token_login:
+                String(
+                    dados.token_login ||
+                    dados.token ||
+                    ""
+                ).trim(),
 
-            {
+            senha_atual:
+                String(
+                    dados.senha_atual || ""
+                ),
 
-                token_login:
-                    String(token_login || ""),
+            nova_senha:
+                String(
+                    dados.nova_senha || ""
+                )
+        }
+    );
 
-                senha_atual:
-                    String(senha_atual || ""),
-
-                nova_senha:
-                    String(nova_senha || "")
-
-            }
-
-        );
-
-    },
+},
 
 
     /**
