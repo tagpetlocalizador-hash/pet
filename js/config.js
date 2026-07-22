@@ -60,6 +60,8 @@ const ACTION = {
 
     ATUALIZAR_FOTO: "atualizarFoto",
 
+    LOGIN_TUTOR: "loginTutor",
+
     LOCALIZACAO: "localizacao",
 
     // ADMIN
