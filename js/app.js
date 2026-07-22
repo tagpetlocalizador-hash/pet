@@ -48,6 +48,14 @@ function configurarEventos() {
     const btnVoltarPerfil =
         document.getElementById("btnVoltarPerfil");
 
+    const btnMostrarSenha =
+        document.getElementById("btnMostrarSenha");
+
+    const btnMostrarConfirmarSenha =
+        document.getElementById(
+            "btnMostrarConfirmarSenha"
+        );
+
 
     if (campoFoto) {
 
@@ -91,6 +99,80 @@ function configurarEventos() {
         );
 
     }
+
+
+    if (btnMostrarSenha) {
+
+        btnMostrarSenha.addEventListener(
+            "click",
+            function () {
+
+                alternarVisibilidadeSenha(
+                    "senha",
+                    btnMostrarSenha
+                );
+
+            }
+        );
+
+    }
+
+
+    if (btnMostrarConfirmarSenha) {
+
+        btnMostrarConfirmarSenha.addEventListener(
+            "click",
+            function () {
+
+                alternarVisibilidadeSenha(
+                    "confirmarSenha",
+                    btnMostrarConfirmarSenha
+                );
+
+            }
+        );
+
+    }
+
+}
+function alternarVisibilidadeSenha(
+    campoId,
+    botao
+) {
+
+    const campo =
+        document.getElementById(
+            campoId
+        );
+
+    if (!campo || !botao) {
+
+        return;
+
+    }
+
+    const estaVisivel =
+        campo.type === "text";
+
+
+    campo.type =
+        estaVisivel
+            ? "password"
+            : "text";
+
+
+    botao.innerHTML =
+        estaVisivel
+            ? '<i class="bi bi-eye"></i>'
+            : '<i class="bi bi-eye-slash"></i>';
+
+
+    botao.setAttribute(
+        "aria-label",
+        estaVisivel
+            ? "Mostrar senha"
+            : "Ocultar senha"
+    );
 
 }
 
@@ -897,6 +979,16 @@ async function salvarCadastro(evento) {
             "email"
         );
 
+    const campoSenha =
+        document.getElementById(
+            "senha"
+        );
+
+    const campoConfirmarSenha =
+        document.getElementById(
+            "confirmarSenha"
+        );
+
     const campoFoto =
         document.getElementById(
             "foto"
@@ -928,6 +1020,16 @@ async function salvarCadastro(evento) {
             ? campoEmail.value.trim()
             : "";
 
+    const senha =
+        campoSenha
+            ? campoSenha.value
+            : "";
+
+    const confirmarSenha =
+        campoConfirmarSenha
+            ? campoConfirmarSenha.value
+            : "";
+
     const arquivoFoto =
         campoFoto &&
         campoFoto.files.length > 0
@@ -939,7 +1041,9 @@ async function salvarCadastro(evento) {
         !nomePet ||
         !nomeTutor ||
         !whatsapp ||
-        !email
+        !email ||
+        !senha ||
+        !confirmarSenha
     ) {
 
         alert(
@@ -957,6 +1061,8 @@ async function salvarCadastro(evento) {
             "Informe um e-mail válido."
         );
 
+        campoEmail.focus();
+
         return;
 
     }
@@ -970,6 +1076,62 @@ async function salvarCadastro(evento) {
             "Informe um WhatsApp válido com DDD."
         );
 
+        campoWhatsapp.focus();
+
+        return;
+
+    }
+
+
+    if (senha.length < 6) {
+
+        alert(
+            "A senha deve possuir pelo menos 6 caracteres."
+        );
+
+        campoSenha.focus();
+
+        return;
+
+    }
+
+
+    if (!/[A-Za-zÀ-ÿ]/.test(senha)) {
+
+        alert(
+            "A senha deve possuir pelo menos uma letra."
+        );
+
+        campoSenha.focus();
+
+        return;
+
+    }
+
+
+    if (!/[0-9]/.test(senha)) {
+
+        alert(
+            "A senha deve possuir pelo menos um número."
+        );
+
+        campoSenha.focus();
+
+        return;
+
+    }
+
+
+    if (senha !== confirmarSenha) {
+
+        alert(
+            "As senhas não coincidem.\n\nDigite a mesma senha nos dois campos."
+        );
+
+        campoConfirmarSenha.value = "";
+
+        campoConfirmarSenha.focus();
+
         return;
 
     }
@@ -978,7 +1140,7 @@ async function salvarCadastro(evento) {
     alterarBotaoCadastro(
         btnCadastrar,
         true,
-        "Cadastrando..."
+        "Ativando..."
     );
 
 
@@ -1000,15 +1162,21 @@ async function salvarCadastro(evento) {
                     whatsapp,
 
                 email:
-                    email
+                    email,
+
+                senha:
+                    senha
 
             });
 
 
-        if (!respostaCadastro.sucesso) {
+        if (
+            !respostaCadastro ||
+            !respostaCadastro.sucesso
+        ) {
 
             alert(
-                respostaCadastro.mensagem ||
+                respostaCadastro?.mensagem ||
                 "Não foi possível cadastrar o pet."
             );
 
@@ -1046,7 +1214,10 @@ async function salvarCadastro(evento) {
                 );
 
 
-            if (!respostaFoto.sucesso) {
+            if (
+                !respostaFoto ||
+                !respostaFoto.sucesso
+            ) {
 
                 alert(
 
@@ -1054,7 +1225,7 @@ async function salvarCadastro(evento) {
                     "mas a foto não foi enviada.\n\n" +
 
                     (
-                        respostaFoto.mensagem ||
+                        respostaFoto?.mensagem ||
                         "Erro desconhecido."
                     )
 
@@ -1073,10 +1244,15 @@ async function salvarCadastro(evento) {
 
 
         const respostaPet =
-            await buscarPet(TOKEN);
+            await buscarPet(
+                TOKEN
+            );
 
 
-        if (!respostaPet.sucesso) {
+        if (
+            !respostaPet ||
+            !respostaPet.sucesso
+        ) {
 
             window.location.reload();
 
@@ -1088,9 +1264,11 @@ async function salvarCadastro(evento) {
         petAtual =
             respostaPet;
 
+
         carregarPerfil(
             respostaPet
         );
+
 
         mostrarPerfil();
 
@@ -1112,7 +1290,7 @@ async function salvarCadastro(evento) {
         alterarBotaoCadastro(
             btnCadastrar,
             false,
-            "Cadastrar"
+            "Ativar identificação"
         );
 
     }
