@@ -504,15 +504,19 @@ async function criarNovaTag() {
 
 
     document
-        .getElementById("novoToken")
-        .innerText =
-        resposta.token;
-
+    .getElementById("novoToken")
+    .innerText =
+    resposta.token;
 
     document
-        .getElementById("novaUrl")
-        .value =
-        resposta.url;
+    .getElementById("novoCodigoAtivacao")
+    .innerText =
+    resposta.codigo_ativacao || "-";
+
+    document
+    .getElementById("novaUrl")
+    .value =
+    resposta.url;
 
 
     document
@@ -564,6 +568,7 @@ function abrirEtiqueta() {
 
     window.location.href = url;
 
+   
 }
 
 
