@@ -182,6 +182,8 @@
 
                 <div class="formulario-pet">
 
+                    <!-- NOME DO PET -->
+
                     <div class="campo-grupo">
 
                         <label for="nomePet">
@@ -204,6 +206,8 @@
                     </div>
 
 
+                    <!-- NOME DO TUTOR -->
+
                     <div class="campo-grupo">
 
                         <label for="nomeTutor">
@@ -225,6 +229,8 @@
 
                     </div>
 
+
+                    <!-- WHATSAPP -->
 
                     <div class="campo-grupo">
 
@@ -249,6 +255,8 @@
                     </div>
 
 
+                    <!-- E-MAIL -->
+
                     <div class="campo-grupo">
 
                         <label for="email">
@@ -270,6 +278,90 @@
 
                     </div>
 
+
+                    <!-- SENHA -->
+
+                    <div class="campo-grupo">
+
+                        <label for="senha">
+
+                            <i class="bi bi-lock-fill"></i>
+
+                            Crie uma senha
+
+                        </label>
+
+                        <div class="campo-senha-area">
+
+                            <input
+                                id="senha"
+                                type="password"
+                                class="campo-pet"
+                                autocomplete="new-password"
+                                minlength="6"
+                                maxlength="50"
+                                placeholder="Digite uma senha"
+                                required>
+
+                            <button
+                                id="btnMostrarSenha"
+                                type="button"
+                                class="botao-mostrar-senha"
+                                aria-label="Mostrar senha">
+
+                                <i class="bi bi-eye"></i>
+
+                            </button>
+
+                        </div>
+
+                        <small class="ajuda-senha">
+                            Use pelo menos 6 caracteres, incluindo letras e números.
+                        </small>
+
+                    </div>
+
+
+                    <!-- CONFIRMAR SENHA -->
+
+                    <div class="campo-grupo">
+
+                        <label for="confirmarSenha">
+
+                            <i class="bi bi-shield-lock-fill"></i>
+
+                            Confirmar senha
+
+                        </label>
+
+                        <div class="campo-senha-area">
+
+                            <input
+                                id="confirmarSenha"
+                                type="password"
+                                class="campo-pet"
+                                autocomplete="new-password"
+                                minlength="6"
+                                maxlength="50"
+                                placeholder="Digite novamente a senha"
+                                required>
+
+                            <button
+                                id="btnMostrarConfirmarSenha"
+                                type="button"
+                                class="botao-mostrar-senha"
+                                aria-label="Mostrar confirmação da senha">
+
+                                <i class="bi bi-eye"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BOTÃO ATIVAR -->
 
                     <button
                         id="btnCadastrar"
@@ -489,34 +581,34 @@
                 </div>
 
 
-               <div
-    id="avisoLocalizacao"
-    class="aviso-localizacao">
+                <div
+                    id="avisoLocalizacao"
+                    class="aviso-localizacao">
 
-    <i class="bi bi-shield-check"></i>
+                    <i class="bi bi-shield-check"></i>
 
-    <p>
-        Sua localização será utilizada somente para ajudar o tutor a encontrar este pet.
-    </p>
+                    <p>
+                        Sua localização será utilizada somente para ajudar o tutor a encontrar este pet.
+                    </p>
 
-</div>
+                </div>
 
 
-<div class="acesso-tutor-publico">
+                <div class="acesso-tutor-publico">
 
-    <a
-        href="tutor/index.html"
-        class="link-acesso-tutor">
+                    <a
+                        href="tutor/index.html"
+                        class="link-acesso-tutor">
 
-        <i class="bi bi-person-lock"></i>
+                        <i class="bi bi-person-lock"></i>
 
-        <span>
-            Sou o tutor deste pet
-        </span>
+                        <span>
+                            Sou o tutor deste pet
+                        </span>
 
-    </a>
+                    </a>
 
-</div>
+                </div>
 
             </article>
 
