@@ -198,16 +198,41 @@ async function editarPet(dados) {
 
 }
 
+/**
+ * Login automático do tutor
+ */
+async function fazerLoginTutor(
+    email,
+    senha
+) {
 
-async function atualizarFoto(token, foto) {
+    return await apiPost({
+
+        action:
+            ACTION.LOGIN_TUTOR,
+
+        email:
+            email,
+
+        senha:
+            senha
+
+    });
+
+}
+
+async function atualizarFoto(
+    tokenLogin,
+    foto
+) {
 
     return await apiPost({
 
         action:
             ACTION.ATUALIZAR_FOTO,
 
-        token:
-            token,
+        token_login:
+            tokenLogin,
 
         foto:
             foto
