@@ -1168,7 +1168,7 @@ async function salvarCadastro(evento) {
 
     nome_tutor: nomeTutor,
 
-    whatsapp: whatsapp,
+    whatsapp: limparTelefone(whatsapp),
 
     email: email,
 
