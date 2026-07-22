@@ -1194,53 +1194,75 @@ async function salvarCadastro(evento) {
 
         if (arquivoFoto) {
 
-            alterarBotaoCadastro(
-                btnCadastrar,
-                true,
-                "Preparando foto..."
+    alterarBotaoCadastro(
+        btnCadastrar,
+        true,
+        "Iniciando sessão..."
+    );
+
+    const respostaLogin =
+        await fazerLoginTutor(
+            email,
+            senha
+        );
+
+    if (
+        !respostaLogin ||
+        !respostaLogin.sucesso ||
+        !respostaLogin.token_login
+    ) {
+
+        alert(
+            "O cadastro foi realizado, mas não foi possível iniciar a sessão.\n\n" +
+            (
+                respostaLogin?.mensagem ||
+                "Erro desconhecido."
+            )
+        );
+
+    } else {
+
+        alterarBotaoCadastro(
+            btnCadastrar,
+            true,
+            "Preparando foto..."
+        );
+
+        const fotoBase64 =
+            await reduzirFoto(
+                arquivoFoto
             );
 
+        alterarBotaoCadastro(
+            btnCadastrar,
+            true,
+            "Enviando foto..."
+        );
 
-            const fotoBase64 =
-                await reduzirFoto(
-                    arquivoFoto
-                );
-
-
-            alterarBotaoCadastro(
-                btnCadastrar,
-                true,
-                "Enviando foto..."
+        const respostaFoto =
+            await atualizarFoto(
+                respostaLogin.token_login,
+                fotoBase64
             );
 
+        if (
+            !respostaFoto ||
+            !respostaFoto.sucesso
+        ) {
 
-            const respostaFoto =
-                await atualizarFoto(
-                    TOKEN,
-                    fotoBase64
-                );
-
-
-            if (
-                !respostaFoto ||
-                !respostaFoto.sucesso
-            ) {
-
-                alert(
-
-                    "O cadastro foi realizado, " +
-                    "mas a foto não foi enviada.\n\n" +
-
-                    (
-                        respostaFoto?.mensagem ||
-                        "Erro desconhecido."
-                    )
-
-                );
-
-            }
+            alert(
+                "O cadastro foi realizado, mas a foto não foi enviada.\n\n" +
+                (
+                    respostaFoto?.mensagem ||
+                    "Erro desconhecido."
+                )
+            );
 
         }
+
+    }
+
+}
 
 
         alterarBotaoCadastro(
