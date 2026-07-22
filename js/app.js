@@ -978,6 +978,11 @@ async function salvarCadastro(evento) {
         document.getElementById(
             "email"
         );
+   
+   const campoCodigoAtivacao =
+    document.getElementById(
+        "codigoAtivacao"
+    );
 
     const campoSenha =
         document.getElementById(
@@ -1019,6 +1024,11 @@ async function salvarCadastro(evento) {
         campoEmail
             ? campoEmail.value.trim()
             : "";
+   
+   const codigoAtivacao =
+    campoCodigoAtivacao
+        ? campoCodigoAtivacao.value.trim()
+        : "";
 
     const senha =
         campoSenha
@@ -1038,13 +1048,14 @@ async function salvarCadastro(evento) {
 
 
     if (
-        !nomePet ||
-        !nomeTutor ||
-        !whatsapp ||
-        !email ||
-        !senha ||
-        !confirmarSenha
-    ) {
+    !codigoAtivacao ||
+    !nomePet ||
+    !nomeTutor ||
+    !whatsapp ||
+    !email ||
+    !senha ||
+    !confirmarSenha
+) {
 
         alert(
             "Preencha todos os campos."
@@ -1147,27 +1158,23 @@ async function salvarCadastro(evento) {
     try {
 
         const respostaCadastro =
-            await cadastrarPet({
+    await cadastrarPet({
 
-                token:
-                    TOKEN,
+    token: TOKEN,
 
-                nome_pet:
-                    nomePet,
+    codigo_ativacao: codigoAtivacao,
 
-                nome_tutor:
-                    nomeTutor,
+    nome_pet: nomePet,
 
-                whatsapp:
-                    whatsapp,
+    nome_tutor: nomeTutor,
 
-                email:
-                    email,
+    whatsapp: whatsapp,
 
-                senha:
-                    senha
+    email: email,
 
-            });
+    senha: senha
+
+});
 
 
         if (
