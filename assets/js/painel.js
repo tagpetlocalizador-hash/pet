@@ -475,7 +475,7 @@ async function validarSessao() {
 ========================================================= */
 
 function preencherPainel(dados) {
-
+console.log("DADOS DO PAINEL:", dados);
     const nomePet =
         dados.nome_pet ||
         localStorage.getItem(STORAGE.NOME_PET) ||
