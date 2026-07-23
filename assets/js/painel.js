@@ -1117,7 +1117,7 @@ async function salvarDadosTutor(evento) {
 
         const dadosAtualizacao = {
             token_login: estadoPainel.tokenLogin,
-            token: estadoPainel.tokenLogin,
+            token: estadoPainel.tokenTag.value,
             nome_pet: nomePet,
             nome_tutor: nomeTutor,
             whatsapp: whatsapp,
