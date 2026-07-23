@@ -223,6 +223,7 @@ async function fazerLoginTutor(
 
 async function atualizarFoto(
     tokenLogin,
+    tokenPet,
     foto
 ) {
 
@@ -233,6 +234,9 @@ async function atualizarFoto(
 
         token_login:
             tokenLogin,
+
+        token:
+            tokenPet,
 
         foto:
             foto
