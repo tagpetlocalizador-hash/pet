@@ -159,6 +159,9 @@ function mapearElementos() {
 
         nomeTutorCabecalho:
             document.getElementById("nomeTutorCabecalho"),
+       
+       seletorPets:
+            document.getElementById("seletorPets"),
 
         fotoPet:
             document.getElementById("fotoPet"),
@@ -502,6 +505,44 @@ function selecionarPetPainel(pet) {
     estadoPainel.petSelecionado = pet;
 
     preencherPainel(pet);
+
+    atualizarSeletorPets();
+
+}
+function atualizarSeletorPets() {
+
+    if (!elementos.seletorPets) {
+        return;
+    }
+
+    elementos.seletorPets.innerHTML = "";
+
+    estadoPainel.pets.forEach(function (pet, indice) {
+
+        const botao = document.createElement("button");
+
+        botao.type = "button";
+
+        botao.className = "botao-pet";
+
+        if (pet === estadoPainel.petSelecionado) {
+            botao.classList.add("ativo");
+        }
+
+        botao.textContent =
+            pet.nome_pet ||
+            "Pet " + (indice + 1);
+
+        botao.addEventListener(
+            "click",
+            function () {
+                selecionarPetPainel(pet);
+            }
+        );
+
+        elementos.seletorPets.appendChild(botao);
+
+    });
 
 }
 function preencherPainel(dados) {
