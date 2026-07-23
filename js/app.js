@@ -1242,6 +1242,7 @@ async function salvarCadastro(evento) {
         const respostaFoto =
             await atualizarFoto(
                 respostaLogin.token_login,
+                TOKEN,
                 fotoBase64
             );
 
