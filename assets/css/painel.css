@@ -2688,3 +2688,47 @@ height:320px;
 }
 
 }
+.seletor-pets{
+
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+margin:25px 0;
+
+}
+
+.botao-pet{
+
+padding:12px 20px;
+
+border:none;
+
+border-radius:12px;
+
+background:#e8f5e9;
+
+color:#2E7D32;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.botao-pet:hover{
+
+background:#c8e6c9;
+
+}
+
+.botao-pet.ativo{
+
+background:#2E7D32;
+
+color:#fff;
+
+box-shadow:0 6px 18px rgba(46,125,50,.25);
+
+}
