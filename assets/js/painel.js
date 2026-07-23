@@ -32,16 +32,28 @@ const TIPOS_FOTO_PERMITIDOS = [
 ========================================================= */
 
 const estadoPainel = {
-    tokenLogin: "",
-    fotoAtual: "",
-    fotoSelecionada: "",
-    nomeArquivoFoto: "",
-    dadosCarregados: false,
-    salvandoDados: false,
-    alterandoSenha: false,
-    saindo: false
-};
 
+    tokenLogin: "",
+
+    pets: [],
+
+    petSelecionado: null,
+
+    fotoAtual: "",
+
+    fotoSelecionada: "",
+
+    nomeArquivoFoto: "",
+
+    dadosCarregados: false,
+
+    salvandoDados: false,
+
+    alterandoSenha: false,
+
+    saindo: false
+
+};
 
 /* =========================================================
    ELEMENTOS DA PÁGINA
@@ -90,7 +102,15 @@ if (!tokenLogin) {
             return;
         }
 
-        preencherPainel(resposta);
+        estadoPainel.pets =
+    Array.isArray(resposta.pets) &&
+    resposta.pets.length > 0
+        ? resposta.pets
+        : [resposta];
+
+selecionarPetPainel(
+    estadoPainel.pets[0]
+);
 
         estadoPainel.dadosCarregados = true;
 
@@ -473,7 +493,17 @@ async function validarSessao() {
 /* =========================================================
    PREENCHER PAINEL
 ========================================================= */
+function selecionarPetPainel(pet) {
 
+    if (!pet) {
+        return;
+    }
+
+    estadoPainel.petSelecionado = pet;
+
+    preencherPainel(pet);
+
+}
 function preencherPainel(dados) {
 console.log("DADOS DO PAINEL:", dados);
     const nomePet =
