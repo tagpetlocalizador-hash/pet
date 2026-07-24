@@ -22,6 +22,8 @@ const ACTION = {
 
     LISTAR_PETS: "listarPets",
 
+    SALVAR_PET: "salvarPet",
+
     BUSCAR_TAG: "buscarTag",
 
     GERAR_TAG: "gerarTag",
