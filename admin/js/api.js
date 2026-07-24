@@ -293,3 +293,19 @@ async function listarPets() {
     );
 
 }
+
+//==================================================
+// SALVAR PET
+//==================================================
+
+async function salvarPetAdmin(dados){
+
+    return await apiPost(
+
+        ACTION.SALVAR_PET,
+
+        dados
+
+    );
+
+}
