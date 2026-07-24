@@ -298,14 +298,14 @@ async function listarPets() {
 // SALVAR PET
 //==================================================
 
-async function salvarPetAdmin(dados){
+async function salvarPetAdmin(dados) {
 
-    return await apiPost(
+    return await apiPost({
 
-        ACTION.SALVAR_PET,
+        ...dados,
 
-        dados
+        action: ACTION.SALVAR_PET
 
-    );
+    });
 
 }
