@@ -255,6 +255,12 @@ async function iniciarSistema() {
 
         mostrarPerfil();
 
+        setTimeout(function () {
+
+            verificarLocalizacaoAutomatica();
+
+        }, 800);
+
     } catch (erro) {
 
         console.error("Erro ao iniciar sistema:", erro);
@@ -1368,11 +1374,6 @@ function validarEmail(email) {
 
 function enviarMinhaLocalizacao() {
 
-    /*
-     * O botão sempre tenta enviar novamente,
-     * mesmo que a localização automática já tenha sido enviada.
-     */
-
     if (enviandoLocalizacao) {
         return;
     }
@@ -1381,7 +1382,7 @@ function enviarMinhaLocalizacao() {
 
         alert(
             "📍 A localização está desligada ou bloqueada.\n\n" +
-            "Ligue a localização do celular e passe a tag novamente para ajudar a encontrar o tutor deste pet."
+            "Ligue a localização do celular e tente novamente para ajudar a encontrar o tutor deste pet."
         );
 
         return;
@@ -1484,7 +1485,7 @@ function enviarMinhaLocalizacao() {
 
         {
             enableHighAccuracy: true,
-            timeout: 20000,
+            timeout: 30000,
             maximumAge: 0
         }
 
