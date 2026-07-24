@@ -2041,40 +2041,46 @@ function aplicarMascaraWhatsapp(evento) {
 
 function formatarWhatsapp(valor) {
 
-    const numeros =
-        somenteNumeros(valor).slice(0, 11);
+    let numeros =
+        somenteNumeros(valor);
+
+    /*
+     * Caso o número venha com o código do Brasil,
+     * remove o 55 apenas para exibição no painel.
+     */
+    if (
+        numeros.startsWith("55") &&
+        numeros.length === 13
+    ) {
+        numeros = numeros.substring(2);
+    }
+
+    numeros = numeros.slice(0, 11);
 
     if (numeros.length <= 2) {
-
         return numeros;
-
     }
 
     if (numeros.length <= 6) {
-
         return numeros.replace(
             /^(\d{2})(\d+)/,
             "($1) $2"
         );
-
     }
 
     if (numeros.length <= 10) {
-
         return numeros.replace(
             /^(\d{2})(\d{4})(\d+)/,
             "($1) $2-$3"
         );
-
     }
 
     return numeros.replace(
-        /^(\d{2})(\d{5})(\d{4})/,
+        /^(\d{2})(\d{5})(\d{4})$/,
         "($1) $2-$3"
     );
 
 }
-
 
 /* =========================================================
    VALIDAÇÕES
