@@ -263,20 +263,18 @@ onclick="abrirPet('${pet.token}')">
 </button>
 
 <button
-
 class="btn btn-sm btn-warning"
-
-disabled>
+onclick="editarPetAdmin('${pet.token}')"
+title="Editar pet">
 
 <i class="bi bi-pencil"></i>
 
 </button>
 
 <button
-
 class="btn btn-sm btn-danger"
-
-disabled>
+onclick="excluirPetAdmin('${pet.token}')"
+title="Excluir pet">
 
 <i class="bi bi-trash"></i>
 
@@ -373,5 +371,101 @@ function abrirPet(token){
         pet.token;
 
     modalPet.show();
+
+}
+
+//==================================================
+// EDITAR PET
+//==================================================
+
+function editarPetAdmin(token) {
+
+    const pet = pets.find(
+        item => item.token === token
+    );
+
+    if (!pet) {
+
+        alert("Pet não encontrado.");
+
+        return;
+
+    }
+
+    /*
+     * Por enquanto, envia para a futura
+     * página de edição do pet.
+     */
+    window.location.href =
+        "editar-pet.html?token=" +
+        encodeURIComponent(token);
+
+}
+
+
+//==================================================
+// EXCLUIR PET
+//==================================================
+
+async function excluirPetAdmin(token) {
+
+    const pet = pets.find(
+        item => item.token === token
+    );
+
+    if (!pet) {
+
+        alert("Pet não encontrado.");
+
+        return;
+
+    }
+
+    const confirmar = confirm(
+        "Deseja realmente excluir o pet " +
+        pet.nome_pet +
+        "?\n\n" +
+        "A TAG será resetada e ficará disponível para outro cadastro."
+    );
+
+    if (!confirmar) {
+
+        return;
+
+    }
+
+    try {
+
+        /*
+         * Usa a função resetarTag já existente
+         * no arquivo api.js.
+         */
+        const resposta =
+            await resetarTag(token);
+
+        if (!resposta.sucesso) {
+
+            throw new Error(
+                resposta.mensagem ||
+                "Não foi possível excluir o pet."
+            );
+
+        }
+
+        alert(
+            "Pet excluído com sucesso.\n" +
+            "A TAG agora está LIVRE."
+        );
+
+        await carregarPets();
+
+    } catch (erro) {
+
+        alert(
+            "Erro ao excluir pet:\n" +
+            erro.message
+        );
+
+    }
 
 }
