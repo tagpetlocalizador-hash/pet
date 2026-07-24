@@ -255,12 +255,6 @@ async function iniciarSistema() {
 
         mostrarPerfil();
 
-        setTimeout(function () {
-
-            verificarLocalizacaoAutomatica();
-
-        }, 800);
-
     } catch (erro) {
 
         console.error("Erro ao iniciar sistema:", erro);
