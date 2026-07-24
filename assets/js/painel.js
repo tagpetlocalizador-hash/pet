@@ -1118,15 +1118,8 @@ async function salvarDadosTutor(evento) {
     const nomeTutor =
         elementos.nomeTutor.value.trim();
 
-    let whatsapp =
-    somenteNumeros(elementos.whatsapp.value);
-
-    if (
-    whatsapp.startsWith("55") &&
-    whatsapp.length === 13
-) {
-    whatsapp = whatsapp.substring(2);
-}
+    const whatsapp =
+        somenteNumeros(elementos.whatsapp.value);
 
     const email =
         elementos.emailTutor.value.trim().toLowerCase();
