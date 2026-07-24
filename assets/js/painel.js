@@ -251,7 +251,10 @@ function mapearElementos() {
              document.getElementById("btnCancelarFoto"),
 
         btnUsarFoto:
-             document.getElementById("btnUsarFoto")
+    document.getElementById("btnUsarFoto"),
+
+       btnPaginaInicial:
+    document.getElementById("btnPaginaInicial")
     };
 
 }
@@ -414,6 +417,15 @@ if (elementos.modalFoto) {
         );
 
     }
+
+   if (elementos.btnPaginaInicial) {
+
+    elementos.btnPaginaInicial.addEventListener(
+        "click",
+        abrirPaginaInicial
+    );
+
+}
 
     if (elementos.modalSair) {
 
@@ -2150,7 +2162,30 @@ function tratarPossivelSessaoExpirada(erro) {
 
 }
 
+function abrirPaginaInicial(evento) {
 
+    evento.preventDefault();
+
+    const tokenPet =
+        estadoPainel.petSelecionado?.token ||
+        elementos.tokenTag.value;
+
+    if (!tokenPet) {
+
+        mostrarMensagemGeral(
+            "Não foi possível identificar o pet selecionado.",
+            "erro"
+        );
+
+        return;
+
+    }
+
+    window.location.href =
+        "../index.html?token=" +
+        encodeURIComponent(tokenPet);
+
+}
 /* =========================================================
    TELA E REDIRECIONAMENTO
 ========================================================= */
