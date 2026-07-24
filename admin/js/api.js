@@ -285,3 +285,11 @@ async function estatisticas() {
     );
 
 }
+
+async function listarPets() {
+
+    return await apiGet(
+        ACTION.LISTAR_PETS
+    );
+
+}
