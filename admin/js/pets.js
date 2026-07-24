@@ -377,31 +377,13 @@ function abrirPet(token){
 //==================================================
 // EDITAR PET
 //==================================================
+function editarPetAdmin(token){
 
-function editarPetAdmin(token) {
-
-    const pet = pets.find(
-        item => item.token === token
-    );
-
-    if (!pet) {
-
-        alert("Pet não encontrado.");
-
-        return;
-
-    }
-
-    /*
-     * Por enquanto, envia para a futura
-     * página de edição do pet.
-     */
     window.location.href =
-        "editar-pet.html?token=" +
+        "perfil-pet.html?token=" +
         encodeURIComponent(token);
 
 }
-
 
 //==================================================
 // EXCLUIR PET
