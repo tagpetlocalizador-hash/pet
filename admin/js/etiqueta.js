@@ -271,19 +271,19 @@ async function preencherEtiqueta(
 
 
     const qrGerado =
-        qrcanvas.qrcanvas({
+    qrcanvas.qrcanvas({
 
-            data: urlPublica,
+        data: urlPublica,
 
-            size: 512,
+        size: 600,
 
-            correctLevel: "L",
+        correctLevel: "M",
 
-            foreground: "#000000",
+        foreground: "#000000",
 
-            background: "#ffffff"
+        background: "#ffffff"
 
-        });
+    });
 
 
     const contexto =
