@@ -244,8 +244,8 @@ function preencherEtiqueta(
     {
         text: urlPublica,
 
-        width: 240,
-        height: 240,
+        width: 128,
+        height: 128,
 
         colorDark: "#000000",
         colorLight: "#ffffff",
