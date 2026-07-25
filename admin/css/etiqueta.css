@@ -206,10 +206,8 @@ body {
 .verso-container #qrcodeCanvas {
     display: block !important;
 
-    width: 8.2mm !important;
-    height: 8.2mm !important;
-
-    flex: 0 0 8.2mm;
+    width: 9.2mm !important;
+    height: 9.2mm !important;
 
     max-width: none !important;
     max-height: none !important;
