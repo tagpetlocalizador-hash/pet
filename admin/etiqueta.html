@@ -12,8 +12,8 @@
     <title>Etiqueta PET NFC</title>
 
     <link
-        href="css/etiqueta.css"
-        rel="stylesheet">
+    href="css/etiqueta.css?v=4"
+    rel="stylesheet">
 
 </head>
 
@@ -103,7 +103,11 @@
                         class="medalhao"
                         alt="Verso da medalha PET NFC">
 
-                    <div id="qrcode"></div>
+                    <div id="qrcode">
+
+    <canvas id="qrcodeCanvas"></canvas>
+
+</div>
 
                 </div>
 
@@ -131,13 +135,11 @@
     </main>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
 
-    <script src="js/config.js"></script>
-
-    <script src="js/api.js"></script>
-
-    <script src="js/etiqueta.js"></script>
+    <script src="js/config.js?v=4"></script>
+<script src="js/api.js?v=4"></script>
+<script src="js/etiqueta.js?v=4"></script>
 
 </body>
 
