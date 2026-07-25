@@ -258,45 +258,80 @@ async function preencherEtiqueta(
 
     try {
 
-        await QRCode.toCanvas(
-
-            canvasQrCode,
-
-            urlPublica,
-
-            {
-                width: 256,
-
-                margin: 2,
-
-                errorCorrectionLevel: "L",
-
-                color: {
-                    dark: "#000000",
-                    light: "#ffffff"
-                }
-            }
-
-        );
-
-
-        console.log(
-            "QR Code gerado com sucesso."
-        );
-
-
-    } catch (erro) {
-
-        console.error(
-            "Erro ao gerar QR Code:",
-            erro
-        );
+    if (
+        typeof qrcanvas === "undefined" ||
+        typeof qrcanvas.qrcanvas !== "function"
+    ) {
 
         throw new Error(
-            "Não foi possível gerar o QR Code."
+            "A biblioteca do QR Code não foi carregada."
         );
 
     }
+
+
+    const qrGerado =
+        qrcanvas.qrcanvas({
+
+            data: urlPublica,
+
+            size: 512,
+
+            correctLevel: "L",
+
+            cellSize: 16,
+
+            foreground: "#000000",
+
+            background: "#ffffff"
+
+        });
+
+
+    const contexto =
+        canvasQrCode.getContext("2d");
+
+
+    canvasQrCode.width =
+        qrGerado.width;
+
+    canvasQrCode.height =
+        qrGerado.height;
+
+
+    contexto.clearRect(
+        0,
+        0,
+        canvasQrCode.width,
+        canvasQrCode.height
+    );
+
+
+    contexto.drawImage(
+        qrGerado,
+        0,
+        0
+    );
+
+
+    console.log(
+        "QR Code gerado com sucesso."
+    );
+
+
+} catch (erro) {
+
+    console.error(
+        "Erro ao gerar QR Code:",
+        erro
+    );
+
+    throw new Error(
+        erro.message ||
+        "Não foi possível gerar o QR Code."
+    );
+
+}
 
 }
 
