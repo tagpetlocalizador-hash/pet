@@ -184,15 +184,13 @@ body {
 .verso-container #qrcode {
     position: absolute;
 
-    /*
-     * Posição do quadrado preto na arte verso.png.
-     * Pode ser refinada depois de um teste impresso.
-     */
-    top: 7.25mm;
-    left: 14.35mm;
+    top: 7mm;
+    left: 14.25mm;
 
-    width: 9mm;
-    height: 9mm;
+    width: 11.2mm;
+    height: 11.2mm;
+
+    padding: 0.45mm;
 
     display: flex;
     align-items: center;
@@ -207,8 +205,8 @@ body {
 .verso-container #qrcode canvas {
     display: block !important;
 
-    width: 9mm !important;
-    height: 9mm !important;
+    width: 10.3mm !important;
+    height: 10.3mm !important;
 
     max-width: none !important;
     max-height: none !important;
