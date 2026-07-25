@@ -267,7 +267,7 @@ async function preencherEtiqueta(
             {
                 width: 256,
 
-                margin: 4,
+                margin: 2,
 
                 errorCorrectionLevel: "L",
 
