@@ -184,8 +184,8 @@ body {
 .verso-container #qrcode {
     position: absolute;
 
-    top: 8.45mm;      /* antes 6.20mm */
-    left: 15.55mm;    /* antes 13.25mm */
+    top: 8.00mm;      /* antes 6.20mm */
+    left: 14.55mm;    /* antes 13.25mm */
 
     width: 9.8mm;
     height: 9.8mm;
