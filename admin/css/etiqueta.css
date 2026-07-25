@@ -184,13 +184,11 @@ body {
 .verso-container #qrcode {
     position: absolute;
 
-    top: 7mm;
-    left: 14.25mm;
+    top: 6.4mm;
+    left: 13.35mm;
 
-    width: 11.2mm;
-    height: 11.2mm;
-
-    padding: 0.45mm;
+    width: 12.8mm;
+    height: 12.8mm;
 
     display: flex;
     align-items: center;
@@ -201,17 +199,17 @@ body {
     overflow: hidden;
 }
 
-.verso-container #qrcode img,
-.verso-container #qrcode canvas {
+.verso-container #qrcodeCanvas {
     display: block !important;
 
-    width: 10.3mm !important;
-    height: 10.3mm !important;
+    width: 12.8mm !important;
+    height: 12.8mm !important;
 
     max-width: none !important;
     max-height: none !important;
-}
 
+    image-rendering: pixelated;
+}
 
 /* =====================================================
    CÓDIGO DE ATIVAÇÃO
