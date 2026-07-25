@@ -6,6 +6,12 @@
 
 let modalNovaTag;
 
+let modalGerarLote;
+
+let modalResultadoLote;
+
+let ultimoLoteGerado = null;
+
 
 /* ===================================================
    INICIALIZAÇÃO
@@ -61,6 +67,95 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     }
+
+           /*
+         * Modal para gerar lote.
+         */
+        const elementoModalGerarLote =
+            document.getElementById(
+                "modalGerarLote"
+            );
+
+        if (elementoModalGerarLote) {
+
+            modalGerarLote =
+                new bootstrap.Modal(
+                    elementoModalGerarLote
+                );
+
+        }
+
+
+        /*
+         * Modal do resultado.
+         */
+        const elementoResultadoLote =
+            document.getElementById(
+                "modalResultadoLote"
+            );
+
+        if (elementoResultadoLote) {
+
+            modalResultadoLote =
+                new bootstrap.Modal(
+                    elementoResultadoLote
+                );
+
+        }
+
+
+        /*
+         * Botão Gerar em lote.
+         */
+        const btnGerarLote =
+            document.getElementById(
+                "btnGerarLote"
+            );
+
+        if (btnGerarLote) {
+
+            btnGerarLote.addEventListener(
+                "click",
+                abrirModalGerarLote
+            );
+
+        }
+
+
+        /*
+         * Botão de confirmação.
+         */
+        const btnConfirmarLote =
+            document.getElementById(
+                "btnConfirmarLote"
+            );
+
+        if (btnConfirmarLote) {
+
+            btnConfirmarLote.addEventListener(
+                "click",
+                criarLoteTags
+            );
+
+        }
+
+
+        /*
+         * Botão para etiquetas.
+         */
+        const btnEtiquetasLote =
+            document.getElementById(
+                "btnEtiquetasLote"
+            );
+
+        if (btnEtiquetasLote) {
+
+            btnEtiquetasLote.addEventListener(
+                "click",
+                abrirEtiquetasLote
+            );
+
+        }
 
 
     carregarTags();
@@ -615,3 +710,285 @@ async function copiarLink() {
     }
 
 }
+/* ===================================================
+   ABRIR MODAL PARA GERAR LOTE
+=================================================== */
+
+function abrirModalGerarLote() {
+
+    const campoQuantidade =
+        document.getElementById(
+            "quantidadeLote"
+        );
+
+    if (campoQuantidade) {
+
+        campoQuantidade.value = 10;
+
+    }
+
+    if (modalGerarLote) {
+
+        modalGerarLote.show();
+
+    }
+
+}
+
+
+/* ===================================================
+   GERAR TAGS EM LOTE
+=================================================== */
+
+async function criarLoteTags() {
+
+    const campoQuantidade =
+        document.getElementById(
+            "quantidadeLote"
+        );
+
+    const botao =
+        document.getElementById(
+            "btnConfirmarLote"
+        );
+
+
+    const quantidade =
+        Number(
+
+            campoQuantidade
+                ? campoQuantidade.value
+                : 0
+
+        );
+
+
+    if (
+        !Number.isInteger(quantidade) ||
+        quantidade < 2 ||
+        quantidade > 500
+    ) {
+
+        alert(
+            "Informe uma quantidade entre " +
+            "2 e 500 TAGs."
+        );
+
+        return;
+
+    }
+
+
+    const confirmar = confirm(
+
+        "Deseja gerar " +
+        quantidade +
+        " TAGs?\n\n" +
+        "Todas serão criadas com o status LIVRE."
+
+    );
+
+
+    if (!confirmar) {
+
+        return;
+
+    }
+
+
+    if (botao) {
+
+        botao.disabled = true;
+
+        botao.innerHTML = `
+
+            <span
+                class="spinner-border
+                spinner-border-sm me-2">
+            </span>
+
+            Gerando...
+
+        `;
+
+    }
+
+
+    try {
+
+        const resposta =
+            await gerarLote(
+                quantidade
+            );
+
+
+        if (!resposta.sucesso) {
+
+            alert(
+
+                resposta.mensagem ||
+                "Não foi possível gerar o lote."
+
+            );
+
+            return;
+
+        }
+
+
+        ultimoLoteGerado =
+            resposta;
+
+
+        const resultadoLote =
+            document.getElementById(
+                "resultadoLote"
+            );
+
+        const resultadoQuantidade =
+            document.getElementById(
+                "resultadoQuantidade"
+            );
+
+        const resultadoPrimeiroId =
+            document.getElementById(
+                "resultadoPrimeiroId"
+            );
+
+        const resultadoUltimoId =
+            document.getElementById(
+                "resultadoUltimoId"
+            );
+
+        const resultadoDataLote =
+            document.getElementById(
+                "resultadoDataLote"
+            );
+
+
+        if (resultadoLote) {
+
+            resultadoLote.innerText =
+                resposta.lote || "-";
+
+        }
+
+
+        if (resultadoQuantidade) {
+
+            resultadoQuantidade.innerText =
+                resposta.quantidade || 0;
+
+        }
+
+
+        if (resultadoPrimeiroId) {
+
+            resultadoPrimeiroId.innerText =
+                resposta.primeiro_id || "-";
+
+        }
+
+
+        if (resultadoUltimoId) {
+
+            resultadoUltimoId.innerText =
+                resposta.ultimo_id || "-";
+
+        }
+
+
+        if (resultadoDataLote) {
+
+            resultadoDataLote.innerText =
+                resposta.data_geracao || "-";
+
+        }
+
+
+        if (modalGerarLote) {
+
+            modalGerarLote.hide();
+
+        }
+
+
+        await carregarTags();
+
+
+        setTimeout(function () {
+
+            if (modalResultadoLote) {
+
+                modalResultadoLote.show();
+
+            }
+
+        }, 300);
+
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao gerar lote:",
+            erro
+        );
+
+        alert(
+            "Ocorreu um erro ao gerar o lote."
+        );
+
+
+    } finally {
+
+        if (botao) {
+
+            botao.disabled = false;
+
+            botao.innerHTML = `
+
+                <i class="bi bi-stack"></i>
+
+                Gerar lote
+
+            `;
+
+        }
+
+    }
+
+}
+
+
+/* ===================================================
+   ETIQUETAS DO LOTE
+=================================================== */
+
+function abrirEtiquetasLote() {
+
+    if (
+        !ultimoLoteGerado ||
+        !ultimoLoteGerado.lote
+    ) {
+
+        alert(
+            "Nenhum lote foi selecionado."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+
+        "O lote " +
+        ultimoLoteGerado.lote +
+        " foi salvo com sucesso.\n\n" +
+        "A página de impressão das etiquetas " +
+        "será criada na próxima etapa."
+
+    );
+
+}
+
