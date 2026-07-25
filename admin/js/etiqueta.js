@@ -122,11 +122,24 @@ async function carregarEtiqueta() {
         criarUrlPublica(tokenTag);
 
 
-    preencherEtiqueta(
+    try {
+
+    await preencherEtiqueta(
         tokenTag,
         codigoAtivacao,
         urlPublica
     );
+
+} catch (erro) {
+
+    mostrarErro(
+        erro.message ||
+        "Não foi possível gerar a etiqueta."
+    );
+
+    return;
+
+}
 
 
     if (mensagem) {
@@ -186,7 +199,7 @@ function criarUrlPublica(token) {
    PREENCHER ETIQUETA
 =================================================== */
 
-function preencherEtiqueta(
+async function preencherEtiqueta(
     token,
     codigoAtivacao,
     urlPublica
@@ -202,6 +215,11 @@ function preencherEtiqueta(
 
     const elementoQrCode =
         document.getElementById("qrcode");
+
+    const canvasQrCode =
+        document.getElementById(
+            "qrcodeCanvas"
+        );
 
 
     if (elementoToken) {
@@ -220,41 +238,66 @@ function preencherEtiqueta(
     }
 
 
-    if (!elementoQrCode) {
+    if (
+        !elementoQrCode ||
+        !canvasQrCode
+    ) {
 
-        mostrarErro(
+        throw new Error(
             "Área do QR Code não encontrada."
         );
 
-        return;
-
     }
 
 
-    elementoQrCode.innerHTML = "";
+    console.log(
+        "URL gravada no QR Code:",
+        urlPublica
+    );
 
 
-    /*
-     * QRCodeJS trabalha em pixels.
-     * O CSS força a impressão em 9 mm.
-     */
+    try {
 
-    new QRCode(
-    elementoQrCode,
-    {
-        text: urlPublica,
+        await QRCode.toCanvas(
 
-        width: 128,
-        height: 128,
+            canvasQrCode,
 
-        colorDark: "#000000",
-        colorLight: "#ffffff",
+            urlPublica,
 
-        correctLevel:
-            QRCode.CorrectLevel.L
+            {
+                width: 256,
+
+                margin: 4,
+
+                errorCorrectionLevel: "L",
+
+                color: {
+                    dark: "#000000",
+                    light: "#ffffff"
+                }
+            }
+
+        );
+
+
+        console.log(
+            "QR Code gerado com sucesso."
+        );
+
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao gerar QR Code:",
+            erro
+        );
+
+        throw new Error(
+            "Não foi possível gerar o QR Code."
+        );
+
     }
-);
-    
+
 }
 
 
