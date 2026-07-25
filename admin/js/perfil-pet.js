@@ -494,13 +494,10 @@ function validarFormulario(dados) {
 
 function selecionarNovaFoto(evento) {
 
-    const arquivo =
-        evento.target.files[0];
+    const arquivo = evento.target.files[0];
 
     if (!arquivo) {
-
         return;
-
     }
 
     const tiposPermitidos = [
@@ -509,11 +506,7 @@ function selecionarNovaFoto(evento) {
         "image/webp"
     ];
 
-    if (
-        !tiposPermitidos.includes(
-            arquivo.type
-        )
-    ) {
+    if (!tiposPermitidos.includes(arquivo.type)) {
 
         mostrarErro(
             "Escolha uma imagem JPG, PNG ou WEBP."
@@ -522,50 +515,97 @@ function selecionarNovaFoto(evento) {
         evento.target.value = "";
 
         return;
-
     }
 
-    const limite =
-        5 * 1024 * 1024;
+    const leitor = new FileReader();
 
-    if (arquivo.size > limite) {
+    leitor.onload = function(e){
 
-        mostrarErro(
-            "A imagem deve ter no máximo 5 MB."
-        );
+        const imagem = new Image();
 
-        evento.target.value = "";
+        imagem.onload = function(){
 
-        return;
+            const canvas =
+                document.createElement("canvas");
 
-    }
+            const contexto =
+                canvas.getContext("2d");
 
-    const leitor =
-        new FileReader();
+            let largura = imagem.width;
+            let altura = imagem.height;
 
-    leitor.onload = function (resultado) {
+            const MAX = 800;
 
-        novaFotoBase64 =
-            resultado.target.result;
+            if(largura > altura){
 
-        const imagem =
-            document.getElementById("fotoPet");
+                if(largura > MAX){
 
-        if (imagem) {
+                    altura =
+                        altura * MAX / largura;
 
-            imagem.src =
-                novaFotoBase64;
+                    largura = MAX;
 
-        }
+                }
 
-        mostrarMensagem(
-            "Nova foto selecionada. Clique em Salvar Alterações.",
-            "warning"
-        );
+            }else{
+
+                if(altura > MAX){
+
+                    largura =
+                        largura * MAX / altura;
+
+                    altura = MAX;
+
+                }
+
+            }
+
+            canvas.width = largura;
+            canvas.height = altura;
+
+            contexto.drawImage(
+                imagem,
+                0,
+                0,
+                largura,
+                altura
+            );
+
+            novaFotoBase64 =
+                canvas.toDataURL(
+                    "image/jpeg",
+                    0.70
+                );
+
+            const foto =
+                document.getElementById("fotoPet");
+
+            if(foto){
+
+                foto.src = novaFotoBase64;
+
+            }
+
+            mostrarMensagem(
+                "Nova foto preparada. Clique em Salvar Alterações.",
+                "warning"
+            );
+
+        };
+
+        imagem.onerror = function(){
+
+            mostrarErro(
+                "Não foi possível processar a imagem."
+            );
+
+        };
+
+        imagem.src = e.target.result;
 
     };
 
-    leitor.onerror = function () {
+    leitor.onerror = function(){
 
         mostrarErro(
             "Não foi possível ler a imagem."
@@ -576,7 +616,6 @@ function selecionarNovaFoto(evento) {
     leitor.readAsDataURL(arquivo);
 
 }
-
 
 //==================================================
 // CONFIGURAR BOTÃO DO MAPS
