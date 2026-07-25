@@ -279,8 +279,6 @@ async function preencherEtiqueta(
 
             correctLevel: "L",
 
-            cellSize: 16,
-
             foreground: "#000000",
 
             background: "#ffffff"
