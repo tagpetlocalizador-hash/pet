@@ -1,32 +1,144 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Etiqueta - Linka Gift</title>
-<link href="css/etiqueta.css" rel="stylesheet">
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <title>Etiqueta PET NFC</title>
+
+    <link
+        href="css/etiqueta.css"
+        rel="stylesheet">
+
 </head>
+
 <body>
 
-<div class="toolbar">
-  <button onclick="window.print()">🖨 Imprimir</button>
-  <button onclick="history.back()">⬅ Voltar</button>
-</div>
+    <!-- BARRA DE BOTÕES -->
 
-<div class="etiqueta">
-  <img class="base" src="img/etiqueta-base.png" alt="Etiqueta">
+    <div class="toolbar">
 
-  <div id="qrcode"></div>
+        <button
+            type="button"
+            onclick="window.print()">
 
-  <div id="token"></div>
+            🖨 Imprimir
 
-  <div id="url"></div>
-</div>
+        </button>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="js/config.js"></script>
-<script src="js/api.js"></script>
-<script src="js/etiqueta.js"></script>
+        <button
+            type="button"
+            onclick="history.back()">
+
+            ← Voltar
+
+        </button>
+
+    </div>
+
+
+    <!-- MENSAGEM DE CARREGAMENTO -->
+
+    <div
+        id="mensagem"
+        class="mensagem">
+
+        Carregando etiqueta...
+
+    </div>
+
+
+    <!-- FOLHA A4 -->
+
+    <main
+        id="folha"
+        class="folha-a4 oculto">
+
+        <section class="etiqueta">
+
+            <!-- TOKEN -->
+
+            <div class="titulo-token">
+
+                TOKEN
+
+            </div>
+
+            <div
+                id="token"
+                class="valor-token">
+
+                -
+
+            </div>
+
+
+            <!-- ARTES -->
+
+            <div class="artes">
+
+                <!-- FRENTE -->
+
+                <div class="medalhao-container">
+
+                    <img
+                        src="img/frente.png"
+                        class="medalhao"
+                        alt="Frente da medalha PET NFC">
+
+                </div>
+
+
+                <!-- VERSO -->
+
+                <div class="medalhao-container verso-container">
+
+                    <img
+                        src="img/verso.png"
+                        class="medalhao"
+                        alt="Verso da medalha PET NFC">
+
+                    <div id="qrcode"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CÓDIGO DE ATIVAÇÃO -->
+
+            <div class="titulo-codigo">
+
+                CÓDIGO DE ATIVAÇÃO
+
+            </div>
+
+            <div
+                id="codigoAtivacao"
+                class="valor-codigo">
+
+                -
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <script src="js/config.js"></script>
+
+    <script src="js/api.js"></script>
+
+    <script src="js/etiqueta.js"></script>
 
 </body>
+
 </html>
