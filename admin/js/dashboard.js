@@ -3,26 +3,36 @@
  * dashboard.js
  *************************************************/
 
-document.addEventListener("DOMContentLoaded", carregarDashboard);
+document.addEventListener(
+    "DOMContentLoaded",
+    carregarDashboard
+);
 
 async function carregarDashboard(){
 
-    const dados = await apiGet(ACTION.ESTATISTICAS);
+    const resposta =
+        await apiGet(ACTION.ESTATISTICAS);
 
-    if(!dados.sucesso){
+    if(!resposta.sucesso){
 
-        alert(dados.mensagem);
+        alert(resposta.mensagem);
 
         return;
 
     }
 
-    document.getElementById("totalTags").innerText = dados.total;
+    const dados = resposta.dados;
 
-    document.getElementById("livres").innerText = dados.livres;
+    document.getElementById("totalTags").innerText =
+        dados.total_tags;
 
-    document.getElementById("ativos").innerText = dados.ativos;
+    document.getElementById("livres").innerText =
+        dados.tags_livres;
 
-    document.getElementById("bloqueados").innerText = dados.bloqueados;
+    document.getElementById("ativos").innerText =
+        dados.pets_ativos;
+
+    document.getElementById("bloqueados").innerText =
+        dados.bloqueados;
 
 }
