@@ -275,9 +275,7 @@ async function preencherEtiqueta(
 
         data: urlPublica,
 
-        size: 600,
-
-        correctLevel: "M",
+        size: 520,
 
         foreground: "#000000",
 
