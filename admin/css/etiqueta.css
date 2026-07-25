@@ -187,8 +187,8 @@ body {
     top: 7.17mm;
     left: 14.67mm;
 
-    width: 10.8mm;
-    height: 10.8mm;
+    width: 10.3mm;
+    height: 10.3mm;
 
     padding: 0.3mm;
 
@@ -206,8 +206,8 @@ body {
 .verso-container #qrcodeCanvas {
     display: block !important;
 
-    width: 10.2mm !important;
-    height: 10.2mm !important;
+    width: 9.7mm !important;
+    height: 9.7mm !important;
 
     flex: none !important;
 
