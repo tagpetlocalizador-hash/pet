@@ -1,40 +1,15 @@
 /*************************************************
  * PET NFC
  * etiqueta.js
- * Versão 3.1.0
+ * Etiqueta individual
  *************************************************/
 
-let token = "";
 
-/* ===================================================
-   INICIALIZAÇÃO
-=================================================== */
+document.addEventListener(
+    "DOMContentLoaded",
+    carregarEtiqueta
+);
 
-document.addEventListener("DOMContentLoaded", iniciar);
-
-/* ===================================================
-   INICIAR
-=================================================== */
-
-async function iniciar() {
-
-    const parametros = new URLSearchParams(window.location.search);
-
-    token = parametros.get("token");
-
-    if (!token) {
-
-        alert("Token não informado.");
-
-        return;
-
-    }
-
-    console.log("Token recebido:", token);
-
-    await carregarEtiqueta();
-
-}
 
 /* ===================================================
    CARREGAR ETIQUETA
@@ -42,71 +17,279 @@ async function iniciar() {
 
 async function carregarEtiqueta() {
 
-    try {
+    const mensagem =
+        document.getElementById("mensagem");
 
-        const resposta = await buscarTag(token);
+    const folha =
+        document.getElementById("folha");
 
-        console.log("Resposta API:", resposta);
 
-        if (!resposta.sucesso) {
+    const parametros =
+        new URLSearchParams(
+            window.location.search
+        );
 
-            alert(resposta.mensagem);
 
-            return;
+    const token =
+        String(
+            parametros.get("token") || ""
+        ).trim();
 
-        }
 
-        const tag = resposta.dados;
+    if (!token) {
 
-        console.log("TAG:", tag);
+        mostrarErro(
+            "Token da TAG não informado."
+        );
 
-        // Monta a URL usando o token
-        const url = CONFIG.URL_SITE + "?token=" + tag.token;
-
-        // Preenche os dados na etiqueta
-        document.getElementById("token").innerText = tag.token;
-
-        document.getElementById("url").innerText = url;
-
-        // Gera o QR Code
-        gerarQRCode(url);
+        return;
 
     }
 
-    catch (erro) {
 
-        console.error(erro);
+    /*
+     * Primeiro tenta buscar os dados completos
+     * da TAG no Apps Script.
+     */
 
-        alert("Erro ao carregar etiqueta.");
+    const resposta =
+        await buscarTag(token);
+
+
+    if (
+        !resposta ||
+        resposta.sucesso === false
+    ) {
+
+        mostrarErro(
+
+            resposta && resposta.mensagem
+                ? resposta.mensagem
+                : "Não foi possível carregar a TAG."
+
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Compatibilidade com diferentes formatos
+     * de resposta do Apps Script:
+     *
+     * resposta.token
+     * resposta.dados.token
+     * resposta.tag.token
+     */
+
+    const dados =
+        resposta.dados ||
+        resposta.tag ||
+        resposta;
+
+
+    const tokenTag =
+        String(
+            dados.token ||
+            dados.TOKEN ||
+            token
+        ).trim();
+
+
+    const codigoAtivacao =
+        String(
+
+            dados.codigo_ativacao ||
+
+            dados.CODIGO_ATIVACAO ||
+
+            dados.codigoAtivacao ||
+
+            "-"
+
+        ).trim();
+
+
+    /*
+     * URL pública da TAG.
+     *
+     * Exemplo:
+     * https://tagpetlocalizador-hash.github.io/pet/?token=...
+     */
+
+    const urlPublica =
+        criarUrlPublica(tokenTag);
+
+
+    preencherEtiqueta(
+        tokenTag,
+        codigoAtivacao,
+        urlPublica
+    );
+
+
+    if (mensagem) {
+
+        mensagem.classList.add("oculto");
+
+    }
+
+
+    if (folha) {
+
+        folha.classList.remove("oculto");
 
     }
 
 }
 
+
 /* ===================================================
-   GERAR QR CODE
+   CRIAR URL PÚBLICA
 =================================================== */
 
-function gerarQRCode(url) {
+function criarUrlPublica(token) {
 
-    const div = document.getElementById("qrcode");
+    /*
+     * Preferência:
+     * usar CONFIG.URL_SITE,
+     * caso essa propriedade já exista.
+     */
 
-    div.innerHTML = "";
+    const baseConfigurada =
+        typeof CONFIG !== "undefined" &&
+        CONFIG.URL_SITE
 
-    new QRCode(div, {
+            ? String(CONFIG.URL_SITE)
 
-        text: url,
+            : "https://tagpetlocalizador-hash.github.io/pet";
 
-        width: 170,
 
-        height: 170,
+    const baseLimpa =
+        baseConfigurada.replace(
+            /\/+$/,
+            ""
+        );
 
-        colorDark: "#000000",
 
-        colorLight: "#ffffff",
+    return (
+        baseLimpa +
+        "/?token=" +
+        encodeURIComponent(token)
+    );
 
-        correctLevel: QRCode.CorrectLevel.H
+}
 
-    });
+
+/* ===================================================
+   PREENCHER ETIQUETA
+=================================================== */
+
+function preencherEtiqueta(
+    token,
+    codigoAtivacao,
+    urlPublica
+) {
+
+    const elementoToken =
+        document.getElementById("token");
+
+    const elementoCodigo =
+        document.getElementById(
+            "codigoAtivacao"
+        );
+
+    const elementoQrCode =
+        document.getElementById("qrcode");
+
+
+    if (elementoToken) {
+
+        elementoToken.textContent =
+            token || "-";
+
+    }
+
+
+    if (elementoCodigo) {
+
+        elementoCodigo.textContent =
+            codigoAtivacao || "-";
+
+    }
+
+
+    if (!elementoQrCode) {
+
+        mostrarErro(
+            "Área do QR Code não encontrada."
+        );
+
+        return;
+
+    }
+
+
+    elementoQrCode.innerHTML = "";
+
+
+    /*
+     * QRCodeJS trabalha em pixels.
+     * O CSS força a impressão em 9 mm.
+     */
+
+    new QRCode(
+        elementoQrCode,
+        {
+            text: urlPublica,
+
+            width: 160,
+            height: 160,
+
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+
+            correctLevel:
+                QRCode.CorrectLevel.H
+        }
+    );
+
+}
+
+
+/* ===================================================
+   MOSTRAR ERRO
+=================================================== */
+
+function mostrarErro(texto) {
+
+    const mensagem =
+        document.getElementById("mensagem");
+
+    const folha =
+        document.getElementById("folha");
+
+
+    if (folha) {
+
+        folha.classList.add("oculto");
+
+    }
+
+
+    if (mensagem) {
+
+        mensagem.textContent =
+            texto;
+
+        mensagem.classList.remove("oculto");
+
+        mensagem.classList.add("erro");
+
+    }
+
+
+    console.error(texto);
 
 }
