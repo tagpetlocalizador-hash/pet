@@ -240,21 +240,21 @@ function preencherEtiqueta(
      */
 
     new QRCode(
-        elementoQrCode,
-        {
-            text: urlPublica,
+    elementoQrCode,
+    {
+        text: urlPublica,
 
-            width: 160,
-            height: 160,
+        width: 240,
+        height: 240,
 
-            colorDark: "#000000",
-            colorLight: "#ffffff",
+        colorDark: "#000000",
+        colorLight: "#ffffff",
 
-            correctLevel:
-                QRCode.CorrectLevel.H
-        }
-    );
-
+        correctLevel:
+            QRCode.CorrectLevel.L
+    }
+);
+    
 }
 
 
