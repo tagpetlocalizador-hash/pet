@@ -77,15 +77,29 @@
 
             <h2>TAGs</h2>
 
-            <button
-                id="btnNovaTag"
-                class="btn btn-primary">
+            <div class="d-flex gap-2">
 
-                <i class="bi bi-plus-circle"></i>
+    <button
+        id="btnGerarLote"
+        class="btn btn-outline-primary">
 
-                Nova TAG
+        <i class="bi bi-stack"></i>
 
-            </button>
+        Gerar em lote
+
+    </button>
+
+    <button
+        id="btnNovaTag"
+        class="btn btn-primary">
+
+        <i class="bi bi-plus-circle"></i>
+
+        Nova TAG
+
+    </button>
+
+</div>
 
         </div>
 
@@ -244,7 +258,287 @@
     </div>
 
 </div>
+<!-- =====================================================
+     MODAL GERAR LOTE
+===================================================== -->
 
+<div
+    class="modal fade"
+    id="modalGerarLote"
+    tabindex="-1"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    <i class="bi bi-stack me-2"></i>
+
+                    Gerar TAGs em lote
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Fechar">
+                </button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <div class="mb-3">
+
+                    <label
+                        for="quantidadeLote"
+                        class="form-label fw-semibold">
+
+                        Quantidade de TAGs
+
+                    </label>
+
+                    <input
+                        type="number"
+                        id="quantidadeLote"
+                        class="form-control"
+                        min="2"
+                        max="500"
+                        value="10">
+
+                    <div class="form-text">
+
+                        Informe uma quantidade entre
+                        2 e 500 TAGs.
+
+                    </div>
+
+                </div>
+
+
+                <div class="alert alert-light border mb-0">
+
+                    <i class="bi bi-info-circle me-2"></i>
+
+                    Todas as TAGs serão criadas com o
+                    status <strong>LIVRE</strong>.
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    type="button"
+                    id="btnConfirmarLote"
+                    class="btn btn-primary">
+
+                    <i class="bi bi-stack"></i>
+
+                    Gerar lote
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL RESULTADO DO LOTE
+===================================================== -->
+
+<div
+    class="modal fade"
+    id="modalResultadoLote"
+    tabindex="-1"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    <i
+                        class="bi bi-check-circle-fill
+                        text-success me-2">
+                    </i>
+
+                    Lote criado com sucesso
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Fechar">
+                </button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <div
+                    class="p-3 bg-light rounded border">
+
+                    <div
+                        class="d-flex
+                        justify-content-between
+                        mb-3">
+
+                        <span class="text-muted">
+
+                            Lote
+
+                        </span>
+
+                        <strong id="resultadoLote">
+
+                            -
+
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="d-flex
+                        justify-content-between
+                        mb-3">
+
+                        <span class="text-muted">
+
+                            TAGs geradas
+
+                        </span>
+
+                        <strong id="resultadoQuantidade">
+
+                            0
+
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="d-flex
+                        justify-content-between
+                        mb-3">
+
+                        <span class="text-muted">
+
+                            Primeiro ID
+
+                        </span>
+
+                        <strong id="resultadoPrimeiroId">
+
+                            -
+
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="d-flex
+                        justify-content-between
+                        mb-3">
+
+                        <span class="text-muted">
+
+                            Último ID
+
+                        </span>
+
+                        <strong id="resultadoUltimoId">
+
+                            -
+
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="d-flex
+                        justify-content-between">
+
+                        <span class="text-muted">
+
+                            Data
+
+                        </span>
+
+                        <strong id="resultadoDataLote">
+
+                            -
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    id="btnEtiquetasLote"
+                    class="btn btn-primary">
+
+                    <i class="bi bi-printer"></i>
+
+                    Gerar etiquetas
+
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    Fechar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
 <script src="js/config.js"></script>
