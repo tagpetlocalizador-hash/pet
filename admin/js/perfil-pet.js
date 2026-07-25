@@ -492,19 +492,28 @@ function validarFormulario(dados) {
 // SELECIONAR E PREVISUALIZAR FOTO
 //==================================================
 
-function selecionarNovaFoto(evento) {
+async function selecionarNovaFoto(evento) {
 
-    const arquivo = evento.target.files[0];
+    const campoArquivo = evento.target;
+
+    const arquivo =
+        campoArquivo.files &&
+        campoArquivo.files.length > 0
+            ? campoArquivo.files[0]
+            : null;
 
     if (!arquivo) {
         return;
     }
 
+
+    // Tipos de imagem permitidos
     const tiposPermitidos = [
         "image/jpeg",
         "image/png",
         "image/webp"
     ];
+
 
     if (!tiposPermitidos.includes(arquivo.type)) {
 
@@ -512,108 +521,322 @@ function selecionarNovaFoto(evento) {
             "Escolha uma imagem JPG, PNG ou WEBP."
         );
 
-        evento.target.value = "";
+        campoArquivo.value = "";
 
         return;
     }
 
-    const leitor = new FileReader();
 
-    leitor.onload = function(e){
+    /*
+     * Limite do arquivo original escolhido.
+     *
+     * Depois disso, a imagem será automaticamente
+     * reduzida para no máximo 512 pixels.
+     */
+    const limiteArquivo =
+        5 * 1024 * 1024;
 
-        const imagem = new Image();
 
-        imagem.onload = function(){
-
-            const canvas =
-                document.createElement("canvas");
-
-            const contexto =
-                canvas.getContext("2d");
-
-            let largura = imagem.width;
-            let altura = imagem.height;
-
-            const MAX = 800;
-
-            if(largura > altura){
-
-                if(largura > MAX){
-
-                    altura =
-                        altura * MAX / largura;
-
-                    largura = MAX;
-
-                }
-
-            }else{
-
-                if(altura > MAX){
-
-                    largura =
-                        largura * MAX / altura;
-
-                    altura = MAX;
-
-                }
-
-            }
-
-            canvas.width = largura;
-            canvas.height = altura;
-
-            contexto.drawImage(
-                imagem,
-                0,
-                0,
-                largura,
-                altura
-            );
-
-            novaFotoBase64 =
-                canvas.toDataURL(
-                    "image/jpeg",
-                    0.70
-                );
-
-            const foto =
-                document.getElementById("fotoPet");
-
-            if(foto){
-
-                foto.src = novaFotoBase64;
-
-            }
-
-            mostrarMensagem(
-                "Nova foto preparada. Clique em Salvar Alterações.",
-                "warning"
-            );
-
-        };
-
-        imagem.onerror = function(){
-
-            mostrarErro(
-                "Não foi possível processar a imagem."
-            );
-
-        };
-
-        imagem.src = e.target.result;
-
-    };
-
-    leitor.onerror = function(){
+    if (arquivo.size > limiteArquivo) {
 
         mostrarErro(
-            "Não foi possível ler a imagem."
+            "A imagem deve ter no máximo 5 MB."
         );
 
-    };
+        campoArquivo.value = "";
 
-    leitor.readAsDataURL(arquivo);
+        return;
+    }
+
+
+    try {
+
+        mostrarMensagem(
+            "Preparando a nova foto...",
+            "info"
+        );
+
+
+        /*
+         * Reduz a imagem antes de armazenar
+         * na variável que será enviada à API.
+         */
+        novaFotoBase64 =
+            await reduzirFotoAdmin(
+                arquivo
+            );
+
+
+        const foto =
+            document.getElementById(
+                "fotoPet"
+            );
+
+
+        if (foto) {
+
+            foto.src =
+                novaFotoBase64;
+
+        }
+
+
+        console.log(
+            "Foto preparada:",
+            Math.round(
+                novaFotoBase64.length / 1024
+            ),
+            "KB em Base64"
+        );
+
+
+        mostrarMensagem(
+            "Nova foto preparada. Clique em Salvar Alterações.",
+            "warning"
+        );
+
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao preparar a foto:",
+            erro
+        );
+
+
+        novaFotoBase64 = "";
+
+        campoArquivo.value = "";
+
+
+        mostrarErro(
+            erro.message ||
+            "Não foi possível processar a imagem."
+        );
+
+    }
+
+}
+
+
+//==================================================
+// REDUZIR FOTO DO PAINEL ADMINISTRATIVO
+//==================================================
+
+function reduzirFotoAdmin(arquivo) {
+
+    return new Promise(
+        function (resolve, reject) {
+
+            const leitor =
+                new FileReader();
+
+
+            leitor.onerror =
+                function () {
+
+                    reject(
+                        new Error(
+                            "Não foi possível ler a imagem."
+                        )
+                    );
+
+                };
+
+
+            leitor.onload =
+                function (eventoLeitor) {
+
+                    const imagem =
+                        new Image();
+
+
+                    imagem.onerror =
+                        function () {
+
+                            reject(
+                                new Error(
+                                    "O arquivo selecionado não é uma imagem válida."
+                                )
+                            );
+
+                        };
+
+
+                    imagem.onload =
+                        function () {
+
+                            /*
+                             * A maior dimensão da imagem ficará
+                             * limitada a 512 pixels.
+                             */
+                            const tamanhoMaximo =
+                                512;
+
+
+                            let largura =
+                                imagem.naturalWidth ||
+                                imagem.width;
+
+                            let altura =
+                                imagem.naturalHeight ||
+                                imagem.height;
+
+
+                            if (
+                                !largura ||
+                                !altura
+                            ) {
+
+                                reject(
+                                    new Error(
+                                        "Não foi possível identificar o tamanho da imagem."
+                                    )
+                                );
+
+                                return;
+
+                            }
+
+
+                            /*
+                             * Mantém a proporção original.
+                             */
+                            if (
+                                largura > altura &&
+                                largura > tamanhoMaximo
+                            ) {
+
+                                altura =
+                                    Math.round(
+                                        altura *
+                                        tamanhoMaximo /
+                                        largura
+                                    );
+
+                                largura =
+                                    tamanhoMaximo;
+
+                            } else if (
+                                altura > tamanhoMaximo
+                            ) {
+
+                                largura =
+                                    Math.round(
+                                        largura *
+                                        tamanhoMaximo /
+                                        altura
+                                    );
+
+                                altura =
+                                    tamanhoMaximo;
+
+                            }
+
+
+                            const canvas =
+                                document.createElement(
+                                    "canvas"
+                                );
+
+
+                            canvas.width =
+                                largura;
+
+                            canvas.height =
+                                altura;
+
+
+                            const contexto =
+                                canvas.getContext(
+                                    "2d"
+                                );
+
+
+                            if (!contexto) {
+
+                                reject(
+                                    new Error(
+                                        "O navegador não conseguiu processar a imagem."
+                                    )
+                                );
+
+                                return;
+
+                            }
+
+
+                            /*
+                             * Fundo branco para evitar fundo preto
+                             * em imagens PNG transparentes.
+                             */
+                            contexto.fillStyle =
+                                "#ffffff";
+
+                            contexto.fillRect(
+                                0,
+                                0,
+                                largura,
+                                altura
+                            );
+
+
+                            contexto.drawImage(
+                                imagem,
+                                0,
+                                0,
+                                largura,
+                                altura
+                            );
+
+
+                            /*
+                             * Converte tudo para JPEG com
+                             * qualidade de 75%.
+                             */
+                            const fotoReduzida =
+                                canvas.toDataURL(
+                                    "image/jpeg",
+                                    0.75
+                                );
+
+
+                            if (
+                                !fotoReduzida ||
+                                fotoReduzida ===
+                                "data:,"
+                            ) {
+
+                                reject(
+                                    new Error(
+                                        "Não foi possível gerar a imagem reduzida."
+                                    )
+                                );
+
+                                return;
+
+                            }
+
+
+                            resolve(
+                                fotoReduzida
+                            );
+
+                        };
+
+
+                    imagem.src =
+                        eventoLeitor.target.result;
+
+                };
+
+
+            leitor.readAsDataURL(
+                arquivo
+            );
+
+        }
+    );
 
 }
 
