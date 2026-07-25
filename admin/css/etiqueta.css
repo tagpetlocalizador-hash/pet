@@ -184,13 +184,15 @@ body {
 .verso-container #qrcode {
     position: absolute;
 
-    top: 5.7mm;
-    left: 12.3mm;
+    top: 4.9mm;
+    left: 11.1mm;
 
-    width: 15mm;
-    height: 15mm;
+    width: 16.6mm;
+    height: 16.6mm;
 
-    padding: 1mm;
+    padding: 1.8mm;
+
+    box-sizing: border-box;
 
     display: flex;
     align-items: center;
@@ -198,7 +200,7 @@ body {
 
     background: #ffffff;
 
-    overflow: hidden;
+    overflow: visible;
 }
 
 .verso-container #qrcodeCanvas {
@@ -207,12 +209,15 @@ body {
     width: 13mm !important;
     height: 13mm !important;
 
+    flex: 0 0 13mm;
+
     max-width: none !important;
     max-height: none !important;
 
+    background: #ffffff;
+
     image-rendering: pixelated;
 }
-
 /* =====================================================
    CÓDIGO DE ATIVAÇÃO
 ===================================================== */
