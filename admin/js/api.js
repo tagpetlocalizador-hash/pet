@@ -278,10 +278,16 @@ async function excluirTag(token) {
 }
 
 
-async function estatisticas() {
+//==================================================
+// ESTATÍSTICAS
+//==================================================
+
+async function buscarEstatisticas() {
 
     return await apiGet(
+
         ACTION.ESTATISTICAS
+
     );
 
 }
