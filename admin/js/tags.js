@@ -839,6 +839,78 @@ async function criarLoteTags() {
         ultimoLoteGerado =
             resposta;
 
+       const listaCodigosLote =
+    document.getElementById(
+        "listaCodigosLote"
+    );
+
+if (listaCodigosLote) {
+
+    listaCodigosLote.innerHTML = "";
+
+    if (
+        Array.isArray(resposta.tags) &&
+        resposta.tags.length > 0
+    ) {
+
+        resposta.tags.forEach(function(tag) {
+
+            listaCodigosLote.insertAdjacentHTML(
+
+                "beforeend",
+
+                `
+
+                <tr>
+
+                    <td>
+                        ${tag.id || "-"}
+                    </td>
+
+                    <td>
+                        ${tag.token || "-"}
+                    </td>
+
+                    <td>
+
+                        <strong class="text-danger">
+
+                            ${tag.codigo_ativacao || "-"}
+
+                        </strong>
+
+                    </td>
+
+                </tr>
+
+                `
+
+            );
+
+        });
+
+    } else {
+
+        listaCodigosLote.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="3"
+                    class="text-center text-muted">
+
+                    Nenhum código encontrado.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
 
         const resultadoLote =
             document.getElementById(
