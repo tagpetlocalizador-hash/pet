@@ -187,10 +187,10 @@ body {
     top: 6.2mm;
     left: 13.25mm;
 
-    width: 9.6mm;
-    height: 9.6mm;
+    width: 9.8mm;
+    height: 9.8mm;
 
-    padding: 0.1mm;
+    padding: 0.3mm;
 
     box-sizing: border-box;
 
@@ -208,6 +208,8 @@ body {
 
     width: 9.2mm !important;
     height: 9.2mm !important;
+
+    flex: none !important;
 
     max-width: none !important;
     max-height: none !important;
