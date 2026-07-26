@@ -1,1 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <title>Etiquetas do lote — PET NFC</title>
+
+    <link
+        href="css/etiqueta.css?v=11"
+        rel="stylesheet">
+
+    <style>
+
+        /* ============================================
+           CABEÇALHO DO LOTE
+        ============================================ */
+
+        .cabecalho-lote {
+            width: 100%;
+            margin-bottom: 8mm;
+            text-align: center;
+        }
+
+        .cabecalho-lote h1 {
+            margin: 0 0 2mm;
+            font-size: 6mm;
+        }
+
+        .cabecalho-lote p {
+            margin: 0;
+            font-size: 3.5mm;
+            font-weight: 700;
+        }
+
+
+        /* ============================================
+           GRADE
+        ============================================ */
+
+        .grade-etiquetas {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 70mm);
+
+            justify-content: start;
+
+            column-gap: 12mm;
+            row-gap: 10mm;
+        }
+
+        .grade-etiquetas .etiqueta {
+            width: 70mm;
+
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+
+        /* ============================================
+           QR DO LOTE
+           Mesmos valores da etiqueta individual
+        ============================================ */
+
+        .grade-etiquetas
+        .verso-container
+        .qrcode {
+            position: absolute;
+
+            top: 7.37mm;
+            left: 15mm;
+
+            width: 10.3mm;
+            height: 10.3mm;
+
+            padding: 0.3mm;
+
+            box-sizing: border-box;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #ffffff;
+
+            overflow: hidden;
+        }
+
+        .grade-etiquetas
+        .verso-container
+        .qrcode-canvas {
+            display: block !important;
+
+            width: 9.7mm !important;
+            height: 9.7mm !important;
+
+            flex: none !important;
+
+            max-width: none !important;
+            max-height: none !important;
+
+            background: #ffffff;
+
+            image-rendering: pixelated;
+        }
+
+
+        /* ============================================
+           IMPRESSÃO
+        ============================================ */
+
+        @media print {
+
+            .cabecalho-lote {
+                display: none;
+            }
+
+            .grade-etiquetas {
+                grid-template-columns:
+                    repeat(2, 70mm);
+
+                column-gap: 12mm;
+                row-gap: 10mm;
+            }
+
+        }
+
+
+        /* ============================================
+           CELULAR
+        ============================================ */
+
+        @media screen and (max-width: 700px) {
+
+            .grade-etiquetas {
+                grid-template-columns: 70mm;
+                justify-content: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="toolbar">
+
+        <button
+            type="button"
+            onclick="window.print()">
+
+            🖨 Imprimir lote
+
+        </button>
+
+        <button
+            type="button"
+            onclick="history.back()">
+
+            ← Voltar
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="mensagem"
+        class="mensagem">
+
+        Carregando etiquetas do lote...
+
+    </div>
+
+
+    <main
+        id="folha"
+        class="folha-a4 oculto">
+
+        <header class="cabecalho-lote">
+
+            <h1>ETIQUETAS DO LOTE</h1>
+
+            <p id="identificacaoLote">-</p>
+
+        </header>
+
+
+        <section
+            id="gradeEtiquetas"
+            class="grade-etiquetas">
+
+        </section>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcanvas@3"></script>
+
+    <script src="js/config.js?v=11"></script>
+    <script src="js/api.js?v=11"></script>
+    <script src="js/etiquetas-lote.js?v=11"></script>
+
+</body>
+
+</html>
