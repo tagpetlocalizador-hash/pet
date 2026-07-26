@@ -1051,14 +1051,14 @@ function abrirEtiquetasLote() {
 
     }
 
+    window.open(
 
-    alert(
+        "etiquetas-lote.html?lote=" +
+        encodeURIComponent(
+            ultimoLoteGerado.lote
+        ),
 
-        "O lote " +
-        ultimoLoteGerado.lote +
-        " foi salvo com sucesso.\n\n" +
-        "A página de impressão das etiquetas " +
-        "será criada na próxima etapa."
+        "_blank"
 
     );
 
