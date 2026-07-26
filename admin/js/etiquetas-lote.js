@@ -72,48 +72,38 @@ async function carregarEtiquetasDoLote() {
          */
 
         const resposta =
-            await listarTags();
+    await buscarLote(
+        loteInformado
+    );
 
 
-        if (
-            !resposta ||
-            resposta.sucesso === false
-        ) {
+if (
+    !resposta ||
+    resposta.sucesso === false
+) {
 
-            throw new Error(
+    throw new Error(
 
-                resposta &&
-                resposta.mensagem
+        resposta &&
+        resposta.mensagem
 
-                    ? resposta.mensagem
+            ? resposta.mensagem
 
-                    : "Não foi possível carregar as TAGs."
+            : "Não foi possível carregar o lote."
 
-            );
+    );
 
-        }
-
-
-        const todasAsTags =
-            extrairListaDeTags(
-                resposta
-            );
+}
 
 
-        const tagsDoLote =
-            todasAsTags.filter(tag => {
+const tagsDoLote =
+    Array.isArray(
+        resposta.tags
+    )
 
-                const loteDaTag =
-                    obterLoteDaTag(tag);
+        ? resposta.tags
 
-                return normalizarTexto(
-                    loteDaTag
-                ) === normalizarTexto(
-                    loteInformado
-                );
-
-            });
-
+        : [];
 
         if (tagsDoLote.length === 0) {
 
