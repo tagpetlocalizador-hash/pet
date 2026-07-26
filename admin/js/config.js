@@ -20,6 +20,8 @@ const ACTION = {
 
     LISTAR_TAGS: "listarTags",
 
+    BUSCAR_LOTE: "buscarLote",
+
     LISTAR_PETS: "listarPets",
 
     SALVAR_PET: "salvarPet",
