@@ -223,6 +223,18 @@ async function listarTags() {
 }
 
 
+async function buscarLote(lote) {
+
+    return await apiGet(
+        ACTION.BUSCAR_LOTE,
+        {
+            lote: lote
+        }
+    );
+
+}
+
+
 async function buscarTag(token) {
 
     return await apiGet(
