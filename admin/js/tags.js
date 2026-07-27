@@ -340,7 +340,7 @@ async function carregarTags() {
                     <button
                         type="button"
                         class="btn btn-sm btn-primary"
-                        title="Editar"
+                        title="Visualizar dados e etiqueta"
                         onclick="editarTag('${token}')">
 
                         <i class="bi bi-pencil"></i>
@@ -389,30 +389,101 @@ async function carregarTags() {
    EDITAR TAG
 =================================================== */
 
-function editarTag(token) {
+async function editarTag(token) {
 
     if (!token) {
 
-        alert("Token da TAG não encontrado.");
+        alert(
+            "Token da TAG não encontrado."
+        );
 
         return;
 
     }
 
-    /*
-     * Direciona para a página pública da TAG.
-     * Nela o pet poderá ser cadastrado ou editado.
-     */
+    try {
 
-    const url =
-        CONFIG.URL_SITE +
-        "/?token=" +
-        encodeURIComponent(token);
+        const resposta =
+            await buscarTag(token);
 
-    window.open(
-        url,
-        "_blank"
-    );
+        if (
+            !resposta ||
+            resposta.sucesso === false
+        ) {
+
+            alert(
+                resposta &&
+                resposta.mensagem
+                    ? resposta.mensagem
+                    : "Não foi possível buscar os dados da TAG."
+            );
+
+            return;
+
+        }
+
+        const tag =
+            resposta.dados ||
+            resposta.tag ||
+            resposta;
+
+        document
+            .getElementById("novoId")
+            .innerText =
+            tag.id || "-";
+
+        document
+            .getElementById("novoToken")
+            .innerText =
+            tag.token || token;
+
+        document
+            .getElementById("novoCodigoAtivacao")
+            .innerText =
+            tag.codigo_ativacao ||
+            tag.CODIGO_ATIVACAO ||
+            tag.codigoAtivacao ||
+            "-";
+
+        const urlPublica =
+            tag.url ||
+            (
+                String(CONFIG.URL_SITE)
+                    .replace(/\/+$/, "") +
+                "/?token=" +
+                encodeURIComponent(
+                    tag.token || token
+                )
+            );
+
+        document
+            .getElementById("novaUrl")
+            .value =
+            urlPublica;
+
+        document
+            .getElementById("btnEtiqueta")
+            .dataset.token =
+            tag.token || token;
+
+        if (modalNovaTag) {
+
+            modalNovaTag.show();
+
+        }
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao visualizar TAG:",
+            erro
+        );
+
+        alert(
+            "Não foi possível carregar os dados da TAG."
+        );
+
+    }
 
 }
 
