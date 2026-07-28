@@ -1,1 +1,2117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <title>
+        PET NFC Admin - Configurações
+    </title>
+
+    <meta
+        name="theme-color"
+        content="#0d6efd">
+
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+        rel="stylesheet">
+
+    <!-- CSS do painel -->
+
+    <link
+        href="css/style.css"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="d-flex">
+
+    <!-- =====================================================
+         MENU LATERAL
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="text-center py-4">
+
+            <h3 class="fw-bold text-white">
+                PET NFC
+            </h3>
+
+            <small class="text-light">
+                Painel Administrativo
+            </small>
+
+        </div>
+
+        <hr>
+
+        <a
+            href="index.html"
+            class="menu-item">
+
+            <i class="bi bi-speedometer2"></i>
+
+            Dashboard
+
+        </a>
+
+        <a
+            href="tags.html"
+            class="menu-item">
+
+            <i class="bi bi-upc-scan"></i>
+
+            TAGs
+
+        </a>
+
+        <a
+            href="pets.html"
+            class="menu-item">
+
+            <i class="bi bi-heart-fill"></i>
+
+            Pets
+
+        </a>
+
+        <a
+            href="estatisticas.html"
+            class="menu-item">
+
+            <i class="bi bi-bar-chart-fill"></i>
+
+            Estatísticas
+
+        </a>
+
+        <a
+            href="configuracoes.html"
+            class="menu-item active">
+
+            <i class="bi bi-gear-fill"></i>
+
+            Configurações
+
+        </a>
+
+    </aside>
+
+
+    <!-- =====================================================
+         CONTEÚDO
+    ====================================================== -->
+
+    <main class="content container-fluid p-4">
+
+        <!-- CABEÇALHO -->
+
+        <div
+            class="d-flex flex-wrap
+                   justify-content-between
+                   align-items-center
+                   gap-3
+                   mb-4">
+
+            <div>
+
+                <h2 class="mb-1">
+
+                    <i class="bi bi-gear-fill me-2"></i>
+
+                    Configurações
+
+                </h2>
+
+                <p class="text-muted mb-0">
+
+                    Personalize o sistema PET NFC.
+
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                id="btnSalvarConfiguracoesTopo"
+                class="btn btn-primary">
+
+                <i class="bi bi-floppy-fill me-1"></i>
+
+                Salvar configurações
+
+            </button>
+
+        </div>
+
+
+        <!-- MENSAGEM -->
+
+        <div
+            id="mensagemConfiguracoes"
+            class="alert d-none"
+            role="alert">
+        </div>
+
+
+        <!-- =================================================
+             ABAS
+        ================================================== -->
+
+        <div class="card dashboard-card p-0 overflow-hidden">
+
+            <div class="configuracoes-layout">
+
+                <!-- MENU DAS CONFIGURAÇÕES -->
+
+                <div class="configuracoes-menu">
+
+                    <div
+                        class="nav flex-column nav-pills"
+                        id="abasConfiguracoes"
+                        role="tablist">
+
+                        <button
+                            class="nav-link active"
+                            id="abaEmpresa"
+                            data-bs-toggle="pill"
+                            data-bs-target="#conteudoEmpresa"
+                            type="button"
+                            role="tab">
+
+                            <i class="bi bi-building me-2"></i>
+
+                            Empresa e marca
+
+                        </button>
+
+                        <button
+                            class="nav-link"
+                            id="abaSite"
+                            data-bs-toggle="pill"
+                            data-bs-target="#conteudoSite"
+                            type="button"
+                            role="tab">
+
+                            <i class="bi bi-globe2 me-2"></i>
+
+                            Site público
+
+                        </button>
+
+                        <button
+                            class="nav-link"
+                            id="abaTags"
+                            data-bs-toggle="pill"
+                            data-bs-target="#conteudoTags"
+                            type="button"
+                            role="tab">
+
+                            <i class="bi bi-upc-scan me-2"></i>
+
+                            TAGs
+
+                        </button>
+
+                        <button
+                            class="nav-link"
+                            id="abaNotificacoes"
+                            data-bs-toggle="pill"
+                            data-bs-target="#conteudoNotificacoes"
+                            type="button"
+                            role="tab">
+
+                            <i class="bi bi-bell-fill me-2"></i>
+
+                            Notificações
+
+                        </button>
+
+                        <button
+                            class="nav-link"
+                            id="abaAparencia"
+                            data-bs-toggle="pill"
+                            data-bs-target="#conteudoAparencia"
+                            type="button"
+                            role="tab">
+
+                            <i class="bi bi-palette-fill me-2"></i>
+
+                            Aparência
+
+                        </button>
+
+                        <button
+                            class="nav-link"
+                            id="abaSeguranca"
+                            data-bs-toggle="pill"
+                            data-bs-target="#conteudoSeguranca"
+                            type="button"
+                            role="tab">
+
+                            <i class="bi bi-shield-lock-fill me-2"></i>
+
+                            Segurança
+
+                        </button>
+
+                        <button
+                            class="nav-link"
+                            id="abaManutencao"
+                            data-bs-toggle="pill"
+                            data-bs-target="#conteudoManutencao"
+                            type="button"
+                            role="tab">
+
+                            <i class="bi bi-tools me-2"></i>
+
+                            Manutenção
+
+                        </button>
+
+                        <button
+                            class="nav-link"
+                            id="abaSistema"
+                            data-bs-toggle="pill"
+                            data-bs-target="#conteudoSistema"
+                            type="button"
+                            role="tab">
+
+                            <i class="bi bi-info-circle-fill me-2"></i>
+
+                            Sistema
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONTEÚDO DAS ABAS -->
+
+                <div class="configuracoes-conteudo">
+
+                    <form id="formConfiguracoes">
+
+                        <div
+                            class="tab-content"
+                            id="conteudoAbasConfiguracoes">
+
+
+                            <!-- =====================================
+                                 EMPRESA E MARCA BRANCA
+                            ====================================== -->
+
+                            <div
+                                class="tab-pane fade show active"
+                                id="conteudoEmpresa"
+                                role="tabpanel">
+
+                                <div class="configuracao-titulo">
+
+                                    <div>
+
+                                        <h4>
+                                            Empresa e marca branca
+                                        </h4>
+
+                                        <p>
+                                            Altere o nome, contatos e identidade
+                                            principal do sistema.
+                                        </p>
+
+                                    </div>
+
+                                    <i class="bi bi-building"></i>
+
+                                </div>
+
+
+                                <div class="row g-3">
+
+                                    <div class="col-md-6">
+
+                                        <label
+                                            for="nomeEmpresa"
+                                            class="form-label">
+
+                                            Nome da empresa
+
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="nomeEmpresa"
+                                            class="form-control"
+                                            maxlength="100"
+                                            placeholder="Ex.: LINKA Gift">
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <label
+                                            for="nomeSistema"
+                                            class="form-label">
+
+                                            Nome do sistema
+
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="nomeSistema"
+                                            class="form-control"
+                                            maxlength="100"
+                                            placeholder="Ex.: PET NFC">
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <label
+                                            for="emailEmpresa"
+                                            class="form-label">
+
+                                            E-mail de atendimento
+
+                                        </label>
+
+                                        <input
+                                            type="email"
+                                            id="emailEmpresa"
+                                            class="form-control"
+                                            placeholder="contato@empresa.com">
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <label
+                                            for="whatsappEmpresa"
+                                            class="form-label">
+
+                                            WhatsApp de atendimento
+
+                                        </label>
+
+                                        <input
+                                            type="tel"
+                                            id="whatsappEmpresa"
+                                            class="form-control"
+                                            placeholder="5511999999999">
+
+                                        <div class="form-text">
+
+                                            Digite com DDD e código do país.
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <label
+                                            for="siteEmpresa"
+                                            class="form-label">
+
+                                            Site da empresa
+
+                                        </label>
+
+                                        <input
+                                            type="url"
+                                            id="siteEmpresa"
+                                            class="form-control"
+                                            placeholder="https://seusite.com.br">
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <label
+                                            for="instagramEmpresa"
+                                            class="form-label">
+
+                                            Instagram
+
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="instagramEmpresa"
+                                            class="form-control"
+                                            placeholder="@linkagift">
+
+                                    </div>
+
+
+                                    <div class="col-12">
+
+                                        <label
+                                            for="rodapeEmpresa"
+                                            class="form-label">
+
+                                            Texto do rodapé
+
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="rodapeEmpresa"
+                                            class="form-control"
+                                            maxlength="200"
+                                            placeholder="© LINKA Gift - Todos os direitos reservados">
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <label
+                                            for="logoEmpresa"
+                                            class="form-label">
+
+                                            URL da logo
+
+                                        </label>
+
+                                        <input
+                                            type="url"
+                                            id="logoEmpresa"
+                                            class="form-control"
+                                            placeholder="https://.../logo.png">
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <label class="form-label d-block">
+
+                                            Marca branca
+
+                                        </label>
+
+                                        <div class="form-check form-switch mt-2">
+
+                                            <input
+                                                type="checkbox"
+                                                id="marcaBrancaAtiva"
+                                                class="form-check-input">
+
+                                            <label
+                                                for="marcaBrancaAtiva"
+                                                class="form-check-label">
+
+                                                Ativar personalização da marca
+
+                                            </label>
+
+                                        </div>
+
+                                        <div class="form-text">
+
+                                            Permite usar outro nome, logo e cores
+                                            sem alterar o código.
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =====================================
+                                 SITE PÚBLICO
+                            ====================================== -->
+
+                            <div
+                                class="tab-pane fade"
+                                id="conteudoSite"
+                                role="tabpanel">
+
+                                <div class="configuracao-titulo">
+
+                                    <div>
+
+                                        <h4>
+                                            Site público
+                                        </h4>
+
+                                        <p>
+                                            Configure a página aberta pelo QR Code
+                                            e pela TAG NFC.
+                                        </p>
+
+                                    </div>
+
+                                    <i class="bi bi-globe2"></i>
+
+                                </div>
+
+
+                                <div class="row g-3">
+
+                                    <div class="col-12">
+
+                                        <label
+                                            for="urlSitePublico"
+                                            class="form-label">
+
+                                            URL pública das TAGs
+
+                                        </label>
+
+                                        <input
+                                            type="url"
+                                            id="urlSitePublico"
+                                            class="form-control"
+                                            placeholder="https://seuusuario.github.io/pet">
+
+                                        <div class="form-text">
+
+                                            O token será adicionado automaticamente
+                                            ao final da URL.
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <label
+                                            for="tituloSitePublico"
+                                            class="form-label">
+
+                                            Título da página
+
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="tituloSitePublico"
+                                            class="form-control"
+                                            placeholder="PET NFC">
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <label
+                                            for="faviconSite"
+                                            class="form-label">
+
+                                            URL do favicon
+
+                                        </label>
+
+                                        <input
+                                            type="url"
+                                            id="faviconSite"
+                                            class="form-control"
+                                            placeholder="https://.../favicon.png">
+
+                                    </div>
+
+
+                                    <div class="col-12">
+
+                                        <label
+                                            for="descricaoSitePublico"
+                                            class="form-label">
+
+                                            Descrição da página
+
+                                        </label>
+
+                                        <textarea
+                                            id="descricaoSitePublico"
+                                            class="form-control"
+                                            rows="3"
+                                            maxlength="300"
+                                            placeholder="Identificação inteligente para pets."></textarea>
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <div class="form-check form-switch">
+
+                                            <input
+                                                type="checkbox"
+                                                id="mostrarBotaoLigar"
+                                                class="form-check-input"
+                                                checked>
+
+                                            <label
+                                                for="mostrarBotaoLigar"
+                                                class="form-check-label">
+
+                                                Mostrar botão Ligar
+
+                                            </label>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <div class="form-check form-switch">
+
+                                            <input
+                                                type="checkbox"
+                                                id="mostrarBotaoWhatsapp"
+                                                class="form-check-input"
+                                                checked>
+
+                                            <label
+                                                for="mostrarBotaoWhatsapp"
+                                                class="form-check-label">
+
+                                                Mostrar WhatsApp
+
+                                            </label>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <div class="form-check form-switch">
+
+                                            <input
+                                                type="checkbox"
+                                                id="mostrarLogoSite"
+                                                class="form-check-input"
+                                                checked>
+
+                                            <label
+                                                for="mostrarLogoSite"
+                                                class="form-check-label">
+
+                                                Mostrar logo
+
+                                            </label>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =====================================
+                                 TAGS
+                            ====================================== -->
+
+                            <div
+                                class="tab-pane fade"
+                                id="conteudoTags"
+                                role="tabpanel">
+
+                                <div class="configuracao-titulo">
+
+                                    <div>
+
+                                        <h4>
+                                            Configurações das TAGs
+                                        </h4>
+
+                                        <p>
+                                            Defina como os tokens e códigos serão
+                                            gerados.
+                                        </p>
+
+                                    </div>
+
+                                    <i class="bi bi-upc-scan"></i>
+
+                                </div>
+
+
+                                <div class="row g-3">
+
+                                    <div class="col-md-4">
+
+                                        <label
+                                            for="prefixoToken"
+                                            class="form-label">
+
+                                            Prefixo do token
+
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="prefixoToken"
+                                            class="form-control"
+                                            maxlength="10"
+                                            value="PET"
+                                            placeholder="PET">
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <label
+                                            for="quantidadePadraoLote"
+                                            class="form-label">
+
+                                            Quantidade padrão do lote
+
+                                        </label>
+
+                                        <input
+                                            type="number"
+                                            id="quantidadePadraoLote"
+                                            class="form-control"
+                                            min="2"
+                                            max="500"
+                                            value="10">
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <label
+                                            for="tamanhoCodigoAtivacao"
+                                            class="form-label">
+
+                                            Tamanho do código
+
+                                        </label>
+
+                                        <select
+                                            id="tamanhoCodigoAtivacao"
+                                            class="form-select">
+
+                                            <option value="6">
+                                                6 caracteres
+                                            </option>
+
+                                            <option value="8">
+                                                8 caracteres
+                                            </option>
+
+                                            <option value="10">
+                                                10 caracteres
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <div class="configuracao-opcao">
+
+                                            <div>
+
+                                                <strong>
+                                                    Bloquear exclusão de TAG ativada
+                                                </strong>
+
+                                                <small>
+                                                    Evita excluir acidentalmente uma
+                                                    TAG vinculada a um cliente.
+                                                </small>
+
+                                            </div>
+
+                                            <div class="form-check form-switch">
+
+                                                <input
+                                                    type="checkbox"
+                                                    id="bloquearExclusaoAtivada"
+                                                    class="form-check-input"
+                                                    checked>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <div class="configuracao-opcao">
+
+                                            <div>
+
+                                                <strong>
+                                                    Permitir reutilizar TAG resetada
+                                                </strong>
+
+                                                <small>
+                                                    A TAG volta para o status livre
+                                                    após o reset.
+                                                </small>
+
+                                            </div>
+
+                                            <div class="form-check form-switch">
+
+                                                <input
+                                                    type="checkbox"
+                                                    id="permitirReutilizarTag"
+                                                    class="form-check-input"
+                                                    checked>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <div class="configuracao-opcao">
+
+                                            <div>
+
+                                                <strong>
+                                                    Abrir etiquetas após gerar lote
+                                                </strong>
+
+                                                <small>
+                                                    Abre automaticamente a página
+                                                    de impressão.
+                                                </small>
+
+                                            </div>
+
+                                            <div class="form-check form-switch">
+
+                                                <input
+                                                    type="checkbox"
+                                                    id="abrirEtiquetasAposLote"
+                                                    class="form-check-input">
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <div class="configuracao-opcao">
+
+                                            <div>
+
+                                                <strong>
+                                                    Confirmar antes de resetar
+                                                </strong>
+
+                                                <small>
+                                                    Solicita confirmação antes de
+                                                    remover o vínculo do pet.
+                                                </small>
+
+                                            </div>
+
+                                            <div class="form-check form-switch">
+
+                                                <input
+                                                    type="checkbox"
+                                                    id="confirmarResetTag"
+                                                    class="form-check-input"
+                                                    checked>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =====================================
+                                 NOTIFICAÇÕES
+                            ====================================== -->
+
+                            <div
+                                class="tab-pane fade"
+                                id="conteudoNotificacoes"
+                                role="tabpanel">
+
+                                <div class="configuracao-titulo">
+
+                                    <div>
+
+                                        <h4>
+                                            Localização e notificações
+                                        </h4>
+
+                                        <p>
+                                            Controle como a localização é solicitada
+                                            e como o tutor é avisado.
+                                        </p>
+
+                                    </div>
+
+                                    <i class="bi bi-bell-fill"></i>
+
+                                </div>
+
+
+                                <div class="row g-3">
+
+                                    <div class="col-md-6">
+
+                                        <div class="configuracao-opcao">
+
+                                            <div>
+
+                                                <strong>
+                                                    Solicitar localização
+                                                </strong>
+
+                                                <small>
+                                                    Solicita a localização de quem
+                                                    encontrou o pet.
+                                                </small>
+
+                                            </div>
+
+                                            <div class="form-check form-switch">
+
+                                                <input
+                                                    type="checkbox"
+                                                    id="solicitarLocalizacao"
+                                                    class="form-check-input"
+                                                    checked>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <div class="configuracao-opcao">
+
+                                            <div>
+
+                                                <strong>
+                                                    Nova tentativa automática
+                                                </strong>
+
+                                                <small>
+                                                    Tenta obter a localização
+                                                    novamente.
+                                                </small>
+
+                                            </div>
+
+                                            <div class="form-check form-switch">
+
+                                                <input
+                                                    type="checkbox"
+                                                    id="repetirLocalizacao"
+                                                    class="form-check-input"
+                                                    checked>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <label
+                                            for="intervaloLocalizacao"
+                                            class="form-label">
+
+                                            Intervalo da tentativa
+
+                                        </label>
+
+                                        <select
+                                            id="intervaloLocalizacao"
+                                            class="form-select">
+
+                                            <option value="5000">
+                                                5 segundos
+                                            </option>
+
+                                            <option value="10000">
+                                                10 segundos
+                                            </option>
+
+                                            <option value="30000">
+                                                30 segundos
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <label
+                                            for="tipoNotificacao"
+                                            class="form-label">
+
+                                            Forma de notificação
+
+                                        </label>
+
+                                        <select
+                                            id="tipoNotificacao"
+                                            class="form-select">
+
+                                            <option value="EMAIL">
+                                                E-mail
+                                            </option>
+
+                                            <option value="TELEGRAM">
+                                                Telegram
+                                            </option>
+
+                                            <option value="AMBOS">
+                                                E-mail e Telegram
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <label
+                                            for="emailNotificacoes"
+                                            class="form-label">
+
+                                            E-mail padrão
+
+                                        </label>
+
+                                        <input
+                                            type="email"
+                                            id="emailNotificacoes"
+                                            class="form-control"
+                                            placeholder="notificacoes@empresa.com">
+
+                                    </div>
+
+
+                                    <div class="col-12">
+
+                                        <label
+                                            for="mensagemLocalizacaoNegada"
+                                            class="form-label">
+
+                                            Mensagem quando a localização for negada
+
+                                        </label>
+
+                                        <textarea
+                                            id="mensagemLocalizacaoNegada"
+                                            class="form-control"
+                                            rows="4">🐾 A localização está desligada ou bloqueada.
+
+Ligue a localização do celular e passe a tag novamente para ajudar a encontrar o tutor deste pet.</textarea>
+
+                                    </div>
+
+
+                                    <div class="col-12">
+
+                                        <label
+                                            for="mensagemLocalizacaoEnviada"
+                                            class="form-label">
+
+                                            Mensagem após enviar a localização
+
+                                        </label>
+
+                                        <textarea
+                                            id="mensagemLocalizacaoEnviada"
+                                            class="form-control"
+                                            rows="3">📍 Localização compartilhada com sucesso. Obrigado por ajudar este pet!</textarea>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =====================================
+                                 APARÊNCIA
+                            ====================================== -->
+
+                            <div
+                                class="tab-pane fade"
+                                id="conteudoAparencia"
+                                role="tabpanel">
+
+                                <div class="configuracao-titulo">
+
+                                    <div>
+
+                                        <h4>
+                                            Aparência
+                                        </h4>
+
+                                        <p>
+                                            Personalize as cores e o tema do painel.
+                                        </p>
+
+                                    </div>
+
+                                    <i class="bi bi-palette-fill"></i>
+
+                                </div>
+
+
+                                <div class="row g-3">
+
+                                    <div class="col-md-4">
+
+                                        <label
+                                            for="corPrincipal"
+                                            class="form-label">
+
+                                            Cor principal
+
+                                        </label>
+
+                                        <input
+                                            type="color"
+                                            id="corPrincipal"
+                                            class="form-control form-control-color"
+                                            value="#0d6efd">
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <label
+                                            for="corSecundaria"
+                                            class="form-label">
+
+                                            Cor secundária
+
+                                        </label>
+
+                                        <input
+                                            type="color"
+                                            id="corSecundaria"
+                                            class="form-control form-control-color"
+                                            value="#198754">
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <label
+                                            for="temaPainel"
+                                            class="form-label">
+
+                                            Tema do painel
+
+                                        </label>
+
+                                        <select
+                                            id="temaPainel"
+                                            class="form-select">
+
+                                            <option value="CLARO">
+                                                Claro
+                                            </option>
+
+                                            <option value="ESCURO">
+                                                Escuro
+                                            </option>
+
+                                            <option value="AUTOMATICO">
+                                                Automático
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="col-12">
+
+                                        <div
+                                            id="previewAparencia"
+                                            class="preview-aparencia">
+
+                                            <div class="preview-sidebar">
+
+                                                <strong id="previewNomeSistema">
+                                                    PET NFC
+                                                </strong>
+
+                                                <span>
+                                                    Painel Administrativo
+                                                </span>
+
+                                            </div>
+
+                                            <div class="preview-conteudo">
+
+                                                <div class="preview-card">
+
+                                                    <small>
+                                                        Pré-visualização
+                                                    </small>
+
+                                                    <strong>
+                                                        Aparência do sistema
+                                                    </strong>
+
+                                                    <button
+                                                        type="button"
+                                                        class="btn btn-sm btn-primary">
+
+                                                        Botão principal
+
+                                                    </button>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =====================================
+                                 SEGURANÇA
+                            ====================================== -->
+
+                            <div
+                                class="tab-pane fade"
+                                id="conteudoSeguranca"
+                                role="tabpanel">
+
+                                <div class="configuracao-titulo">
+
+                                    <div>
+
+                                        <h4>
+                                            Segurança
+                                        </h4>
+
+                                        <p>
+                                            Controle sessões e confirmações de ações
+                                            importantes.
+                                        </p>
+
+                                    </div>
+
+                                    <i class="bi bi-shield-lock-fill"></i>
+
+                                </div>
+
+
+                                <div class="row g-3">
+
+                                    <div class="col-md-6">
+
+                                        <label
+                                            for="tempoSessao"
+                                            class="form-label">
+
+                                            Tempo de sessão
+
+                                        </label>
+
+                                        <select
+                                            id="tempoSessao"
+                                            class="form-select">
+
+                                            <option value="30">
+                                                30 minutos
+                                            </option>
+
+                                            <option value="60">
+                                                1 hora
+                                            </option>
+
+                                            <option value="120">
+                                                2 horas
+                                            </option>
+
+                                            <option value="480">
+                                                8 horas
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <label
+                                            for="tentativasLogin"
+                                            class="form-label">
+
+                                            Tentativas de login permitidas
+
+                                        </label>
+
+                                        <input
+                                            type="number"
+                                            id="tentativasLogin"
+                                            class="form-control"
+                                            min="3"
+                                            max="10"
+                                            value="5">
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <div class="configuracao-opcao">
+
+                                            <div>
+
+                                                <strong>
+                                                    Confirmar exclusão de TAG
+                                                </strong>
+
+                                                <small>
+                                                    Solicita confirmação antes da
+                                                    exclusão definitiva.
+                                                </small>
+
+                                            </div>
+
+                                            <div class="form-check form-switch">
+
+                                                <input
+                                                    type="checkbox"
+                                                    id="confirmarExclusaoTag"
+                                                    class="form-check-input"
+                                                    checked>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <div class="configuracao-opcao">
+
+                                            <div>
+
+                                                <strong>
+                                                    Confirmar bloqueio de TAG
+                                                </strong>
+
+                                                <small>
+                                                    Solicita confirmação antes de
+                                                    bloquear uma TAG.
+                                                </small>
+
+                                            </div>
+
+                                            <div class="form-check form-switch">
+
+                                                <input
+                                                    type="checkbox"
+                                                    id="confirmarBloqueioTag"
+                                                    class="form-check-input"
+                                                    checked>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-12">
+
+                                        <hr>
+
+                                        <h5 class="mb-3">
+                                            Alterar senha
+                                        </h5>
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <label
+                                            for="senhaAtual"
+                                            class="form-label">
+
+                                            Senha atual
+
+                                        </label>
+
+                                        <input
+                                            type="password"
+                                            id="senhaAtual"
+                                            class="form-control"
+                                            autocomplete="current-password">
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <label
+                                            for="novaSenha"
+                                            class="form-label">
+
+                                            Nova senha
+
+                                        </label>
+
+                                        <input
+                                            type="password"
+                                            id="novaSenha"
+                                            class="form-control"
+                                            autocomplete="new-password">
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <label
+                                            for="confirmarNovaSenha"
+                                            class="form-label">
+
+                                            Confirmar nova senha
+
+                                        </label>
+
+                                        <input
+                                            type="password"
+                                            id="confirmarNovaSenha"
+                                            class="form-control"
+                                            autocomplete="new-password">
+
+                                    </div>
+
+
+                                    <div class="col-12">
+
+                                        <button
+                                            type="button"
+                                            id="btnAlterarSenha"
+                                            class="btn btn-outline-primary">
+
+                                            <i class="bi bi-key-fill me-1"></i>
+
+                                            Alterar senha
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =====================================
+                                 MANUTENÇÃO
+                            ====================================== -->
+
+                            <div
+                                class="tab-pane fade"
+                                id="conteudoManutencao"
+                                role="tabpanel">
+
+                                <div class="configuracao-titulo">
+
+                                    <div>
+
+                                        <h4>
+                                            Manutenção
+                                        </h4>
+
+                                        <p>
+                                            Ferramentas para limpar dados de teste
+                                            e fazer cópias de segurança.
+                                        </p>
+
+                                    </div>
+
+                                    <i class="bi bi-tools"></i>
+
+                                </div>
+
+
+                                <div class="alert alert-warning">
+
+                                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+                                    Algumas operações não podem ser desfeitas.
+                                    Confira os dados antes de continuar.
+
+                                </div>
+
+
+                                <div class="row g-3">
+
+                                    <div class="col-md-6">
+
+                                        <div class="card manutencao-card">
+
+                                            <div class="card-body">
+
+                                                <div class="manutencao-icone">
+
+                                                    <i class="bi bi-download"></i>
+
+                                                </div>
+
+                                                <h5>
+                                                    Fazer backup
+                                                </h5>
+
+                                                <p>
+                                                    Baixe uma cópia dos dados do
+                                                    sistema.
+                                                </p>
+
+                                                <button
+                                                    type="button"
+                                                    id="btnFazerBackup"
+                                                    class="btn btn-outline-primary">
+
+                                                    Fazer backup
+
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <div class="card manutencao-card">
+
+                                            <div class="card-body">
+
+                                                <div class="manutencao-icone">
+
+                                                    <i class="bi bi-upload"></i>
+
+                                                </div>
+
+                                                <h5>
+                                                    Restaurar backup
+                                                </h5>
+
+                                                <p>
+                                                    Restaure os dados usando um
+                                                    arquivo de backup.
+                                                </p>
+
+                                                <input
+                                                    type="file"
+                                                    id="arquivoBackup"
+                                                    class="form-control mb-2"
+                                                    accept=".json">
+
+                                                <button
+                                                    type="button"
+                                                    id="btnRestaurarBackup"
+                                                    class="btn btn-outline-primary">
+
+                                                    Restaurar
+
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <div class="card manutencao-card">
+
+                                            <div class="card-body">
+
+                                                <div class="manutencao-icone text-warning">
+
+                                                    <i class="bi bi-trash3-fill"></i>
+
+                                                </div>
+
+                                                <h5>
+                                                    Limpar TAGs de teste
+                                                </h5>
+
+                                                <p>
+                                                    Exclui apenas TAGs livres e sem
+                                                    pet vinculado.
+                                                </p>
+
+                                                <button
+                                                    type="button"
+                                                    id="btnLimparTagsTeste"
+                                                    class="btn btn-outline-warning">
+
+                                                    Limpar TAGs de teste
+
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <div class="card manutencao-card">
+
+                                            <div class="card-body">
+
+                                                <div class="manutencao-icone text-danger">
+
+                                                    <i class="bi bi-x-octagon-fill"></i>
+
+                                                </div>
+
+                                                <h5>
+                                                    Limpar registros
+                                                </h5>
+
+                                                <p>
+                                                    Remove logs e registros antigos
+                                                    de localização.
+                                                </p>
+
+                                                <button
+                                                    type="button"
+                                                    id="btnLimparRegistros"
+                                                    class="btn btn-outline-danger">
+
+                                                    Limpar registros
+
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =====================================
+                                 SISTEMA
+                            ====================================== -->
+
+                            <div
+                                class="tab-pane fade"
+                                id="conteudoSistema"
+                                role="tabpanel">
+
+                                <div class="configuracao-titulo">
+
+                                    <div>
+
+                                        <h4>
+                                            Informações do sistema
+                                        </h4>
+
+                                        <p>
+                                            Consulte a versão, conexão e dados
+                                            gerais do PET NFC.
+                                        </p>
+
+                                    </div>
+
+                                    <i class="bi bi-info-circle-fill"></i>
+
+                                </div>
+
+
+                                <div class="row g-3">
+
+                                    <div class="col-md-4">
+
+                                        <div class="sistema-info-card">
+
+                                            <span>
+                                                Sistema
+                                            </span>
+
+                                            <strong id="infoNomeSistema">
+                                                PET NFC
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <div class="sistema-info-card">
+
+                                            <span>
+                                                Versão
+                                            </span>
+
+                                            <strong id="infoVersao">
+                                                1.1.0
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <div class="sistema-info-card">
+
+                                            <span>
+                                                Banco de dados
+                                            </span>
+
+                                            <strong
+                                                id="infoBanco"
+                                                class="text-success">
+
+                                                Conectado
+
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <div class="sistema-info-card">
+
+                                            <span>
+                                                Total de TAGs
+                                            </span>
+
+                                            <strong id="infoTotalTags">
+                                                0
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <div class="sistema-info-card">
+
+                                            <span>
+                                                TAGs livres
+                                            </span>
+
+                                            <strong id="infoTagsLivres">
+                                                0
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <div class="sistema-info-card">
+
+                                            <span>
+                                                TAGs ativadas
+                                            </span>
+
+                                            <strong id="infoTagsAtivadas">
+                                                0
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <div class="sistema-info-card">
+
+                                            <span>
+                                                TAGs bloqueadas
+                                            </span>
+
+                                            <strong id="infoTagsBloqueadas">
+                                                0
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <div class="sistema-info-card">
+
+                                            <span>
+                                                Pets cadastrados
+                                            </span>
+
+                                            <strong id="infoTotalPets">
+                                                0
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-4">
+
+                                        <div class="sistema-info-card">
+
+                                            <span>
+                                                Último backup
+                                            </span>
+
+                                            <strong id="infoUltimoBackup">
+                                                Nunca realizado
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-12 mt-4">
+
+                                        <button
+                                            type="button"
+                                            id="btnTestarConexao"
+                                            class="btn btn-outline-primary">
+
+                                            <i class="bi bi-wifi me-1"></i>
+
+                                            Testar conexão
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- RODAPÉ DOS BOTÕES -->
+
+                        <div class="configuracoes-rodape">
+
+                            <button
+                                type="button"
+                                id="btnRestaurarPadrao"
+                                class="btn btn-outline-secondary">
+
+                                <i class="bi bi-arrow-counterclockwise me-1"></i>
+
+                                Restaurar padrão
+
+                            </button>
+
+                            <button
+                                type="submit"
+                                id="btnSalvarConfiguracoes"
+                                class="btn btn-primary">
+
+                                <i class="bi bi-floppy-fill me-1"></i>
+
+                                Salvar configurações
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL DE CONFIRMAÇÃO
+====================================================== -->
+
+<div
+    class="modal fade"
+    id="modalConfirmacao"
+    tabindex="-1"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5
+                    id="tituloModalConfirmacao"
+                    class="modal-title">
+
+                    Confirmar operação
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Fechar">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p
+                    id="textoModalConfirmacao"
+                    class="mb-0">
+
+                    Deseja continuar?
+
+                </p>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    type="button"
+                    id="btnConfirmarOperacao"
+                    class="btn btn-danger">
+
+                    Confirmar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Bootstrap -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Arquivos do projeto -->
+
+<script src="js/config.js"></script>
+
+<script src="js/api.js"></script>
+
+<script src="js/configuracoes.js?v=1"></script>
+
+</body>
+
+</html>
