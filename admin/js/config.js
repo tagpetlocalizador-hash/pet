@@ -40,4 +40,8 @@ const ACTION = {
 
     EXCLUIR_TAG: "excluirTag"
 
+    BUSCAR_CONFIGURACOES: "buscarConfiguracoes",
+
+    SALVAR_CONFIGURACOES: "salvarConfiguracoes",
+
 };
