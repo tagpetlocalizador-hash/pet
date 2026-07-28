@@ -327,3 +327,30 @@ async function salvarPetAdmin(dados) {
     });
 
 }
+
+//==================================================
+// CONFIGURAÇÕES DO SISTEMA
+//==================================================
+
+async function buscarConfiguracoesSistema() {
+
+    return await apiGet(
+        ACTION.BUSCAR_CONFIGURACOES
+    );
+
+}
+
+
+async function salvarConfiguracoesSistema(
+    configuracoes
+) {
+
+    return await apiPost({
+
+        action: ACTION.SALVAR_CONFIGURACOES,
+
+        configuracoes: configuracoes
+
+    });
+
+}
