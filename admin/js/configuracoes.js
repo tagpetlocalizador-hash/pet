@@ -684,7 +684,7 @@ function coletarConfiguracoes(){
    SALVAR
 ===================================================== */
 
-function salvarConfiguracoes(){
+async function salvarConfiguracoes(){
 
     if(!validarConfiguracoes()){
 
@@ -704,6 +704,14 @@ function salvarConfiguracoes(){
             JSON.stringify(configuracoes)
 
         );
+
+        if(typeof salvarConfiguracoesSistema==="function"){
+
+            await salvarConfiguracoesSistema(
+                configuracoes
+            );
+
+        }
 
         aplicarConfiguracoesVisuais(
             configuracoes
