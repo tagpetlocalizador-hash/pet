@@ -38,7 +38,7 @@ const ACTION = {
 
     RESETAR_TAG: "resetarTag",
 
-    EXCLUIR_TAG: "excluirTag"
+    EXCLUIR_TAG: "excluirTag",
 
     BUSCAR_CONFIGURACOES: "buscarConfiguracoes",
 
