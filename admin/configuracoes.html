@@ -253,7 +253,7 @@
 
                             <i class="bi bi-palette-fill me-2"></i>
 
-                            Aparência
+                            Personalização
 
                         </button>
 
@@ -1191,150 +1191,579 @@ Ligue a localização do celular e passe a tag novamente para ajudar a encontrar
                                  APARÊNCIA
                             ====================================== -->
 
-                            <div
-                                class="tab-pane fade"
-                                id="conteudoAparencia"
-                                role="tabpanel">
+                            <!-- ================================================
+     PERSONALIZAÇÃO DAS PÁGINAS
+================================================ -->
 
-                                <div class="configuracao-titulo">
+<div
+    class="tab-pane fade"
+    id="conteudoAparencia"
+    role="tabpanel"
+    aria-labelledby="abaAparencia">
 
-                                    <div>
+    <div class="configuracao-titulo">
 
-                                        <h4>
-                                            Aparência
-                                        </h4>
+        <div>
 
-                                        <p>
-                                            Personalize as cores e o tema do painel.
-                                        </p>
+            <h4>
+                Personalização das páginas
+            </h4>
 
-                                    </div>
+            <p>
+                Personalize a página pública do pet e a Área do Tutor.
+                As cores do painel administrativo não serão alteradas.
+            </p>
 
-                                    <i class="bi bi-palette-fill"></i>
+        </div>
 
-                                </div>
+        <i class="bi bi-palette-fill"></i>
 
-
-                                <div class="row g-3">
-
-                                    <div class="col-md-4">
-
-                                        <label
-                                            for="corPrincipal"
-                                            class="form-label">
-
-                                            Cor principal
-
-                                        </label>
-
-                                        <input
-                                            type="color"
-                                            id="corPrincipal"
-                                            class="form-control form-control-color"
-                                            value="#0d6efd">
-
-                                    </div>
+    </div>
 
 
-                                    <div class="col-md-4">
+    <!-- TEMA PRONTO -->
 
-                                        <label
-                                            for="corSecundaria"
-                                            class="form-label">
+    <div class="card border-0 bg-light mb-4">
 
-                                            Cor secundária
+        <div class="card-body p-4">
 
-                                        </label>
+            <div class="row g-3 align-items-end">
 
-                                        <input
-                                            type="color"
-                                            id="corSecundaria"
-                                            class="form-control form-control-color"
-                                            value="#198754">
+                <div class="col-lg-6">
 
-                                    </div>
+                    <label
+                        for="temaPublico"
+                        class="form-label">
+
+                        Tema das páginas
+
+                    </label>
+
+                    <select
+                        id="temaPublico"
+                        class="form-select">
+
+                        <option value="CLASSICO">
+                            Clássico PET NFC — Verde
+                        </option>
+
+                        <option value="AZUL">
+                            Azul
+                        </option>
+
+                        <option value="ROXO">
+                            Roxo
+                        </option>
+
+                        <option value="LARANJA">
+                            Laranja
+                        </option>
+
+                        <option value="VERMELHO">
+                            Vermelho
+                        </option>
+
+                        <option value="ESCURO">
+                            Escuro
+                        </option>
+
+                        <option value="PERSONALIZADO">
+                            Personalizado
+                        </option>
+
+                    </select>
+
+                </div>
 
 
-                                    <div class="col-md-4">
+                <div class="col-lg-6">
 
-                                        <label
-                                            for="temaPainel"
-                                            class="form-label">
+                    <div class="form-text">
 
-                                            Tema do painel
+                        Selecione um tema pronto ou escolha
+                        “Personalizado” para definir suas próprias cores.
 
-                                        </label>
+                    </div>
 
-                                        <select
-                                            id="temaPainel"
-                                            class="form-select">
+                </div>
 
-                                            <option value="CLARO">
-                                                Claro
-                                            </option>
+            </div>
 
-                                            <option value="ESCURO">
-                                                Escuro
-                                            </option>
+        </div>
 
-                                            <option value="AUTOMATICO">
-                                                Automático
-                                            </option>
-
-                                        </select>
-
-                                    </div>
+    </div>
 
 
-                                    <div class="col-12">
+    <!-- CORES PERSONALIZADAS -->
 
-                                        <div
-                                            id="previewAparencia"
-                                            class="preview-aparencia">
+    <section
+        id="areaCoresPersonalizadas"
+        class="mb-4">
 
-                                            <div class="preview-sidebar">
+        <div class="d-flex align-items-center gap-2 mb-3">
 
-                                                <strong id="previewNomeSistema">
-                                                    PET NFC
-                                                </strong>
+            <i class="bi bi-eyedropper text-primary"></i>
 
-                                                <span>
-                                                    Painel Administrativo
-                                                </span>
+            <h5 class="mb-0">
+                Cores personalizadas
+            </h5>
 
-                                            </div>
+        </div>
 
-                                            <div class="preview-conteudo">
 
-                                                <div class="preview-card">
+        <div class="row g-3">
 
-                                                    <small>
-                                                        Pré-visualização
-                                                    </small>
+            <div class="col-md-6 col-xl-3">
 
-                                                    <strong>
-                                                        Aparência do sistema
-                                                    </strong>
+                <label
+                    for="corPetPrincipal"
+                    class="form-label">
 
-                                                    <button
-                                                        type="button"
-                                                        class="btn btn-sm btn-primary">
+                    Cor principal do pet
 
-                                                        Botão principal
+                </label>
 
-                                                    </button>
+                <input
+                    type="color"
+                    id="corPetPrincipal"
+                    class="form-control form-control-color"
+                    value="#2E7D32">
 
-                                                </div>
+            </div>
 
-                                            </div>
 
-                                        </div>
+            <div class="col-md-6 col-xl-3">
 
-                                    </div>
+                <label
+                    for="corPetSecundaria"
+                    class="form-label">
 
-                                </div>
+                    Cor secundária do pet
 
-                            </div>
+                </label>
+
+                <input
+                    type="color"
+                    id="corPetSecundaria"
+                    class="form-control form-control-color"
+                    value="#43A047">
+
+            </div>
+
+
+            <div class="col-md-6 col-xl-3">
+
+                <label
+                    for="corTutorPrincipal"
+                    class="form-label">
+
+                    Cor principal do tutor
+
+                </label>
+
+                <input
+                    type="color"
+                    id="corTutorPrincipal"
+                    class="form-control form-control-color"
+                    value="#2E7D32">
+
+            </div>
+
+
+            <div class="col-md-6 col-xl-3">
+
+                <label
+                    for="corTutorSecundaria"
+                    class="form-label">
+
+                    Cor secundária do tutor
+
+                </label>
+
+                <input
+                    type="color"
+                    id="corTutorSecundaria"
+                    class="form-control form-control-color"
+                    value="#43A047">
+
+            </div>
+
+
+            <div class="col-md-6 col-xl-3">
+
+                <label
+                    for="corFundoPet"
+                    class="form-label">
+
+                    Fundo da página do pet
+
+                </label>
+
+                <input
+                    type="color"
+                    id="corFundoPet"
+                    class="form-control form-control-color"
+                    value="#F3F8F4">
+
+            </div>
+
+
+            <div class="col-md-6 col-xl-3">
+
+                <label
+                    for="corFundoTutor"
+                    class="form-label">
+
+                    Fundo da Área do Tutor
+
+                </label>
+
+                <input
+                    type="color"
+                    id="corFundoTutor"
+                    class="form-control form-control-color"
+                    value="#F5F7F9">
+
+            </div>
+
+
+            <div class="col-md-6 col-xl-3">
+
+                <label
+                    for="corBotaoLigar"
+                    class="form-label">
+
+                    Botão Ligar
+
+                </label>
+
+                <input
+                    type="color"
+                    id="corBotaoLigar"
+                    class="form-control form-control-color"
+                    value="#1976D2">
+
+            </div>
+
+
+            <div class="col-md-6 col-xl-3">
+
+                <label
+                    for="corBotaoLocalizacao"
+                    class="form-label">
+
+                    Botão Localização
+
+                </label>
+
+                <input
+                    type="color"
+                    id="corBotaoLocalizacao"
+                    class="form-control form-control-color"
+                    value="#F9A825">
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- EXIBIÇÃO -->
+
+    <section class="mb-4">
+
+        <div class="d-flex align-items-center gap-2 mb-3">
+
+            <i class="bi bi-eye-fill text-primary"></i>
+
+            <h5 class="mb-0">
+                Elementos exibidos
+            </h5>
+
+        </div>
+
+
+        <div class="row g-3">
+
+            <div class="col-lg-6">
+
+                <div class="configuracao-opcao">
+
+                    <div>
+
+                        <strong>
+                            Mostrar logo na página do pet
+                        </strong>
+
+                        <small>
+                            Exibe a identidade da empresa na página acessada pela TAG.
+                        </small>
+
+                    </div>
+
+                    <div class="form-check form-switch">
+
+                        <input
+                            type="checkbox"
+                            id="mostrarLogoPet"
+                            class="form-check-input"
+                            checked>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <div class="configuracao-opcao">
+
+                    <div>
+
+                        <strong>
+                            Mostrar logo na Área do Tutor
+                        </strong>
+
+                        <small>
+                            Exibe a logo no login e nas páginas do tutor.
+                        </small>
+
+                    </div>
+
+                    <div class="form-check form-switch">
+
+                        <input
+                            type="checkbox"
+                            id="mostrarLogoTutor"
+                            class="form-check-input"
+                            checked>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <div class="configuracao-opcao">
+
+                    <div>
+
+                        <strong>
+                            Mostrar “Desenvolvido por”
+                        </strong>
+
+                        <small>
+                            Exibe a assinatura da empresa no rodapé das páginas.
+                        </small>
+
+                    </div>
+
+                    <div class="form-check form-switch">
+
+                        <input
+                            type="checkbox"
+                            id="mostrarRodapePublico"
+                            class="form-check-input"
+                            checked>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <div class="configuracao-opcao">
+
+                    <div>
+
+                        <strong>
+                            Usar o mesmo tema nas duas páginas
+                        </strong>
+
+                        <small>
+                            Aplica as cores da página do pet também na Área do Tutor.
+                        </small>
+
+                    </div>
+
+                    <div class="form-check form-switch">
+
+                        <input
+                            type="checkbox"
+                            id="usarMesmoTema"
+                            class="form-check-input"
+                            checked>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRÉ-VISUALIZAÇÃO -->
+
+    <section>
+
+        <div class="d-flex align-items-center gap-2 mb-3">
+
+            <i class="bi bi-phone-fill text-primary"></i>
+
+            <h5 class="mb-0">
+                Pré-visualização
+            </h5>
+
+        </div>
+
+
+        <div class="preview-paginas-publicas">
+
+            <!-- PÁGINA DO PET -->
+
+            <div class="preview-pagina-item">
+
+                <div class="preview-pagina-cabecalho">
+
+                    <strong>
+                        Página pública do pet
+                    </strong>
+
+                </div>
+
+
+                <div
+                    id="previewPaginaPet"
+                    class="preview-celular preview-pet">
+
+                    <div class="preview-faixa-pet"></div>
+
+                    <div class="preview-foto-pet">
+
+                        <i class="bi bi-camera-fill"></i>
+
+                    </div>
+
+                    <strong class="preview-nome-pet">
+                        Nome do Pet
+                    </strong>
+
+                    <span class="preview-tutor-pet">
+                        Tutor responsável
+                    </span>
+
+                    <button
+                        type="button"
+                        id="previewBotaoWhatsapp"
+                        class="preview-botao preview-whatsapp">
+
+                        <i class="bi bi-whatsapp"></i>
+
+                        WhatsApp
+
+                    </button>
+
+                    <button
+                        type="button"
+                        id="previewBotaoLigar"
+                        class="preview-botao">
+
+                        <i class="bi bi-telephone-fill"></i>
+
+                        Ligar
+
+                    </button>
+
+                    <button
+                        type="button"
+                        id="previewBotaoLocalizacao"
+                        class="preview-botao">
+
+                        <i class="bi bi-geo-alt-fill"></i>
+
+                        Encontrei este pet
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ÁREA DO TUTOR -->
+
+            <div class="preview-pagina-item">
+
+                <div class="preview-pagina-cabecalho">
+
+                    <strong>
+                        Área do Tutor
+                    </strong>
+
+                </div>
+
+
+                <div
+                    id="previewPaginaTutor"
+                    class="preview-celular preview-tutor">
+
+                    <div
+                        id="previewIconeTutor"
+                        class="preview-icone-tutor">
+
+                        <i class="bi bi-person-heart"></i>
+
+                    </div>
+
+                    <strong>
+                        Área do Tutor
+                    </strong>
+
+                    <span>
+                        Gerencie os dados do seu pet
+                    </span>
+
+                    <button
+                        type="button"
+                        id="previewBotaoTutor"
+                        class="preview-botao">
+
+                        <i class="bi bi-box-arrow-in-right"></i>
+
+                        Entrar na conta
+
+                    </button>
+
+                    <button
+                        type="button"
+                        id="previewBotaoTutorSecundario"
+                        class="preview-botao-secundario">
+
+                        Recuperar acesso
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
 
 
                             <!-- =====================================
