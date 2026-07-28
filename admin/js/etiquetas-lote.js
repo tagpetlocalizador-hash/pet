@@ -169,31 +169,6 @@ tagsDoLote.forEach(
 );
 
 
-        grade.innerHTML = "";
-
-
-        tagsDoLote.forEach(
-            (tag, indice) => {
-
-                const etiqueta =
-                    criarEtiquetaDoLote(
-                        tag,
-                        indice
-                    );
-
-                grade.appendChild(
-                    etiqueta
-                );
-
-                gerarQrCodeDoLote(
-                    etiqueta,
-                    tag
-                );
-
-            }
-        );
-
-
         if (mensagem) {
 
             mensagem.classList.add(
