@@ -9,10 +9,29 @@ async function carregarTemaPublico(){
 
     try{
 
-        if(
-    typeof API === "undefined" ||
-    typeof API.consultar !== "function"
+        let resposta;
+
+
+if(
+    typeof API !== "undefined" &&
+    typeof API.consultar === "function"
 ){
+
+    resposta =
+        await API.consultar(
+            "buscarConfiguracoes"
+        );
+
+}else if(
+    typeof apiGet === "function"
+){
+
+    resposta =
+        await apiGet(
+            "buscarConfiguracoes"
+        );
+
+}else{
 
     console.warn(
         "API de configurações não encontrada."
@@ -21,13 +40,6 @@ async function carregarTemaPublico(){
     return;
 
 }
-
-
-const resposta =
-    await API.consultar(
-        "buscarConfiguracoes"
-    );
-
 
         if(
             !resposta ||
