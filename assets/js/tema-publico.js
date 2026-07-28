@@ -10,21 +10,23 @@ async function carregarTemaPublico(){
     try{
 
         if(
-            typeof buscarConfiguracoesSistema !==
-            "function"
-        ){
+    typeof API === "undefined" ||
+    typeof API.consultar !== "function"
+){
 
-            console.warn(
-                "Função buscarConfiguracoesSistema não encontrada."
-            );
+    console.warn(
+        "API de configurações não encontrada."
+    );
 
-            return;
+    return;
 
-        }
+}
 
 
-        const resposta =
-            await buscarConfiguracoesSistema();
+const resposta =
+    await API.consultar(
+        "buscarConfiguracoes"
+    );
 
 
         if(
