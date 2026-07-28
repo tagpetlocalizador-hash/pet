@@ -264,7 +264,11 @@ function aplicarTemaPet(
             ".faixa-superior",
             ".botao-principal",
             ".icone-sucesso",
-            ".selo-identificado"
+            ".selo-identificado",
+            ".botao-camera",
+            ".loading-patas",
+            ".icone-beneficio",
+            ".indicador-foto"
         ],
         "background",
         principal
@@ -281,7 +285,10 @@ function aplicarTemaPet(
             ".etiqueta-pet",
             ".tutor-icone",
             ".icone-ajuda",
-            ".spinner-pet"
+            ".spinner-pet",
+            ".botao-mostrar-senha",
+            ".aviso-localizacao i",
+            ".link-acesso-tutor"
         ],
         "color",
         principal
@@ -292,7 +299,10 @@ function aplicarTemaPet(
         [
             ".card-pet",
             ".perfil-foto-moldura",
-            ".moldura-foto"
+            ".moldura-foto",
+             ".campo-pet",
+             ".campo-senha-area",
+             ".aviso-localizacao"
         ],
         "border-color",
         secundaria
@@ -329,6 +339,7 @@ function aplicarTemaPet(
         corLocalizacao
     );
 
+    
 
     const metaTema =
         document.querySelector(
@@ -380,7 +391,13 @@ function aplicarTemaTutor(
             ".botao-salvar-painel",
             ".icone-apresentacao-painel",
             ".icone-titulo-card",
-            ".botao-confirmar-modal"
+            ".botao-confirmar-modal",
+            ".botao-selecionar-foto",
+            ".botao-pet.ativo",
+            ".icone-usuario-cabecalho",
+            ".indicador-foto",
+            ".icone-seguranca-painel",
+            ".spinner-grande"
         ],
         "background",
         principal
@@ -399,7 +416,14 @@ function aplicarTemaTutor(
             ".etiqueta-painel",
             ".link-recuperar",
             ".link-voltar-inicial",
-            ".link-voltar-painel"
+            ".link-voltar-painel",
+            ".beneficio-tutor strong",
+            ".beneficio-tutor i",
+            ".acoes-foto-pet strong",
+            ".botao-pet",
+            ".usuario-cabecalho strong",
+            ".item-resumo-painel i",
+            ".botao-mostrar-senha"
         ],
         "color",
         principal
@@ -412,7 +436,8 @@ function aplicarTemaTutor(
             ".card-login",
             ".card-painel",
             ".campo-com-icone",
-            ".botao-secundario-tutor"
+            ".botao-secundario-tutor",
+            ".foto-pet-painel"
         ],
         "border-color",
         secundaria
@@ -433,7 +458,17 @@ function aplicarTemaTutor(
         )
     );
 
+const apresentacao =
+    document.querySelector(
+        ".apresentacao-painel"
+    );
 
+if(apresentacao){
+
+    apresentacao.style.background =
+        principal;
+
+}
     const metaTema =
         document.querySelector(
             'meta[name="theme-color"]'
