@@ -103,45 +103,106 @@
 
         </div>
 
-        <div class="card dashboard-card">
+       <div class="card dashboard-card">
 
-            <div class="mb-3">
+    <!-- PESQUISA -->
 
-                <input
-                    id="pesquisa"
-                    class="form-control"
-                    placeholder="Pesquisar TAG">
+    <div class="mb-3">
 
-            </div>
+        <input
+            id="pesquisa"
+            class="form-control"
+            placeholder="Pesquisar TAG">
 
-            <div class="table-responsive">
+    </div>
 
-                <table class="table table-hover align-middle">
 
-                    <thead>
+    <!-- BARRA DE SELEÇÃO -->
 
-                        <tr>
+    <div
+        id="barraSelecao"
+        class="d-flex flex-wrap align-items-center gap-2 mb-3">
 
-                            <th>ID</th>
-                            <th>TOKEN</th>
-                            <th>STATUS</th>
-                            <th>PET</th>
-                            <th width="240">AÇÕES</th>
+        <span
+            id="contadorSelecionadas"
+            class="fw-bold text-muted">
 
-                        </tr>
+            0 TAGs selecionadas
 
-                    </thead>
+        </span>
 
-                    <tbody id="listaTags">
+        <button
+            type="button"
+            id="btnImprimirSelecionadas"
+            class="btn btn-primary btn-sm"
+            disabled>
 
-                    </tbody>
+            <i class="bi bi-printer"></i>
 
-                </table>
+            Imprimir selecionadas
 
-            </div>
+        </button>
 
-        </div>
+        <button
+            type="button"
+            id="btnLimparSelecao"
+            class="btn btn-outline-secondary btn-sm"
+            disabled>
 
+            <i class="bi bi-x-circle"></i>
+
+            Limpar seleção
+
+        </button>
+
+    </div>
+
+
+    <!-- TABELA -->
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th style="width: 45px;">
+
+                        <input
+                            type="checkbox"
+                            id="selecionarTodas"
+                            class="form-check-input"
+                            title="Selecionar todas as TAGs">
+
+                    </th>
+
+                    <th>ID</th>
+
+                    <th>TOKEN</th>
+
+                    <th>STATUS</th>
+
+                    <th>PET</th>
+
+                    <th width="240">
+                        AÇÕES
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="listaTags">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
     </main>
 
 </div>
@@ -568,7 +629,7 @@
 
 <script src="js/api.js"></script>
 
-<script src="js/tags.js"></script>
+<script src="js/tags.js?v=14"></script>
 
 </body>
 
