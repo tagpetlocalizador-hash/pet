@@ -538,8 +538,19 @@ function adicionarTransparencia(
 }
 
 
+window.carregarTemaPublico =
+    carregarTemaPublico;
 
-document.addEventListener(
-    "DOMContentLoaded",
-    carregarTemaPublico
-);
+
+if(document.readyState === "loading"){
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        carregarTemaPublico
+    );
+
+}else{
+
+    carregarTemaPublico();
+
+}
