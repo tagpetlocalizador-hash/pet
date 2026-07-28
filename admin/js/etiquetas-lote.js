@@ -24,96 +24,149 @@ async function carregarEtiquetasDoLote() {
         document.getElementById("folha");
 
     const grade =
-        document.getElementById(
-            "gradeEtiquetas"
-        );
+        document.getElementById("gradeEtiquetas");
 
     const identificacaoLote =
         document.getElementById(
             "identificacaoLote"
         );
 
-
     const parametros =
         new URLSearchParams(
             window.location.search
         );
-
 
     const loteInformado =
         String(
             parametros.get("lote") || ""
         ).trim();
 
+    const tokensInformados =
+        String(
+            parametros.get("tokens") || ""
+        ).trim();
 
-    if (!loteInformado) {
-
-        mostrarErroLote(
-            "Código do lote não informado."
-        );
-
-        return;
-
-    }
-
+    let tagsDoLote = [];
 
     if (identificacaoLote) {
 
         identificacaoLote.textContent =
-            loteInformado;
+            loteInformado
+                ? loteInformado
+                : "Seleção manual";
 
     }
 
-
     try {
 
-        /*
-         * Usa a função que já existe no api.js.
-         */
+        if (tokensInformados) {
 
-        const resposta =
-    await buscarLote(
-        loteInformado
-    );
+            const listaTokens =
+                tokensInformados
+                    .split(",")
+                    .map(t => t.trim())
+                    .filter(t => t);
 
+            const resposta =
+                await listarTags();
 
-if (
-    !resposta ||
-    resposta.sucesso === false
-) {
+            if (
+                !resposta ||
+                resposta.sucesso === false
+            ) {
 
-    throw new Error(
+                throw new Error(
+                    "Não foi possível carregar as TAGs."
+                );
 
-        resposta &&
-        resposta.mensagem
+            }
 
-            ? resposta.mensagem
+            const todas =
+                Array.isArray(resposta.dados)
+                    ? resposta.dados
+                    : [];
 
-            : "Não foi possível carregar o lote."
+            tagsDoLote =
+                todas.filter(tag =>
+                    listaTokens.includes(
+                        String(tag.token).trim()
+                    )
+                );
 
-    );
+        } else {
 
-}
+            if (!loteInformado) {
 
+                mostrarErroLote(
+                    "Código do lote não informado."
+                );
 
-const tagsDoLote =
-    Array.isArray(
-        resposta.tags
-    )
+                return;
 
-        ? resposta.tags
+            }
 
-        : [];
+            const resposta =
+                await buscarLote(
+                    loteInformado
+                );
+
+            if (
+                !resposta ||
+                resposta.sucesso === false
+            ) {
+
+                throw new Error(
+
+                    resposta &&
+                    resposta.mensagem
+
+                        ? resposta.mensagem
+
+                        : "Não foi possível carregar o lote."
+
+                );
+
+            }
+
+            tagsDoLote =
+                Array.isArray(resposta.tags)
+                    ? resposta.tags
+                    : [];
+
+        }
 
         if (tagsDoLote.length === 0) {
 
             throw new Error(
-                "Nenhuma TAG foi encontrada para o lote " +
-                loteInformado +
-                "."
+                "Nenhuma TAG encontrada."
             );
 
         }
+
+
+    grade.innerHTML = "";
+
+
+tagsDoLote.forEach(
+    (tag, indice) => {
+
+        const etiqueta =
+            criarEtiquetaDoLote(
+                tag,
+                indice
+            );
+
+        grade.appendChild(
+            etiqueta
+        );
+
+        gerarQrCodeDoLote(
+            etiqueta,
+            tag
+        );
+
+    }
+);
 
 
         grade.innerHTML = "";
@@ -160,10 +213,12 @@ const tagsDoLote =
 
 
         console.log(
-            "Lote carregado:",
-            loteInformado
-        );
-
+    "Origem das etiquetas:",
+    loteInformado
+        ? "Lote: " + loteInformado
+        : "Seleção manual"
+);
+        
         console.log(
             "Quantidade de etiquetas:",
             tagsDoLote.length
