@@ -99,11 +99,31 @@ const CONFIGURACOES_PADRAO = {
 
     aparencia: {
 
-        corPrincipal: "#0d6efd",
+        temaPublico: "CLASSICO",
 
-        corSecundaria: "#198754",
+        corPetPrincipal: "#2E7D32",
 
-        temaPainel: "CLARO"
+        corPetSecundaria: "#43A047",
+
+        corTutorPrincipal: "#2E7D32",
+
+        corTutorSecundaria: "#43A047",
+
+        corFundoPet: "#F3F8F4",
+
+        corFundoTutor: "#F5F7F9",
+
+        corBotaoLigar: "#1976D2",
+
+        corBotaoLocalizacao: "#F9A825",
+
+        mostrarLogoPet: true,
+
+        mostrarLogoTutor: true,
+
+        mostrarRodapePublico: true,
+
+        usarMesmoTema: true
 
     },
 
@@ -241,43 +261,7 @@ function configurarEventos(){
             executarAcaoConfirmada
         );
 
-
-    document
-        .getElementById("corPrincipal")
-        ?.addEventListener(
-            "input",
-            atualizarPreview
-        );
-
-
-    document
-        .getElementById("corSecundaria")
-        ?.addEventListener(
-            "input",
-            atualizarPreview
-        );
-
-
-    document
-        .getElementById("nomeSistema")
-        ?.addEventListener(
-            "input",
-            atualizarPreview
-        );
-
-
-    document
-        .getElementById("temaPainel")
-        ?.addEventListener(
-            "change",
-            function(){
-
-                atualizarPreview();
-
-                aplicarTemaSelecionado();
-
-            }
-        );
+    configurarEventosPersonalizacao();
 
 
     document
@@ -609,14 +593,44 @@ function coletarConfiguracoes(){
 
         aparencia: {
 
-            corPrincipal:
-                obterValor("corPrincipal"),
+            temaPublico:
+                obterValor("temaPublico") || "CLASSICO",
 
-            corSecundaria:
-                obterValor("corSecundaria"),
+            corPetPrincipal:
+                obterValor("corPetPrincipal") || "#2E7D32",
 
-            temaPainel:
-                obterValor("temaPainel")
+            corPetSecundaria:
+                obterValor("corPetSecundaria") || "#43A047",
+
+            corTutorPrincipal:
+                obterValor("corTutorPrincipal") || "#2E7D32",
+
+            corTutorSecundaria:
+                obterValor("corTutorSecundaria") || "#43A047",
+
+            corFundoPet:
+                obterValor("corFundoPet") || "#F3F8F4",
+
+            corFundoTutor:
+                obterValor("corFundoTutor") || "#F5F7F9",
+
+            corBotaoLigar:
+                obterValor("corBotaoLigar") || "#1976D2",
+
+            corBotaoLocalizacao:
+                obterValor("corBotaoLocalizacao") || "#F9A825",
+
+            mostrarLogoPet:
+                obterMarcado("mostrarLogoPet"),
+
+            mostrarLogoTutor:
+                obterMarcado("mostrarLogoTutor"),
+
+            mostrarRodapePublico:
+                obterMarcado("mostrarRodapePublico"),
+
+            usarMesmoTema:
+                obterMarcado("usarMesmoTema")
 
         },
 
@@ -841,74 +855,401 @@ function restaurarConfiguracoesPadrao(){
 
 
 /* =====================================================
-   APARÊNCIA
+   PERSONALIZAÇÃO DAS PÁGINAS PÚBLICAS
 ===================================================== */
+
+const TEMAS_PUBLICOS = {
+
+    CLASSICO: {
+        corPetPrincipal: "#2E7D32",
+        corPetSecundaria: "#43A047",
+        corTutorPrincipal: "#2E7D32",
+        corTutorSecundaria: "#43A047",
+        corFundoPet: "#F3F8F4",
+        corFundoTutor: "#F5F7F9",
+        corBotaoLigar: "#1976D2",
+        corBotaoLocalizacao: "#F9A825"
+    },
+
+    AZUL: {
+        corPetPrincipal: "#1565C0",
+        corPetSecundaria: "#42A5F5",
+        corTutorPrincipal: "#1565C0",
+        corTutorSecundaria: "#42A5F5",
+        corFundoPet: "#F1F7FD",
+        corFundoTutor: "#F3F7FC",
+        corBotaoLigar: "#0D47A1",
+        corBotaoLocalizacao: "#F9A825"
+    },
+
+    ROXO: {
+        corPetPrincipal: "#6A1B9A",
+        corPetSecundaria: "#AB47BC",
+        corTutorPrincipal: "#6A1B9A",
+        corTutorSecundaria: "#AB47BC",
+        corFundoPet: "#F8F2FA",
+        corFundoTutor: "#F7F3F9",
+        corBotaoLigar: "#3949AB",
+        corBotaoLocalizacao: "#FB8C00"
+    },
+
+    LARANJA: {
+        corPetPrincipal: "#E65100",
+        corPetSecundaria: "#FB8C00",
+        corTutorPrincipal: "#E65100",
+        corTutorSecundaria: "#FB8C00",
+        corFundoPet: "#FFF7F0",
+        corFundoTutor: "#FFF8F2",
+        corBotaoLigar: "#1976D2",
+        corBotaoLocalizacao: "#F57C00"
+    },
+
+    VERMELHO: {
+        corPetPrincipal: "#B71C1C",
+        corPetSecundaria: "#E53935",
+        corTutorPrincipal: "#B71C1C",
+        corTutorSecundaria: "#E53935",
+        corFundoPet: "#FFF5F5",
+        corFundoTutor: "#FFF7F7",
+        corBotaoLigar: "#1565C0",
+        corBotaoLocalizacao: "#F9A825"
+    },
+
+    ESCURO: {
+        corPetPrincipal: "#263238",
+        corPetSecundaria: "#546E7A",
+        corTutorPrincipal: "#263238",
+        corTutorSecundaria: "#546E7A",
+        corFundoPet: "#E8ECEE",
+        corFundoTutor: "#ECEFF1",
+        corBotaoLigar: "#1565C0",
+        corBotaoLocalizacao: "#EF6C00"
+    }
+
+};
+
+
+function configurarEventosPersonalizacao(){
+
+    const tema =
+        document.getElementById("temaPublico");
+
+    tema?.addEventListener(
+        "change",
+        function(){
+
+            aplicarTemaPublicoSelecionado();
+            atualizarPreview();
+
+        }
+    );
+
+
+    const camposCores = [
+        "corPetPrincipal",
+        "corPetSecundaria",
+        "corTutorPrincipal",
+        "corTutorSecundaria",
+        "corFundoPet",
+        "corFundoTutor",
+        "corBotaoLigar",
+        "corBotaoLocalizacao"
+    ];
+
+
+    camposCores.forEach(
+        function(id){
+
+            document
+                .getElementById(id)
+                ?.addEventListener(
+                    "input",
+                    function(){
+
+                        sincronizarTemaTutor();
+                        atualizarPreview();
+
+                    }
+                );
+
+        }
+    );
+
+
+    document
+        .getElementById("usarMesmoTema")
+        ?.addEventListener(
+            "change",
+            function(){
+
+                sincronizarTemaTutor();
+                atualizarEstadoCamposPersonalizados();
+                atualizarPreview();
+
+            }
+        );
+
+
+    [
+        "mostrarLogoPet",
+        "mostrarLogoTutor",
+        "mostrarRodapePublico"
+    ].forEach(
+        function(id){
+
+            document
+                .getElementById(id)
+                ?.addEventListener(
+                    "change",
+                    atualizarPreview
+                );
+
+        }
+    );
+
+
+    atualizarEstadoCamposPersonalizados();
+
+}
+
+
+function aplicarTemaPublicoSelecionado(){
+
+    const tema =
+        obterValor("temaPublico") ||
+        "CLASSICO";
+
+    if(tema !== "PERSONALIZADO"){
+
+        const cores =
+            TEMAS_PUBLICOS[tema] ||
+            TEMAS_PUBLICOS.CLASSICO;
+
+        Object.entries(cores).forEach(
+            function([id, valor]){
+
+                const campo =
+                    document.getElementById(id);
+
+                if(campo){
+                    campo.value = valor;
+                }
+
+            }
+        );
+
+    }
+
+    sincronizarTemaTutor();
+    atualizarEstadoCamposPersonalizados();
+
+}
+
+
+function sincronizarTemaTutor(){
+
+    if(!obterMarcado("usarMesmoTema")){
+        return;
+    }
+
+    definirValorCampo(
+        "corTutorPrincipal",
+        obterValor("corPetPrincipal") || "#2E7D32"
+    );
+
+    definirValorCampo(
+        "corTutorSecundaria",
+        obterValor("corPetSecundaria") || "#43A047"
+    );
+
+    definirValorCampo(
+        "corFundoTutor",
+        obterValor("corFundoPet") || "#F3F8F4"
+    );
+
+}
+
+
+function atualizarEstadoCamposPersonalizados(){
+
+    const personalizado =
+        obterValor("temaPublico") ===
+        "PERSONALIZADO";
+
+    const mesmoTema =
+        obterMarcado("usarMesmoTema");
+
+    const area =
+        document.getElementById(
+            "areaCoresPersonalizadas"
+        );
+
+    area?.classList.toggle(
+        "cores-desativadas",
+        !personalizado
+    );
+
+
+    [
+        "corPetPrincipal",
+        "corPetSecundaria",
+        "corFundoPet",
+        "corBotaoLigar",
+        "corBotaoLocalizacao"
+    ].forEach(
+        function(id){
+
+            const campo =
+                document.getElementById(id);
+
+            if(campo){
+                campo.disabled = !personalizado;
+            }
+
+        }
+    );
+
+
+    [
+        "corTutorPrincipal",
+        "corTutorSecundaria",
+        "corFundoTutor"
+    ].forEach(
+        function(id){
+
+            const campo =
+                document.getElementById(id);
+
+            if(campo){
+                campo.disabled =
+                    !personalizado || mesmoTema;
+            }
+
+        }
+    );
+
+}
+
 
 function atualizarPreview(){
 
-    const corPrincipal =
-        obterValor("corPrincipal") ||
-        "#0d6efd";
+    sincronizarTemaTutor();
+    atualizarEstadoCamposPersonalizados();
 
-    const corSecundaria =
-        obterValor("corSecundaria") ||
-        "#198754";
+    const corPetPrincipal =
+        obterValor("corPetPrincipal") ||
+        "#2E7D32";
 
-    const nomeSistema =
-        obterValor("nomeSistema") ||
-        "PET NFC";
+    const corPetSecundaria =
+        obterValor("corPetSecundaria") ||
+        "#43A047";
+
+    const corTutorPrincipal =
+        obterValor("corTutorPrincipal") ||
+        corPetPrincipal;
+
+    const corTutorSecundaria =
+        obterValor("corTutorSecundaria") ||
+        corPetSecundaria;
+
+    const corFundoPet =
+        obterValor("corFundoPet") ||
+        "#F3F8F4";
+
+    const corFundoTutor =
+        obterValor("corFundoTutor") ||
+        "#F5F7F9";
+
+    const corBotaoLigar =
+        obterValor("corBotaoLigar") ||
+        "#1976D2";
+
+    const corBotaoLocalizacao =
+        obterValor("corBotaoLocalizacao") ||
+        "#F9A825";
 
 
-    const previewSidebar =
+    definirEstilo(
+        "previewPaginaPet",
+        "background",
+        corFundoPet
+    );
+
+    const faixaPet =
         document.querySelector(
-            ".preview-sidebar"
+            ".preview-faixa-pet"
         );
 
-    const previewBotao =
-        document.querySelector(
-            ".preview-card .btn"
-        );
+    if(faixaPet){
 
-    const previewNome =
+        faixaPet.style.background =
+            criarGradiente(
+                corPetSecundaria,
+                corPetPrincipal
+            );
+
+    }
+
+
+    definirEstilo(
+        "previewBotaoLigar",
+        "background",
+        criarGradiente(
+            corBotaoLigar,
+            escurecerCor(corBotaoLigar, 25)
+        )
+    );
+
+    definirEstilo(
+        "previewBotaoLocalizacao",
+        "background",
+        criarGradiente(
+            corBotaoLocalizacao,
+            escurecerCor(corBotaoLocalizacao, 18)
+        )
+    );
+
+
+    definirEstilo(
+        "previewPaginaTutor",
+        "background",
+        corFundoTutor
+    );
+
+    definirEstilo(
+        "previewIconeTutor",
+        "background",
+        criarGradiente(
+            corTutorPrincipal,
+            corTutorSecundaria,
+            145
+        )
+    );
+
+    definirEstilo(
+        "previewBotaoTutor",
+        "background",
+        criarGradiente(
+            corTutorPrincipal,
+            corTutorSecundaria
+        )
+    );
+
+
+    const botaoTutorSecundario =
         document.getElementById(
-            "previewNomeSistema"
+            "previewBotaoTutorSecundario"
         );
 
+    if(botaoTutorSecundario){
 
-    if(previewSidebar){
+        botaoTutorSecundario.style.color =
+            corTutorPrincipal;
 
-        previewSidebar.style.background =
-            corPrincipal;
-
-    }
-
-    if(previewBotao){
-
-        previewBotao.style.background =
-            corPrincipal;
-
-        previewBotao.style.borderColor =
-            corPrincipal;
+        botaoTutorSecundario.style.borderColor =
+            corTutorPrincipal;
 
     }
-
-    if(previewNome){
-
-        previewNome.textContent =
-            nomeSistema;
-
-    }
-
-
-    document.documentElement.style.setProperty(
-        "--cor-principal",
-        corPrincipal
-    );
-
-    document.documentElement.style.setProperty(
-        "--cor-secundaria",
-        corSecundaria
-    );
 
 }
 
@@ -917,32 +1258,8 @@ function aplicarConfiguracoesVisuais(
     configuracoes
 ){
 
-    const aparencia =
-        configuracoes.aparencia || {};
-
     const empresa =
         configuracoes.empresa || {};
-
-
-    document.documentElement.style.setProperty(
-
-        "--cor-principal",
-
-        aparencia.corPrincipal ||
-        "#0d6efd"
-
-    );
-
-
-    document.documentElement.style.setProperty(
-
-        "--cor-secundaria",
-
-        aparencia.corSecundaria ||
-        "#198754"
-
-    );
-
 
     const nomePainel =
         document.querySelector(
@@ -959,52 +1276,91 @@ function aplicarConfiguracoesVisuais(
 
     }
 
-
-    aplicarTema(
-        aparencia.temaPainel
-    );
+    atualizarPreview();
 
 }
 
 
-function aplicarTemaSelecionado(){
+function definirValorCampo(id, valor){
 
-    aplicarTema(
-        obterValor("temaPainel")
-    );
+    const campo =
+        document.getElementById(id);
+
+    if(campo){
+        campo.value = valor;
+    }
 
 }
 
 
-function aplicarTema(tema){
+function definirEstilo(
+    id,
+    propriedade,
+    valor
+){
 
-    document.body.classList.remove(
-        "tema-escuro"
-    );
+    const elemento =
+        document.getElementById(id);
 
-    if(tema === "ESCURO"){
-
-        document.body.classList.add(
-            "tema-escuro"
-        );
-
-        return;
-
+    if(elemento){
+        elemento.style[propriedade] = valor;
     }
 
-    if(
-        tema === "AUTOMATICO" &&
-        window.matchMedia &&
-        window.matchMedia(
-            "(prefers-color-scheme: dark)"
-        ).matches
-    ){
+}
 
-        document.body.classList.add(
-            "tema-escuro"
+
+function criarGradiente(
+    primeiraCor,
+    segundaCor,
+    angulo = 135
+){
+
+    return `linear-gradient(${angulo}deg, ${primeiraCor}, ${segundaCor})`;
+
+}
+
+
+function escurecerCor(corHex, percentual){
+
+    const cor = String(corHex || "")
+        .replace("#", "")
+        .trim();
+
+    if(!/^[0-9a-fA-F]{6}$/.test(cor)){
+        return corHex;
+    }
+
+    const fator =
+        Math.max(0, 100 - percentual) /
+        100;
+
+    const vermelho =
+        Math.round(
+            parseInt(cor.slice(0, 2), 16) *
+            fator
         );
 
-    }
+    const verde =
+        Math.round(
+            parseInt(cor.slice(2, 4), 16) *
+            fator
+        );
+
+    const azul =
+        Math.round(
+            parseInt(cor.slice(4, 6), 16) *
+            fator
+        );
+
+    return "#" +
+        [vermelho, verde, azul]
+            .map(
+                valor =>
+                    valor
+                        .toString(16)
+                        .padStart(2, "0")
+            )
+            .join("");
 
 }
 
