@@ -16,6 +16,14 @@ const CONFIG = {
 
 const ACTION = {
 
+    LOGIN_ADMIN: "loginAdmin",
+
+    VALIDAR_LOGIN_ADMIN: "validarLoginAdmin",
+
+    LOGOUT_ADMIN: "logoutAdmin",
+
+    ALTERAR_SENHA_ADMIN: "alterarSenhaAdmin",
+
     ESTATISTICAS: "estatisticas",
 
     LISTAR_TAGS: "listarTags",
