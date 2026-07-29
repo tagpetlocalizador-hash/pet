@@ -64,13 +64,17 @@ btnEntrar.addEventListener("click", async ()=>{
         window.location.href =
             "index.html";
 
-    }catch(e){
+    catch(e){
 
-        mostrarErro(
+    console.error(e);
 
-            "Erro ao conectar com o servidor."
+    alert(e);
 
-        );
+    mostrarErro(
+        e.message || String(e)
+    );
+
+}
 
         btnEntrar.disabled = false;
         btnEntrar.innerHTML =
