@@ -3,39 +3,70 @@ const senha = document.getElementById("senha");
 const btnEntrar = document.getElementById("btnEntrar");
 const mensagem = document.getElementById("mensagem");
 
-function mostrarErro(texto){
+
+function mostrarErro(texto) {
 
     mensagem.style.display = "block";
-    mensagem.innerHTML = texto;
+    mensagem.textContent = texto;
 
 }
 
-function esconderErro(){
+
+function esconderErro() {
 
     mensagem.style.display = "none";
-    mensagem.innerHTML = "";
+    mensagem.textContent = "";
 
 }
 
-btnEntrar.addEventListener("click", async ()=>{
+
+async function executarLogin() {
 
     esconderErro();
 
-    btnEntrar.disabled = true;
-    btnEntrar.innerHTML =
-        '<span class="spinner-border spinner-border-sm"></span> Entrando...';
+    const emailInformado =
+        email.value.trim();
 
-    try{
+    const senhaInformada =
+        senha.value;
 
-        const resposta = await API.loginAdmin(
 
-            email.value.trim(),
+    if (!emailInformado || !senhaInformada) {
 
-            senha.value
-
+        mostrarErro(
+            "Informe o e-mail e a senha."
         );
 
-        if(!resposta.sucesso){
+        return;
+
+    }
+
+
+    btnEntrar.disabled = true;
+
+    btnEntrar.innerHTML =
+        '<span class="spinner-border spinner-border-sm me-2"></span>Entrando...';
+
+
+    try {
+
+        const resposta =
+            await loginAdmin(
+
+                emailInformado,
+
+                senhaInformada
+
+            );
+
+
+        console.log(
+            "Resposta do login:",
+            resposta
+        );
+
+
+        if (!resposta.sucesso) {
 
             mostrarErro(
 
@@ -45,13 +76,21 @@ btnEntrar.addEventListener("click", async ()=>{
 
             );
 
-            btnEntrar.disabled = false;
-            btnEntrar.innerHTML =
-                '<i class="bi bi-box-arrow-in-right"></i> Entrar';
+            return;
+
+        }
+
+
+        if (!resposta.token_admin) {
+
+            mostrarErro(
+                "O servidor não retornou o token administrativo."
+            );
 
             return;
 
         }
+
 
         sessionStorage.setItem(
 
@@ -61,35 +100,54 @@ btnEntrar.addEventListener("click", async ()=>{
 
         );
 
+
         window.location.href =
             "index.html";
 
-    catch(e){
 
-    console.error(e);
+    } catch (erro) {
 
-    alert(e);
+        console.error(
+            "Erro no login administrativo:",
+            erro
+        );
 
-    mostrarErro(
-        e.message || String(e)
-    );
+        mostrarErro(
 
-}
+            erro.message ||
+
+            "Erro ao conectar com o servidor."
+
+        );
+
+
+    } finally {
 
         btnEntrar.disabled = false;
+
         btnEntrar.innerHTML =
             '<i class="bi bi-box-arrow-in-right"></i> Entrar';
 
     }
 
-});
+}
 
-senha.addEventListener("keydown",function(e){
 
-    if(e.key==="Enter"){
+btnEntrar.addEventListener(
+    "click",
+    executarLogin
+);
 
-        btnEntrar.click();
+
+senha.addEventListener(
+    "keydown",
+    function(evento) {
+
+        if (evento.key === "Enter") {
+
+            executarLogin();
+
+        }
 
     }
-
-});
+);
