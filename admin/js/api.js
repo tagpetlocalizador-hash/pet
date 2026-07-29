@@ -192,6 +192,81 @@ async function enviarLocalizacao(
  * ADMIN
  *************************************************/
 
+/**
+ * Login do administrador
+ */
+async function loginAdmin(email, senha) {
+
+    return await apiPost({
+
+        action: ACTION.LOGIN_ADMIN,
+
+        email: email,
+
+        senha: senha
+
+    });
+
+}
+
+
+/**
+ * Valida a sessão administrativa
+ */
+async function validarLoginAdmin(tokenAdmin) {
+
+    return await apiGet(
+
+        ACTION.VALIDAR_LOGIN_ADMIN,
+
+        {
+            token_admin: tokenAdmin
+        }
+
+    );
+
+}
+
+
+/**
+ * Encerra a sessão administrativa
+ */
+async function logoutAdmin(tokenAdmin) {
+
+    return await apiPost({
+
+        action: ACTION.LOGOUT_ADMIN,
+
+        token_admin: tokenAdmin
+
+    });
+
+}
+
+
+/**
+ * Altera a senha do administrador
+ */
+async function alterarSenhaAdmin(
+    tokenAdmin,
+    senhaAtual,
+    novaSenha
+) {
+
+    return await apiPost({
+
+        action: ACTION.ALTERAR_SENHA_ADMIN,
+
+        token_admin: tokenAdmin,
+
+        senha_atual: senhaAtual,
+
+        nova_senha: novaSenha
+
+    });
+
+}
+
 
 async function gerarTag() {
 
