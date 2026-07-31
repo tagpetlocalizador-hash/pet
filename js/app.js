@@ -1368,6 +1368,76 @@ function validarEmail(email) {
         .test(email);
 
 }
+
+/* ===================================================
+   MODAL DE AVISO
+=================================================== */
+
+function mostrarAvisoLocalizacao(
+    titulo,
+    mensagem
+) {
+
+    const modal =
+        document.getElementById(
+            "modalAvisoLocalizacao"
+        );
+
+    const tituloModal =
+        document.getElementById(
+            "modalAvisoTitulo"
+        );
+
+    const mensagemModal =
+        document.getElementById(
+            "modalAvisoMensagem"
+        );
+
+    if (
+        !modal ||
+        !tituloModal ||
+        !mensagemModal
+    ) {
+
+        console.error(
+            "Modal de aviso não encontrado."
+        );
+
+        return;
+
+    }
+
+    tituloModal.textContent =
+        titulo;
+
+    mensagemModal.textContent =
+        mensagem;
+
+    modal.classList.add(
+        "ativo"
+    );
+
+}
+
+
+function fecharAvisoLocalizacao() {
+
+    const modal =
+        document.getElementById(
+            "modalAvisoLocalizacao"
+        );
+
+    if (!modal) {
+
+        return;
+
+    }
+
+    modal.classList.remove(
+        "ativo"
+    );
+
+}
 /* ===================================================
    LOCALIZAÇÃO
 =================================================== */
@@ -1380,10 +1450,13 @@ function enviarMinhaLocalizacao() {
 
     if (!navigator.geolocation) {
 
-        alert(
-            "📍 A localização está desligada ou bloqueada.\n\n" +
-            "Ligue a localização do celular e tente novamente para ajudar a encontrar o tutor deste pet."
-        );
+        mostrarAvisoLocalizacao(
+
+    "Localização indisponível",
+
+    "A localização está desligada ou bloqueada. Ligue a localização do celular e tente novamente para ajudar a encontrar o tutor deste pet."
+
+);
 
         return;
     }
@@ -1432,11 +1505,14 @@ function enviarMinhaLocalizacao() {
                     return;
                 }
 
-                alert(
-                    resposta?.mensagem ||
-                    "Não foi possível enviar a localização."
-                );
+                mostrarAvisoLocalizacao(
 
+    "Falha no envio",
+
+    resposta?.mensagem ||
+    "Não foi possível enviar a localização."
+
+);
             } catch (erro) {
 
                 console.error(
@@ -1444,9 +1520,13 @@ function enviarMinhaLocalizacao() {
                     erro
                 );
 
-                alert(
-                    "Não foi possível enviar a localização."
-                );
+                mostrarAvisoLocalizacao(
+
+    "Falha no envio",
+
+    "Não foi possível enviar a localização."
+
+);
 
             } finally {
 
@@ -1540,10 +1620,45 @@ function tratarErroLocalizacao(erro) {
         erro
     );
 
+    let titulo =
+        "Localização indisponível";
 
-    alert(
-        "📍 A localização está desligada ou bloqueada.\n\n" +
-        "Ligue a localização do celular e passe a tag novamente para ajudar a encontrar o tutor deste pet."
+    let mensagem =
+        "A localização está desligada ou bloqueada. Ligue a localização do celular e passe a tag novamente para ajudar a encontrar o tutor deste pet.";
+
+    if (erro && erro.code === 1) {
+
+        titulo =
+            "Permissão necessária";
+
+        mensagem =
+            "Permita o acesso à localização nas configurações do navegador e passe a tag novamente.";
+
+    }
+
+    if (erro && erro.code === 2) {
+
+        titulo =
+            "Localização não encontrada";
+
+        mensagem =
+            "Não foi possível obter sua localização. Tente novamente.";
+
+    }
+
+    if (erro && erro.code === 3) {
+
+        titulo =
+            "Tempo esgotado";
+
+        mensagem =
+            "A localização demorou para responder. Tente novamente.";
+
+    }
+
+    mostrarAvisoLocalizacao(
+        titulo,
+        mensagem
     );
 
 }
@@ -1687,9 +1802,11 @@ function exibirAvisoLocalizacaoAutomatica() {
         true;
 
 
-    alert(
-        "📍 A localização está desligada ou bloqueada.\n\n" +
-        "Ligue a localização do celular e passe a tag novamente para ajudar a encontrar o tutor deste pet."
-    );
+    mostrarAvisoLocalizacao(
 
+    "Localização indisponível",
+
+    "A localização está desligada ou bloqueada. Ligue a localização do celular e tente novamente para ajudar a encontrar o tutor deste pet."
+
+);
 }
