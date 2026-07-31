@@ -1471,6 +1471,13 @@ body{
     line-height:1.6;
 
 }
+
+.modal-aviso-localizacao.ativo{
+
+    display:flex;
+
+}
+
 /* ===========================
    RESPONSIVIDADE
 =========================== */
