@@ -1457,7 +1457,7 @@ function enviarMinhaLocalizacao() {
 
     "Localização indisponível",
 
-    "A localização está desligada ou bloqueada. Ligue a localização do celular e tente novamente para ajudar a encontrar o tutor deste pet."
+    "A localização está desligada ou bloqueada. Ligue a localização do celular e passe a tag novamente para ajudar a encontrar o tutor deste pet."
 
 );
 
@@ -1809,7 +1809,7 @@ function exibirAvisoLocalizacaoAutomatica() {
 
     "Localização indisponível",
 
-    "A localização está desligada ou bloqueada. Ligue a localização do celular e tente novamente para ajudar a encontrar o tutor deste pet."
+    "A localização está desligada ou bloqueada. Ligue a localização do celular e passe a tag novamente para ajudar a encontrar o tutor deste pet."
 
 );
 }
