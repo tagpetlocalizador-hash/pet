@@ -1377,7 +1377,100 @@ body{
 
 }
 
+/* ==================================================
+   MODAL DE AVISO DE LOCALIZAÇÃO
+================================================== */
 
+.modal-aviso-localizacao{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(0,0,0,.45);
+
+    backdrop-filter:blur(4px);
+
+    z-index:9999;
+
+}
+
+.modal-aviso-conteudo{
+
+    width:100%;
+    max-width:420px;
+
+    background:#FFFFFF;
+
+    border-radius:24px;
+
+    padding:28px 24px;
+
+    text-align:center;
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.22);
+
+    animation:aparecer .25s ease;
+
+}
+
+.modal-aviso-icone{
+
+    width:72px;
+    height:72px;
+
+    margin:0 auto 18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--amarelo),
+            var(--amarelo-escuro)
+        );
+
+    color:#FFFFFF;
+
+    font-size:34px;
+
+}
+
+.modal-aviso-conteudo h2{
+
+    margin-bottom:12px;
+
+    color:var(--texto);
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+.modal-aviso-conteudo p{
+
+    margin-bottom:24px;
+
+    color:var(--texto-secundario);
+
+    font-size:14px;
+
+    line-height:1.6;
+
+}
 /* ===========================
    RESPONSIVIDADE
 =========================== */
