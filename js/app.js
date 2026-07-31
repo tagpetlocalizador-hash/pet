@@ -1436,8 +1436,11 @@ function fecharAvisoLocalizacao() {
     modal.classList.remove(
         "ativo"
     );
+   
 
 }
+
+
 /* ===================================================
    LOCALIZAÇÃO
 =================================================== */
