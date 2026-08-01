@@ -217,14 +217,15 @@
         <!-- VOLTAR -->
 
         <a
-            href="../index.html"
-            class="link-voltar-inicial">
+    href="#"
+    class="link-voltar-inicial"
+    onclick="voltarParaPaginaPublica(event)">
 
-            <i class="bi bi-arrow-left"></i>
+    <i class="bi bi-arrow-left"></i>
 
-            Voltar para a página principal
+    Voltar para a página principal
 
-        </a>
+</a>
 
         <!-- RODAPÉ -->
 
@@ -247,6 +248,25 @@
 
     <script src="../assets/js/config.js"></script>
 <script src="../assets/js/api.js"></script>
+
+<script>
+function voltarParaPaginaPublica(evento) {
+
+    evento.preventDefault();
+
+    if (window.history.length > 1) {
+
+        window.history.back();
+
+        return;
+    }
+
+    alert(
+        "Não foi possível identificar a página pública do pet. " +
+        "Aproxime novamente a medalha NFC ou leia o QR Code."
+    );
+}
+</script>
 
 </body>
 
