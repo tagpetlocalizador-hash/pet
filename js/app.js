@@ -36,9 +36,6 @@ document.addEventListener(
 
 function configurarEventos() {
 
-    const campoFoto =
-        document.getElementById("foto");
-
     const btnCadastrar =
         document.getElementById("btnCadastrar");
 
@@ -55,16 +52,6 @@ function configurarEventos() {
         document.getElementById(
             "btnMostrarConfirmarSenha"
         );
-
-
-    if (campoFoto) {
-
-        campoFoto.addEventListener(
-            "change",
-            mostrarPreviewFoto
-        );
-
-    }
 
 
     if (btnCadastrar) {
@@ -695,267 +682,6 @@ function limparTelefone(valor) {
 
 
 /* ===================================================
-   FOTO - PREVIEW
-=================================================== */
-
-function mostrarPreviewFoto(evento) {
-
-    const arquivo =
-        evento.target.files[0];
-
-
-    if (!arquivo) {
-
-        return;
-
-    }
-
-
-    if (
-        !arquivo.type.startsWith("image/")
-    ) {
-
-        alert(
-            "Selecione um arquivo de imagem."
-        );
-
-        evento.target.value =
-            "";
-
-        return;
-
-    }
-
-
-    const previewFoto =
-        document.getElementById(
-            "previewFoto"
-        );
-
-
-    if (!previewFoto) {
-
-        return;
-
-    }
-
-
-    const reader =
-        new FileReader();
-
-
-    reader.onload =
-        function (eventoReader) {
-
-            previewFoto.src =
-                eventoReader.target.result;
-
-            previewFoto.style.display =
-                "inline-block";
-
-        };
-
-
-    reader.onerror =
-        function () {
-
-            alert(
-                "Não foi possível ler a imagem."
-            );
-
-        };
-
-
-    reader.readAsDataURL(
-        arquivo
-    );
-
-}
-/* ===================================================
-   REDUZIR FOTO
-=================================================== */
-
-function reduzirFoto(arquivo) {
-
-    return new Promise(
-        function (resolve, reject) {
-
-            const reader =
-                new FileReader();
-
-
-            reader.onerror =
-                function () {
-
-                    reject(
-                        new Error(
-                            "Não foi possível ler a foto."
-                        )
-                    );
-
-                };
-
-
-            reader.onload =
-                function (eventoReader) {
-
-                    const imagem =
-                        new Image();
-
-
-                    imagem.onerror =
-                        function () {
-
-                            reject(
-                                new Error(
-                                    "Arquivo de imagem inválido."
-                                )
-                            );
-
-                        };
-
-
-                    imagem.onload =
-                        function () {
-
-                            const tamanhoMaximo =
-                                500;
-
-                            let largura =
-                                imagem.width;
-
-                            let altura =
-                                imagem.height;
-
-
-                            if (
-                                largura > altura &&
-                                largura > tamanhoMaximo
-                            ) {
-
-                                altura =
-                                    Math.round(
-                                        altura *
-                                        tamanhoMaximo /
-                                        largura
-                                    );
-
-                                largura =
-                                    tamanhoMaximo;
-
-                            } else if (
-                                altura > tamanhoMaximo
-                            ) {
-
-                                largura =
-                                    Math.round(
-                                        largura *
-                                        tamanhoMaximo /
-                                        altura
-                                    );
-
-                                altura =
-                                    tamanhoMaximo;
-
-                            }
-
-
-                            const canvas =
-                                document.createElement(
-                                    "canvas"
-                                );
-
-                            canvas.width =
-                                largura;
-
-                            canvas.height =
-                                altura;
-
-
-                            const contexto =
-                                canvas.getContext(
-                                    "2d"
-                                );
-
-
-                            if (!contexto) {
-
-                                reject(
-                                    new Error(
-                                        "Não foi possível processar a foto."
-                                    )
-                                );
-
-                                return;
-
-                            }
-
-
-                            contexto.fillStyle =
-                                "#ffffff";
-
-                            contexto.fillRect(
-                                0,
-                                0,
-                                largura,
-                                altura
-                            );
-
-
-                            contexto.drawImage(
-                                imagem,
-                                0,
-                                0,
-                                largura,
-                                altura
-                            );
-
-
-                            const fotoBase64 =
-                                canvas.toDataURL(
-                                    "image/jpeg",
-                                    0.65
-                                );
-
-
-                            console.log(
-
-                                "Tamanho da foto:",
-
-                                Math.round(
-                                    fotoBase64.length /
-                                    1024
-                                ),
-
-                                "KB"
-
-                            );
-
-
-                            resolve(
-                                fotoBase64
-                            );
-
-                        };
-
-
-                    imagem.src =
-                        eventoReader.target.result;
-
-                };
-
-
-            reader.readAsDataURL(
-                arquivo
-            );
-
-        }
-    );
-
-}
-
-
-/* ===================================================
    CADASTRO
 =================================================== */
 
@@ -1003,11 +729,6 @@ async function salvarCadastro(evento) {
             "confirmarSenha"
         );
 
-    const campoFoto =
-        document.getElementById(
-            "foto"
-        );
-
     const btnCadastrar =
         document.getElementById(
             "btnCadastrar"
@@ -1049,12 +770,10 @@ async function salvarCadastro(evento) {
             ? campoConfirmarSenha.value
             : "";
 
-    const arquivoFoto =
-        campoFoto &&
-        campoFoto.files.length > 0
-            ? campoFoto.files[0]
-            : null;
-
+    const fotoBase64 =
+    typeof window.obterFotoCadastroRecortada === "function"
+        ? window.obterFotoCadastroRecortada()
+        : "";
 
     if (
     !codigoAtivacao ||
@@ -1201,7 +920,7 @@ async function salvarCadastro(evento) {
         }
 
 
-        if (arquivoFoto) {
+        if (fotoBase64) {
 
     alterarBotaoCadastro(
         btnCadastrar,
@@ -1230,17 +949,6 @@ async function salvarCadastro(evento) {
         );
 
     } else {
-
-        alterarBotaoCadastro(
-            btnCadastrar,
-            true,
-            "Preparando foto..."
-        );
-
-        const fotoBase64 =
-            await reduzirFoto(
-                arquivoFoto
-            );
 
         alterarBotaoCadastro(
             btnCadastrar,
