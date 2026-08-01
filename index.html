@@ -44,6 +44,10 @@
         href="css/style.css"
         rel="stylesheet">
 
+    <link
+    href="css/cropper.min.css"
+    rel="stylesheet">
+
 </head>
 
 <body>
@@ -168,10 +172,10 @@
                     </div>
 
                     <input
-                        type="file"
-                        id="foto"
-                        class="input-foto"
-                        accept="image/*">
+                    type="file"
+                    id="foto"
+                    class="input-foto"
+                    accept="image/jpeg,image/png,image/webp">
 
                     <span>
                         Toque na câmera para adicionar uma foto
@@ -729,6 +733,66 @@
 </main>
 
     <!-- ===================================================
+     MODAL PARA AJUSTAR A FOTO DO CADASTRO
+=================================================== -->
+
+<div
+    id="modalFotoCadastro"
+    class="modal-foto-cadastro"
+    hidden>
+
+    <div
+        id="fundoModalFotoCadastro"
+        class="fundo-modal-foto-cadastro">
+    </div>
+
+    <div class="conteudo-modal-foto-cadastro">
+
+        <h2>
+            Ajustar foto
+        </h2>
+
+        <p>
+            Ajuste a posição e o zoom da foto antes de usar.
+        </p>
+
+        <div class="area-cropper-cadastro">
+
+            <img
+                id="imagemCropperCadastro"
+                src=""
+                alt="Foto para ajuste">
+
+        </div>
+
+        <div class="acoes-modal-foto-cadastro">
+
+            <button
+                id="btnCancelarFotoCadastro"
+                type="button"
+                class="botao-cancelar-foto">
+
+                Cancelar
+
+            </button>
+
+            <button
+                id="btnUsarFotoCadastro"
+                type="button"
+                class="botao-usar-foto">
+
+                <i class="bi bi-check-circle"></i>
+
+                Usar foto
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+    <!-- ===================================================
      MODAL DE AVISO DE LOCALIZAÇÃO
 =================================================== -->
 
@@ -769,6 +833,8 @@
 
 </div>
 
+<script src="js/cropper.min.js"></script>
+<script src="js/foto-cropper.js"></script>
 
 <script src="js/config.js"></script>
 <script src="js/api.js"></script>
