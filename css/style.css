@@ -1691,3 +1691,144 @@ body{
     font-size: 12px;
     line-height: 1.4;
 }
+
+/* ===================================================
+   MODAL DE AJUSTE DA FOTO DO CADASTRO
+=================================================== */
+
+.modal-foto-cadastro{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.modal-foto-cadastro[hidden]{
+    display:none;
+}
+
+.fundo-modal-foto-cadastro{
+    position:absolute;
+    inset:0;
+
+    background:rgba(20,35,25,.65);
+
+    backdrop-filter:blur(4px);
+}
+
+.conteudo-modal-foto-cadastro{
+    position:relative;
+    z-index:1;
+
+    width:100%;
+    max-width:610px;
+
+    padding:28px;
+
+    background:#FFFFFF;
+
+    border-radius:24px;
+
+    text-align:center;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.25);
+}
+
+.conteudo-modal-foto-cadastro h2{
+    margin:0 0 6px;
+
+    color:#202938;
+
+    font-size:25px;
+    font-weight:700;
+}
+
+.conteudo-modal-foto-cadastro > p{
+    margin:0 0 20px;
+
+    color:#718096;
+
+    font-size:14px;
+}
+
+.area-cropper-cadastro{
+    width:100%;
+    height:370px;
+
+    overflow:hidden;
+
+    background:#808080;
+
+    border-radius:14px;
+}
+
+.area-cropper-cadastro img{
+    display:block;
+
+    max-width:100%;
+}
+
+.acoes-modal-foto-cadastro{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+
+    margin-top:20px;
+}
+
+.botao-cancelar-foto,
+.botao-usar-foto{
+    min-height:48px;
+
+    padding:12px 18px;
+
+    border-radius:12px;
+
+    font-family:inherit;
+    font-size:14px;
+    font-weight:600;
+
+    cursor:pointer;
+}
+
+.botao-cancelar-foto{
+    color:#38423c;
+
+    background:#FFFFFF;
+
+    border:1px solid #d7ded9;
+}
+
+.botao-usar-foto{
+    color:#FFFFFF;
+
+    background:#2E7D32;
+
+    border:none;
+}
+
+.botao-usar-foto:disabled{
+    opacity:.65;
+
+    cursor:not-allowed;
+}
+
+@media(max-width:600px){
+
+    .conteudo-modal-foto-cadastro{
+        padding:20px;
+
+        border-radius:20px;
+    }
+
+    .area-cropper-cadastro{
+        height:330px;
+    }
+
+}
