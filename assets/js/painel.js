@@ -901,7 +901,7 @@ function atualizarImagemPet(foto) {
     } else {
 
         elementos.fotoPet.src =
-            "../assets/img/logo.png";
+            "../../imagem/pet-default.png";
 
     }
 
