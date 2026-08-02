@@ -160,16 +160,90 @@ if (btnRecuperarModalConta) {
 
     btnRecuperarModalConta.addEventListener(
         "click",
-        function () {
+        async function () {
 
-            fecharModalContaExistente(
-                true
+            const textoBotao =
+                btnRecuperarModalConta.textContent
+                    .trim()
+                    .toLowerCase();
+
+
+            /*
+             * Depois que o e-mail foi enviado,
+             * o botão passa a servir para fechar.
+             */
+            if (
+                textoBotao === "entendi"
+            ) {
+
+                fecharModalContaExistente(
+                    false
+                );
+
+                return;
+
+            }
+
+
+            if (
+                btnRecuperarModalConta.disabled
+            ) {
+
+                return;
+
+            }
+
+
+            const campoEmail =
+                document.getElementById(
+                    "email"
+                );
+
+
+            const email =
+                campoEmail
+                    ? campoEmail.value.trim()
+                    : "";
+
+
+            atualizarEstadoModalContaExistente(
+                "enviando"
+            );
+
+
+            const respostaRecuperacao =
+                await solicitarRecuperacaoCadastro(
+                    email
+                );
+
+
+            if (
+                respostaRecuperacao &&
+                respostaRecuperacao.sucesso
+            ) {
+
+                atualizarEstadoModalContaExistente(
+                    "sucesso"
+                );
+
+                return;
+
+            }
+
+
+            atualizarEstadoModalContaExistente(
+
+                "erro",
+
+                respostaRecuperacao?.mensagem ||
+                "Não foi possível enviar o e-mail de recuperação."
+
             );
 
         }
     );
 
-   }
+}
 
 
     if (btnMostrarSenha) {
@@ -267,6 +341,9 @@ function abrirModalContaExistente() {
 
     }
 
+   atualizarEstadoModalContaExistente(
+    "inicial"
+);
 
     modal.classList.add(
         "ativo"
@@ -346,7 +423,183 @@ function fecharModalContaExistente(
     }
 
 }
+function atualizarEstadoModalContaExistente(
+    estado,
+    mensagem
+) {
 
+    const btnRecuperar =
+        document.getElementById(
+            "btnRecuperarModalContaExistente"
+        );
+
+    const btnCancelar =
+        document.getElementById(
+            "btnCancelarModalContaExistente"
+        );
+
+    const btnFechar =
+        document.getElementById(
+            "btnFecharModalContaExistente"
+        );
+
+    const areaMensagem =
+        document.getElementById(
+            "mensagemModalContaExistente"
+        );
+
+
+    if (!btnRecuperar || !areaMensagem) {
+
+        return;
+
+    }
+
+
+    if (estado === "enviando") {
+
+        btnRecuperar.disabled = true;
+
+        if (btnCancelar) {
+
+            btnCancelar.disabled = true;
+
+        }
+
+        if (btnFechar) {
+
+            btnFechar.disabled = true;
+
+        }
+
+        btnRecuperar.innerHTML =
+
+            '<span class="spinner-border ' +
+            'spinner-border-sm me-2"></span>' +
+
+            "Enviando...";
+
+
+        areaMensagem.innerHTML =
+
+            "<strong>Enviando recuperação</strong>" +
+
+            "<p>Aguarde enquanto enviamos as instruções para o seu e-mail.</p>";
+
+
+        return;
+
+    }
+
+
+    if (estado === "sucesso") {
+
+        btnRecuperar.disabled = false;
+
+        if (btnCancelar) {
+
+            btnCancelar.disabled = false;
+
+        }
+
+        if (btnFechar) {
+
+            btnFechar.disabled = false;
+
+        }
+
+        btnRecuperar.innerHTML =
+
+            '<i class="bi bi-check-circle-fill"></i>' +
+
+            "<span>Entendi</span>";
+
+
+        areaMensagem.innerHTML =
+
+            "<strong>E-mail enviado com sucesso</strong>" +
+
+            "<p>Confira sua caixa de entrada e também a pasta de spam. " +
+
+            "Depois de redefinir a senha, volte para esta tela para concluir o cadastro.</p>";
+
+
+
+        return;
+
+    }
+
+
+    if (estado === "erro") {
+
+        btnRecuperar.disabled = false;
+
+        if (btnCancelar) {
+
+            btnCancelar.disabled = false;
+
+        }
+
+        if (btnFechar) {
+
+            btnFechar.disabled = false;
+
+        }
+
+        btnRecuperar.innerHTML =
+
+            '<i class="bi bi-envelope-fill"></i>' +
+
+            "<span>Tentar novamente</span>";
+
+
+        areaMensagem.innerHTML =
+
+            "<strong>Não foi possível enviar</strong>" +
+
+            "<p>" +
+
+            String(
+                mensagem ||
+                "Tente novamente em alguns instantes."
+            ) +
+
+            "</p>";
+
+
+        return;
+
+    }
+
+
+    btnRecuperar.disabled = false;
+
+    if (btnCancelar) {
+
+        btnCancelar.disabled = false;
+
+    }
+
+    if (btnFechar) {
+
+        btnFechar.disabled = false;
+
+    }
+
+    btnRecuperar.innerHTML =
+
+        '<i class="bi bi-envelope-fill"></i>' +
+
+        "<span>Receber e-mail de recuperação</span>";
+
+
+    areaMensagem.innerHTML =
+
+        "<strong>Esqueceu sua senha?</strong>" +
+
+        "<p>Receba por e-mail as instruções para criar uma nova senha.</p>";
+
+}
 /* ===================================================
    INICIAR SISTEMA
 =================================================== */
@@ -1097,77 +1350,18 @@ async function salvarCadastro(evento) {
      * O e-mail já possui uma conta,
      * mas a senha informada está incorreta.
      */
-           
     if (
         respostaCadastro &&
         respostaCadastro.codigo ===
             "EMAIL_EXISTENTE_SENHA_INCORRETA"
     ) {
 
-        const desejaRecuperar =
-    await abrirModalContaExistente();
+        await abrirModalContaExistente();
 
-
-        if (!desejaRecuperar) {
-
-    if (campoSenha) {
-
-        campoSenha.value = "";
+        return;
 
     }
 
-    if (campoConfirmarSenha) {
-
-        campoConfirmarSenha.value = "";
-
-    }
-
-    if (campoSenha) {
-
-        campoSenha.focus();
-
-    }
-
-    return;
-
-}
-
-
-alterarBotaoCadastro(
-
-    btnCadastrar,
-
-    true,
-
-    "Enviando recuperação..."
-
-);
-
-
-const respostaRecuperacao =
-    await solicitarRecuperacaoCadastro(
-        email
-    );
-
-
-alert(
-
-    (
-        respostaRecuperacao?.mensagem ||
-
-        "Se o e-mail estiver cadastrado, você receberá as instruções de recuperação."
-    )
-
-    +
-
-    "\n\nApós redefinir a senha, volte para esta tela e informe a nova senha para concluir o cadastro."
-
-);
-
-
-return;
-
-}
 
     /*
      * Demais erros do cadastro.
@@ -1184,6 +1378,10 @@ return;
 
 }
 
+
+/*
+ * A partir daqui, o cadastro foi realizado.
+ */
 
         if (fotoBase64) {
 
