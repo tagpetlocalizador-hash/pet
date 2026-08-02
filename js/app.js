@@ -906,18 +906,110 @@ async function salvarCadastro(evento) {
 
 
         if (
-            !respostaCadastro ||
-            !respostaCadastro.sucesso
-        ) {
+    !respostaCadastro ||
+    !respostaCadastro.sucesso
+) {
 
-            alert(
-                respostaCadastro?.mensagem ||
-                "Não foi possível cadastrar o pet."
+    /*
+     * O e-mail já possui uma conta,
+     * mas a senha informada está incorreta.
+     */
+           
+    if (
+        respostaCadastro &&
+        respostaCadastro.codigo ===
+            "EMAIL_EXISTENTE_SENHA_INCORRETA"
+    ) {
+
+        const desejaRecuperar =
+            confirm(
+
+                "Este e-mail já possui uma conta PET NFC.\n\n" +
+
+                "Para adicionar este pet, informe a senha atual da conta.\n\n" +
+
+                "Esqueceu sua senha?\n" +
+
+                "Clique em OK para receber um e-mail de recuperação."
+
             );
 
-            return;
 
-        }
+        if (!desejaRecuperar) {
+
+    if (campoSenha) {
+
+        campoSenha.value = "";
+
+    }
+
+    if (campoConfirmarSenha) {
+
+        campoConfirmarSenha.value = "";
+
+    }
+
+    if (campoSenha) {
+
+        campoSenha.focus();
+
+    }
+
+    return;
+
+}
+
+
+alterarBotaoCadastro(
+
+    btnCadastrar,
+
+    true,
+
+    "Enviando recuperação..."
+
+);
+
+
+const respostaRecuperacao =
+    await solicitarRecuperacaoCadastro(
+        email
+    );
+
+
+alert(
+
+    (
+        respostaRecuperacao?.mensagem ||
+
+        "Se o e-mail estiver cadastrado, você receberá as instruções de recuperação."
+    )
+
+    +
+
+    "\n\nApós redefinir a senha, volte para esta tela e informe a nova senha para concluir o cadastro."
+
+);
+
+
+return;
+
+}
+
+    /*
+     * Demais erros do cadastro.
+     */
+    alert(
+
+        respostaCadastro?.mensagem ||
+
+        "Não foi possível cadastrar o pet."
+
+    );
+
+    return;
+
+}
 
 
         if (fotoBase64) {
