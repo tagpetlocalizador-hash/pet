@@ -13,6 +13,8 @@ let localizacaoEnviada = false;
 
 let avisoLocalizacaoExibido = false;
 
+let resolverModalContaExistente = null;
+
 
 /* ===================================================
    INICIALIZAÇÃO
@@ -53,6 +55,26 @@ function configurarEventos() {
             "btnMostrarConfirmarSenha"
         );
 
+   const btnCancelarModalConta =
+    document.getElementById(
+        "btnCancelarModalContaExistente"
+    );
+
+const btnFecharModalConta =
+    document.getElementById(
+        "btnFecharModalContaExistente"
+    );
+
+const btnRecuperarModalConta =
+    document.getElementById(
+        "btnRecuperarModalContaExistente"
+    );
+
+const fundoModalConta =
+    document.getElementById(
+        "fundoModalContaExistente"
+    );
+
 
     if (btnCadastrar) {
 
@@ -84,8 +106,70 @@ function configurarEventos() {
 
             }
         );
+}
+   
+       if (btnCancelarModalConta) {
 
-    }
+    btnCancelarModalConta.addEventListener(
+        "click",
+        function () {
+
+            fecharModalContaExistente(
+                false
+            );
+
+        }
+    );
+
+}
+
+
+if (btnFecharModalConta) {
+
+    btnFecharModalConta.addEventListener(
+        "click",
+        function () {
+
+            fecharModalContaExistente(
+                false
+            );
+
+        }
+    );
+
+}
+
+
+if (fundoModalConta) {
+
+    fundoModalConta.addEventListener(
+        "click",
+        function () {
+
+            fecharModalContaExistente(
+                false
+            );
+
+        }
+    );
+
+}
+
+
+if (btnRecuperarModalConta) {
+
+    btnRecuperarModalConta.addEventListener(
+        "click",
+        function () {
+
+            fecharModalContaExistente(
+                true
+            );
+
+        }
+    );
+
+   }
 
 
     if (btnMostrarSenha) {
@@ -163,6 +247,105 @@ function alternarVisibilidadeSenha(
 
 }
 
+   /* ===================================================
+   MODAL — CONTA JÁ EXISTENTE
+=================================================== */
+
+function abrirModalContaExistente() {
+
+    const modal =
+        document.getElementById(
+            "modalContaExistente"
+        );
+
+
+    if (!modal) {
+
+        return Promise.resolve(
+            false
+        );
+
+    }
+
+
+    modal.classList.add(
+        "ativo"
+    );
+
+
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    document.body.classList.add(
+        "modal-aberto"
+    );
+
+
+    return new Promise(function (resolve) {
+
+        resolverModalContaExistente =
+            resolve;
+
+    });
+
+}
+
+
+function fecharModalContaExistente(
+    desejaRecuperar
+) {
+
+    const modal =
+        document.getElementById(
+            "modalContaExistente"
+        );
+
+
+    if (modal) {
+
+        modal.classList.remove(
+            "ativo"
+        );
+
+
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+    }
+
+
+    document.body.classList.remove(
+        "modal-aberto"
+    );
+
+
+    if (
+        typeof resolverModalContaExistente ===
+        "function"
+    ) {
+
+        const resolver =
+            resolverModalContaExistente;
+
+
+        resolverModalContaExistente =
+            null;
+
+
+        resolver(
+            Boolean(
+                desejaRecuperar
+            )
+        );
+
+    }
+
+}
 
 /* ===================================================
    INICIAR SISTEMA
@@ -922,17 +1105,7 @@ async function salvarCadastro(evento) {
     ) {
 
         const desejaRecuperar =
-            confirm(
-
-                "Este e-mail já possui uma conta PET NFC.\n\n" +
-
-                "Para adicionar este pet, informe a senha atual da conta.\n\n" +
-
-                "Esqueceu sua senha?\n" +
-
-                "Clique em OK para receber um e-mail de recuperação."
-
-            );
+    await abrirModalContaExistente();
 
 
         if (!desejaRecuperar) {
