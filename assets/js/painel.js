@@ -559,6 +559,28 @@ function atualizarSeletorPets() {
 }
 function preencherPainel(dados) {
 console.log("DADOS DO PAINEL:", dados);
+
+   /*
+ * Campos de senha nunca devem permanecer
+ * preenchidos ao carregar ou trocar de pet.
+ */
+if (elementos.senhaAtual) {
+
+    elementos.senhaAtual.value = "";
+
+}
+
+if (elementos.novaSenha) {
+
+    elementos.novaSenha.value = "";
+
+}
+
+if (elementos.confirmarNovaSenha) {
+
+    elementos.confirmarNovaSenha.value = "";
+
+}
     const nomePet =
         dados.nome_pet ||
         localStorage.getItem(STORAGE.NOME_PET) ||
