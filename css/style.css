@@ -2272,3 +2272,128 @@ body.modal-aberto{
     }
 
 }
+
+/* ===================================================
+   MODAL AVISO SISTEMA
+=================================================== */
+
+.modal-aviso-sistema{
+
+position:fixed;
+inset:0;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:20px;
+
+opacity:0;
+visibility:hidden;
+
+transition:.25s;
+
+z-index:5000;
+
+}
+
+.modal-aviso-sistema.ativo{
+
+opacity:1;
+visibility:visible;
+
+}
+
+.fundo-modal-aviso-sistema{
+
+position:absolute;
+inset:0;
+
+background:rgba(0,0,0,.45);
+backdrop-filter:blur(4px);
+
+}
+
+.conteudo-modal-aviso-sistema{
+
+position:relative;
+
+width:100%;
+max-width:430px;
+
+background:#fff;
+
+border-radius:28px;
+
+padding:34px 28px;
+
+text-align:center;
+
+box-shadow:
+0 25px 60px rgba(0,0,0,.25);
+
+animation:
+modalAvisoSistema .25s ease;
+
+}
+
+@keyframes modalAvisoSistema{
+
+from{
+
+opacity:0;
+transform:translateY(20px) scale(.96);
+
+}
+
+to{
+
+opacity:1;
+transform:none;
+
+}
+
+}
+
+.icone-aviso-sistema{
+
+width:86px;
+height:86px;
+
+margin:auto auto 24px;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:#FFF5E6;
+
+color:#F59E0B;
+
+font-size:42px;
+
+}
+
+.conteudo-modal-aviso-sistema h2{
+
+font-size:30px;
+font-weight:700;
+
+margin-bottom:16px;
+
+color:#1F2937;
+
+}
+
+.conteudo-modal-aviso-sistema p{
+
+font-size:18px;
+line-height:1.7;
+
+color:#6B7280;
+
+margin-bottom:30px;
+
+}
