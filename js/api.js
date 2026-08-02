@@ -221,6 +221,26 @@ async function fazerLoginTutor(
 
 }
 
+/**
+ * Solicita recuperação de senha durante
+ * o cadastro de um novo pet.
+ */
+async function solicitarRecuperacaoCadastro(email) {
+
+    return await apiPost({
+
+        action:
+            "solicitarRecuperacao",
+
+        email:
+            String(email || "")
+                .trim()
+                .toLowerCase()
+
+    });
+
+}
+
 async function atualizarFoto(
     tokenLogin,
     tokenPet,
