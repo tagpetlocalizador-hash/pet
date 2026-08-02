@@ -2030,12 +2030,28 @@ body{
 
     background:#FFFFFF;
 
-    border:
-        3px solid var(--verde-claro);
+    border:3px solid var(--verde-claro);
 
     border-radius:50%;
 
     font-size:15px;
+
+    box-shadow:
+        0 6px 18px rgba(46,125,50,.18);
+
+}
+
+.icone-modal-conta > span{
+
+    animation:pulsoSino 4s ease-in-out infinite;
+
+}
+
+.icone-modal-conta > span i{
+
+    animation:sinoModal 4s ease-in-out infinite;
+
+    transform-origin:top center;
 
 }
 
@@ -2273,6 +2289,57 @@ body.modal-aberto{
 
 }
 
+@keyframes sinoModal{
+
+    0%,
+    100%{
+        transform:rotate(0deg);
+    }
+
+    3%{
+        transform:rotate(-18deg);
+    }
+
+    6%{
+        transform:rotate(18deg);
+    }
+
+    9%{
+        transform:rotate(-14deg);
+    }
+
+    12%{
+        transform:rotate(14deg);
+    }
+
+    15%{
+        transform:rotate(-8deg);
+    }
+
+    18%{
+        transform:rotate(8deg);
+    }
+
+    21%{
+        transform:rotate(0deg);
+    }
+
+}
+@keyframes pulsoSino{
+
+    0%,
+    100%{
+        transform:scale(1);
+    }
+
+    10%{
+        transform:scale(1.12);
+    }
+
+    20%{
+        transform:scale(1);
+    }
+}
 /* ===================================================
    MODAL AVISO SISTEMA
 =================================================== */
