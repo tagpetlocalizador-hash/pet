@@ -900,8 +900,8 @@ function atualizarImagemPet(foto) {
 
     } else {
 
-        elementos.fotoPet.src =
-            "../../imagem/pet-default.png";
+        elementos.fotoPet.src =   
+         "../img/pet-default.png";
 
     }
 
