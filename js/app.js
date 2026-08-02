@@ -70,6 +70,16 @@ const btnRecuperarModalConta =
         "btnRecuperarModalContaExistente"
     );
 
+   const btnFecharAvisoSistema =
+    document.getElementById(
+        "btnFecharAvisoSistema"
+    );
+
+const fundoAvisoSistema =
+    document.getElementById(
+        "fundoModalAvisoSistema"
+    );
+   
 const fundoModalConta =
     document.getElementById(
         "fundoModalContaExistente"
@@ -278,6 +288,24 @@ if (btnRecuperarModalConta) {
         );
 
     }
+
+   if (btnFecharAvisoSistema) {
+
+    btnFecharAvisoSistema.addEventListener(
+        "click",
+        fecharAvisoSistema
+    );
+
+}
+
+if (fundoAvisoSistema) {
+
+    fundoAvisoSistema.addEventListener(
+        "click",
+        fecharAvisoSistema
+    );
+
+}
 
 }
 function alternarVisibilidadeSenha(
@@ -686,18 +714,16 @@ async function iniciarSistema() {
 
     } catch (erro) {
 
-        console.error("Erro ao iniciar sistema:", erro);
+    console.error(
+        "Erro ao iniciar sistema:",
+        erro
+    );
 
-        alert(
-            "ERRO:\n\n" +
-            erro
-        );
+    mostrarErro(
+        "Erro ao carregar os dados da TAG."
+    );
 
-        mostrarErro(
-            "Erro ao carregar os dados da TAG."
-        );
-
-    }
+}
 
 }
 /* ===================================================
@@ -1221,9 +1247,13 @@ async function salvarCadastro(evento) {
     !confirmarSenha
 ) {
 
-        alert(
-            "Preencha todos os campos."
-        );
+        mostrarAvisoSistema(
+
+    "Campos obrigatórios",
+
+    "Preencha todos os campos para continuar."
+
+);
 
         return;
 
@@ -1232,9 +1262,10 @@ async function salvarCadastro(evento) {
 
     if (!validarEmail(email)) {
 
-        alert(
-            "Informe um e-mail válido."
-        );
+        mostrarAvisoSistema(
+    "E-mail inválido",
+    "Informe um endereço de e-mail válido."
+);
 
         campoEmail.focus();
 
@@ -1247,9 +1278,10 @@ async function salvarCadastro(evento) {
         limparTelefone(whatsapp).length < 12
     ) {
 
-        alert(
-            "Informe um WhatsApp válido com DDD."
-        );
+        mostrarAvisoSistema(
+    "WhatsApp inválido",
+    "Informe um número de WhatsApp válido com DDD."
+);
 
         campoWhatsapp.focus();
 
@@ -1260,9 +1292,10 @@ async function salvarCadastro(evento) {
 
     if (senha.length < 6) {
 
-        alert(
-            "A senha deve possuir pelo menos 6 caracteres."
-        );
+        mostrarAvisoSistema(
+    "Senha muito curta",
+    "A senha deve possuir pelo menos 6 caracteres."
+);
 
         campoSenha.focus();
 
@@ -1273,10 +1306,10 @@ async function salvarCadastro(evento) {
 
     if (!/[A-Za-zÀ-ÿ]/.test(senha)) {
 
-        alert(
-            "A senha deve possuir pelo menos uma letra."
-        );
-
+        mostrarAvisoSistema(
+    "Senha inválida",
+    "A senha deve possuir pelo menos uma letra."
+);
         campoSenha.focus();
 
         return;
@@ -1286,9 +1319,10 @@ async function salvarCadastro(evento) {
 
     if (!/[0-9]/.test(senha)) {
 
-        alert(
-            "A senha deve possuir pelo menos um número."
-        );
+        mostrarAvisoSistema(
+    "Senha inválida",
+    "A senha deve possuir pelo menos um número."
+);
 
         campoSenha.focus();
 
@@ -1299,9 +1333,10 @@ async function salvarCadastro(evento) {
 
     if (senha !== confirmarSenha) {
 
-        alert(
-            "As senhas não coincidem.\n\nDigite a mesma senha nos dois campos."
-        );
+        mostrarAvisoSistema(
+    "Senhas diferentes",
+    "Digite a mesma senha nos dois campos."
+);
 
         campoConfirmarSenha.value = "";
 
@@ -1366,13 +1401,15 @@ async function salvarCadastro(evento) {
     /*
      * Demais erros do cadastro.
      */
-    alert(
+    mostrarAvisoSistema(
 
-        respostaCadastro?.mensagem ||
+    "Cadastro não realizado",
 
-        "Não foi possível cadastrar o pet."
+    respostaCadastro?.mensagem ||
 
-    );
+    "Não foi possível cadastrar o pet."
+
+);
 
     return;
 
@@ -1403,13 +1440,21 @@ async function salvarCadastro(evento) {
         !respostaLogin.token_login
     ) {
 
-        alert(
-            "O cadastro foi realizado, mas não foi possível iniciar a sessão.\n\n" +
-            (
-                respostaLogin?.mensagem ||
-                "Erro desconhecido."
-            )
-        );
+        mostrarAvisoSistema(
+
+    "Cadastro concluído",
+
+    "O cadastro foi realizado, porém não foi possível iniciar a sessão.\n\n" +
+
+    (
+
+        respostaLogin?.mensagem ||
+
+        "Erro desconhecido."
+
+    )
+
+);
 
     } else {
 
@@ -1431,13 +1476,21 @@ async function salvarCadastro(evento) {
             !respostaFoto.sucesso
         ) {
 
-            alert(
-                "O cadastro foi realizado, mas a foto não foi enviada.\n\n" +
-                (
-                    respostaFoto?.mensagem ||
-                    "Erro desconhecido."
-                )
-            );
+            mostrarAvisoSistema(
+
+    "Foto não enviada",
+
+    "O cadastro foi realizado, porém não foi possível enviar a foto.\n\n" +
+
+    (
+
+        respostaFoto?.mensagem ||
+
+        "Erro desconhecido."
+
+    )
+
+);
 
         }
 
@@ -1490,9 +1543,13 @@ async function salvarCadastro(evento) {
             erro
         );
 
-        alert(
-            "Não foi possível concluir o cadastro."
-        );
+        mostrarAvisoSistema(
+
+    "Erro",
+
+    "Não foi possível concluir o cadastro."
+
+);
 
 
     } finally {
@@ -1611,6 +1668,71 @@ function fecharAvisoLocalizacao() {
 
 }
 
+/* ===================================================
+   MODAL AVISO SISTEMA
+=================================================== */
+
+function mostrarAvisoSistema(
+    titulo,
+    mensagem
+) {
+
+    const modal =
+        document.getElementById(
+            "modalAvisoSistema"
+        );
+
+    const tituloModal =
+        document.getElementById(
+            "tituloAvisoSistema"
+        );
+
+    const mensagemModal =
+        document.getElementById(
+            "mensagemAvisoSistema"
+        );
+
+    if (
+        !modal ||
+        !tituloModal ||
+        !mensagemModal
+    ) {
+
+        return;
+
+    }
+
+    tituloModal.textContent =
+        titulo;
+
+    mensagemModal.textContent =
+        mensagem;
+
+    modal.classList.add(
+        "ativo"
+    );
+
+}
+
+
+function fecharAvisoSistema() {
+
+    const modal =
+        document.getElementById(
+            "modalAvisoSistema"
+        );
+
+    if (!modal) {
+
+        return;
+
+    }
+
+    modal.classList.remove(
+        "ativo"
+    );
+
+}
 
 /* ===================================================
    LOCALIZAÇÃO
