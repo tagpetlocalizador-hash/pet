@@ -6,96 +6,48 @@
 
 
 /**
- * Requisição GET com novas tentativas automáticas
+ * Requisição GET
  */
-async function apiGet(
-    action,
-    params = {},
-    tentativa = 1
-) {
-
-    const MAX_TENTATIVAS = 2;
-
-    let limiteTempo;
+async function apiGet(action, params = {}) {
 
     try {
 
-        const url =
-            new URL(
-                CONFIG.API_URL
-            );
+        const url = new URL(CONFIG.API_URL);
 
         url.searchParams.set(
             "action",
             action
         );
 
-        /*
-         * Evita resposta antiga armazenada
-         * pelo navegador.
-         */
-        url.searchParams.set(
-            "_t",
-            Date.now()
-        );
+        Object.keys(params).forEach(function (key) {
 
-        Object.keys(params).forEach(
-            function (key) {
+            if (
+                params[key] !== undefined &&
+                params[key] !== null
+            ) {
 
-                if (
-                    params[key] !== undefined &&
-                    params[key] !== null
-                ) {
-
-                    url.searchParams.set(
-                        key,
-                        String(params[key])
-                    );
-
-                }
+                url.searchParams.set(
+                    key,
+                    params[key]
+                );
 
             }
-        );
+
+        });
 
 
-        const controlador =
-            new AbortController();
+        const response = await fetch(
 
+            url.toString(),
 
-        limiteTempo =
-            setTimeout(
-                function () {
+            {
 
-                    controlador.abort();
+                method: "GET",
 
-                },
-                8000
-            );
+                cache: "no-store"
 
+            }
 
-        const response =
-            await fetch(
-                url.toString(),
-                {
-
-                    method:
-                        "GET",
-
-                    cache:
-                        "no-store",
-
-                    redirect:
-                        "follow",
-
-                    signal:
-                        controlador.signal
-
-                }
-            );
-
-
-        clearTimeout(
-            limiteTempo
         );
 
 
@@ -109,84 +61,29 @@ async function apiGet(
         }
 
 
-        const resposta =
-            await response.json();
-
-
-        return resposta;
+        return await response.json();
 
 
     } catch (erro) {
 
-        if (limiteTempo) {
-
-            clearTimeout(
-                limiteTempo
-            );
-
-        }
-
-
-        console.warn(
-            "Falha na tentativa " +
-            tentativa +
-            " da ação " +
-            action +
-            ":",
-            erro
-        );
-
-
-        if (
-            tentativa <
-            MAX_TENTATIVAS
-        ) {
-
-            await new Promise(
-                function (resolver) {
-
-                    setTimeout(
-                        resolver,
-                        tentativa * 1000
-                    );
-
-                }
-            );
-
-
-            return apiGet(
-                action,
-                params,
-                tentativa + 1
-            );
-
-        }
-
-
         console.error(
-            "Erro na requisição GET após " +
-            MAX_TENTATIVAS +
-            " tentativas:",
+            "Erro na requisição GET:",
             erro
         );
-
 
         return {
 
-            sucesso:
-                false,
-
-            codigo:
-                "ERRO_CONEXAO",
+            sucesso: false,
 
             mensagem:
-                "Erro ao conectar com o servidor. Tente novamente em alguns instantes."
+                "Erro ao conectar com o servidor."
 
         };
 
     }
 
 }
+
 
 /**
  * Requisição POST
