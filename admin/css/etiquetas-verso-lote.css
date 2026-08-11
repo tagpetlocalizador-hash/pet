@@ -1,0 +1,555 @@
+/* =====================================================
+   PET NFC
+   etiquetas-verso-lote.css
+
+   Impressão somente dos versos
+   Medalhão: 28 x 28 mm
+   Espaçamento: 5 mm
+===================================================== */
+
+
+/* =====================================================
+   CONFIGURAÇÃO GERAL
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+
+    margin: 0;
+    padding: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #ececec;
+
+}
+
+
+/* =====================================================
+   TOOLBAR
+===================================================== */
+
+.toolbar {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+
+    padding: 12px 20px;
+
+
+    background: #ffffff;
+
+
+    border-bottom:
+        1px solid
+        #cccccc;
+
+}
+
+
+.toolbar-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+}
+
+
+.toolbar-info strong {
+
+    font-size: 16px;
+
+}
+
+
+.toolbar-info span {
+
+    font-size: 13px;
+
+    color: #555555;
+
+}
+
+
+.toolbar-botoes {
+
+    display: flex;
+
+    gap: 10px;
+
+}
+
+
+.toolbar button {
+
+    padding:
+        10px
+        18px;
+
+
+    border: none;
+
+    border-radius: 6px;
+
+
+    background: #0d6efd;
+
+    color: #ffffff;
+
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+
+    cursor: pointer;
+
+}
+
+
+.toolbar button:hover {
+
+    opacity: 0.9;
+
+}
+
+
+/* =====================================================
+   MENSAGEM
+===================================================== */
+
+.mensagem {
+
+    margin:
+        30px
+        auto;
+
+
+    text-align: center;
+
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+}
+
+
+.mensagem.erro {
+
+    color: #b00020;
+
+}
+
+
+.oculto {
+
+    display: none !important;
+
+}
+
+
+/* =====================================================
+   FOLHA A4
+===================================================== */
+
+.folha-a4 {
+
+    width: 210mm;
+
+    min-height: 297mm;
+
+
+    margin:
+        15px
+        auto;
+
+
+    padding:
+        8.5mm;
+
+
+    background: #ffffff;
+
+
+    box-shadow:
+        0
+        3px
+        15px
+        rgba(
+            0,
+            0,
+            0,
+            0.18
+        );
+
+}
+
+
+/* =====================================================
+   GRADE DAS ETIQUETAS
+
+   6 etiquetas:
+
+   6 x 28mm = 168mm
+   5 x 5mm  = 25mm
+
+   TOTAL = 193mm
+===================================================== */
+
+.grade-etiquetas {
+
+    width: 193mm;
+
+
+    display: grid;
+
+
+    grid-template-columns:
+        repeat(
+            6,
+            28mm
+        );
+
+
+    grid-auto-rows:
+        28mm;
+
+
+    column-gap: 5mm;
+
+    row-gap: 5mm;
+
+
+    margin: 0 auto;
+
+
+    align-items: start;
+
+    justify-items: start;
+
+}
+
+
+/* =====================================================
+   ETIQUETA
+===================================================== */
+
+.etiqueta-verso {
+
+    position: relative;
+
+
+    width: 28mm;
+
+    height: 28mm;
+
+
+    flex:
+        0
+        0
+        28mm;
+
+
+    overflow: hidden;
+
+
+    break-inside: avoid;
+
+    page-break-inside: avoid;
+
+}
+
+
+/* =====================================================
+   IMAGEM DO VERSO
+
+   EXATAMENTE 28MM
+===================================================== */
+
+.etiqueta-verso .medalhao {
+
+    display: block;
+
+
+    width: 28mm;
+
+    height: 28mm;
+
+
+    object-fit: contain;
+
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+
+/* =====================================================
+   QR CODE
+
+   Mesma posição utilizada na etiqueta individual
+===================================================== */
+
+.etiqueta-verso .qrcode {
+
+    position: absolute;
+
+
+    top: 7.26mm;
+
+    left: 12.50mm;
+
+
+    width: 12.3mm;
+
+    height: 12.3mm;
+
+
+    padding: 0.3mm;
+
+
+    box-sizing: border-box;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    background: #ffffff;
+
+
+    overflow: hidden;
+
+}
+
+
+/* =====================================================
+   CANVAS DO QR
+===================================================== */
+
+.etiqueta-verso .qrcode-canvas {
+
+    display: block !important;
+
+
+    width: 11.7mm !important;
+
+    height: 11.7mm !important;
+
+
+    flex: none !important;
+
+
+    max-width: none !important;
+
+    max-height: none !important;
+
+
+    background: #ffffff;
+
+
+    image-rendering: pixelated;
+
+}
+
+
+/* =====================================================
+   IMPRESSÃO
+===================================================== */
+
+@page {
+
+    size: A4 portrait;
+
+    margin: 8.5mm;
+
+}
+
+
+@media print {
+
+    html,
+    body {
+
+        margin: 0;
+
+        padding: 0;
+
+
+        width: auto;
+
+        min-height: auto;
+
+
+        background: #ffffff;
+
+    }
+
+
+    .toolbar,
+    .mensagem {
+
+        display: none !important;
+
+    }
+
+
+    .folha-a4 {
+
+        width: auto;
+
+        min-height: auto;
+
+
+        margin: 0;
+
+        padding: 0;
+
+
+        box-shadow: none;
+
+    }
+
+
+    .grade-etiquetas {
+
+        width: 193mm;
+
+
+        margin: 0;
+
+
+        grid-template-columns:
+            repeat(
+                6,
+                28mm
+            );
+
+
+        grid-auto-rows:
+            28mm;
+
+
+        column-gap: 5mm;
+
+        row-gap: 5mm;
+
+    }
+
+
+    .etiqueta-verso {
+
+        width: 28mm;
+
+        height: 28mm;
+
+
+        break-inside: avoid;
+
+        page-break-inside: avoid;
+
+    }
+
+}
+
+
+/* =====================================================
+   CELULAR / TELA PEQUENA
+===================================================== */
+
+@media screen and (max-width: 700px) {
+
+    .toolbar {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    .toolbar-botoes {
+
+        width: 100%;
+
+    }
+
+
+    .toolbar button {
+
+        flex: 1;
+
+    }
+
+
+    .folha-a4 {
+
+        width: 100%;
+
+        min-height: auto;
+
+
+        margin: 0;
+
+        padding:
+            20px
+            10px;
+
+
+        overflow-x: auto;
+
+    }
+
+
+    .grade-etiquetas {
+
+        width: auto;
+
+
+        grid-template-columns:
+            repeat(
+                2,
+                28mm
+            );
+
+
+        justify-content: center;
+
+
+        column-gap: 5mm;
+
+        row-gap: 5mm;
+
+    }
+
+}
