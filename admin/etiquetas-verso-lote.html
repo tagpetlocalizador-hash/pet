@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <title>
+        Versos em lote — PET NFC
+    </title>
+
+    <link
+        href="css/etiquetas-verso-lote.css?v=1"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- =============================================
+         BARRA DE BOTÕES
+    ============================================== -->
+
+    <div class="toolbar">
+
+        <div class="toolbar-info">
+
+            <strong>
+                Versos PET NFC
+            </strong>
+
+            <span id="quantidadeEtiquetas">
+                -
+            </span>
+
+        </div>
+
+
+        <div class="toolbar-botoes">
+
+            <button
+                type="button"
+                onclick="window.print()">
+
+                🖨 Imprimir
+
+            </button>
+
+
+            <button
+                type="button"
+                onclick="history.back()">
+
+                ← Voltar
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =============================================
+         MENSAGEM
+    ============================================== -->
+
+    <div
+        id="mensagem"
+        class="mensagem">
+
+        Carregando versos das etiquetas...
+
+    </div>
+
+
+    <!-- =============================================
+         FOLHA
+    ============================================== -->
+
+    <main
+        id="folha"
+        class="folha-a4 oculto">
+
+        <section
+            id="gradeEtiquetas"
+            class="grade-etiquetas">
+
+        </section>
+
+    </main>
+
+
+    <!-- =============================================
+         BIBLIOTECAS
+    ============================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/qrcanvas@3">
+    </script>
+
+    <script src="js/config.js?v=8"></script>
+
+    <script src="js/api.js?v=8"></script>
+
+    <script src="js/etiquetas-verso-lote.js?v=1"></script>
+
+</body>
+
+</html>
