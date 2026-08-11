@@ -228,27 +228,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /*
-     * Botão imprimir selecionadas.
-     */
-    const btnImprimirSelecionadas =
-        document.getElementById(
-            "btnImprimirSelecionadas"
-        );
+ * Botão imprimir selecionadas.
+ */
+const btnImprimirSelecionadas =
+    document.getElementById(
+        "btnImprimirSelecionadas"
+    );
 
-    if (btnImprimirSelecionadas) {
+if (btnImprimirSelecionadas) {
 
-        btnImprimirSelecionadas.addEventListener(
-            "click",
-            imprimirTagsSelecionadas
-        );
+    btnImprimirSelecionadas.addEventListener(
+        "click",
+        imprimirTagsSelecionadas
+    );
 
-    }
+}
 
 
-    /*
-     * Carrega as TAGs.
-     */
-    carregarTags();
+/*
+ * Botão imprimir somente os versos.
+ */
+const btnImprimirVersos =
+    document.getElementById(
+        "btnImprimirVersos"
+    );
+
+if (btnImprimirVersos) {
+
+    btnImprimirVersos.addEventListener(
+        "click",
+        imprimirVersosSelecionados
+    );
+
+}
+
+
+/*
+ * Carrega as TAGs.
+ */
+carregarTags();
 
 });
 
@@ -265,14 +283,21 @@ function atualizarBarraSelecao() {
         );
 
     const btnImprimir =
-        document.getElementById(
-            "btnImprimirSelecionadas"
-        );
+    document.getElementById(
+        "btnImprimirSelecionadas"
+    );
 
-    const btnLimpar =
-        document.getElementById(
-            "btnLimparSelecao"
-        );
+
+const btnImprimirVersos =
+    document.getElementById(
+        "btnImprimirVersos"
+    );
+
+
+const btnLimpar =
+    document.getElementById(
+        "btnLimparSelecao"
+    );
 
     const total =
         tagsSelecionadas.size;
@@ -297,18 +322,26 @@ function atualizarBarraSelecao() {
 
     if (btnImprimir) {
 
-        btnImprimir.disabled =
-            total === 0;
+    btnImprimir.disabled =
+        total === 0;
 
-    }
+}
 
 
-    if (btnLimpar) {
+if (btnImprimirVersos) {
 
-        btnLimpar.disabled =
-            total === 0;
+    btnImprimirVersos.disabled =
+        total === 0;
 
-    }
+}
+
+
+if (btnLimpar) {
+
+    btnLimpar.disabled =
+        total === 0;
+
+}
 
 
     atualizarCheckboxSelecionarTodas();
@@ -530,7 +563,39 @@ function imprimirTagsSelecionadas() {
 
 }
 
+/* ===================================================
+   IMPRIMIR SOMENTE OS VERSOS SELECIONADOS
+=================================================== */
 
+function imprimirVersosSelecionados() {
+
+    const tokens =
+        Array.from(tagsSelecionadas);
+
+
+    if (tokens.length === 0) {
+
+        alert(
+            "Selecione pelo menos uma TAG."
+        );
+
+        return;
+
+    }
+
+
+    window.open(
+
+        "etiquetas-verso-lote.html?tokens=" +
+        encodeURIComponent(
+            tokens.join(",")
+        ),
+
+        "_blank"
+
+    );
+
+}
 /* ===================================================
    APLICAR PESQUISA
 =================================================== */
