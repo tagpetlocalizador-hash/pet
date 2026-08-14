@@ -3,7 +3,11 @@
    ETIQUETAS DE ATIVAÇÃO
 
    Arte:
-   95mm x 14.5mm
+   95mm x 145mm
+   9,5cm x 14,5cm
+
+   Código de ativação:
+   Área inicial de 25mm x 8mm
 ===================================================== */
 
 
@@ -33,7 +37,7 @@ body {
 
 
 /* =====================================================
-   BARRA
+   BARRA SUPERIOR
 ===================================================== */
 
 .toolbar {
@@ -65,7 +69,7 @@ body {
 }
 
 
-.toolbar > div:first-child {
+.toolbar-info {
 
     display: flex;
 
@@ -76,7 +80,14 @@ body {
 }
 
 
-.toolbar span {
+.toolbar-info strong {
+
+    font-size: 16px;
+
+}
+
+
+.toolbar-info span {
 
     font-size: 13px;
 
@@ -172,14 +183,16 @@ body {
         auto;
 
     /*
-     * Duas etiquetas:
+     * Duas etiquetas lado a lado:
      *
      * 95mm + 5mm + 95mm = 195mm
      *
      * A4 = 210mm
      *
-     * sobra 15mm
-     * = 7.5mm de cada lado
+     * Sobra:
+     * 15mm
+     *
+     * 7.5mm de cada lado
      */
     padding:
         10mm
@@ -202,17 +215,14 @@ body {
 
 
 /* =====================================================
-   GRADE
+   GRADE DAS ETIQUETAS
 
    2 etiquetas por linha
 
    Cada etiqueta:
-   95 x 14.5mm
+   95mm x 145mm
 
-   Espaço horizontal:
-   5mm
-
-   Espaço vertical:
+   Espaçamento horizontal:
    5mm
 ===================================================== */
 
@@ -229,7 +239,7 @@ body {
         );
 
     grid-auto-rows:
-        14.5mm;
+        145mm;
 
     column-gap: 5mm;
 
@@ -245,10 +255,10 @@ body {
 
 
 /* =====================================================
-   ETIQUETA
+   ETIQUETA DE ATIVAÇÃO
 
    TAMANHO EXATO:
-   95 x 14.5mm
+   95mm x 145mm
 ===================================================== */
 
 .etiqueta-ativacao {
@@ -257,7 +267,7 @@ body {
 
     width: 95mm;
 
-    height: 14.5mm;
+    height: 145mm;
 
     margin: 0;
 
@@ -273,7 +283,10 @@ body {
 
 
 /* =====================================================
-   ARTE
+   ARTE DA ETIQUETA
+
+   Arquivo:
+   img/etiqueta-ativacao.png
 ===================================================== */
 
 .etiqueta-ativacao img {
@@ -282,7 +295,7 @@ body {
 
     width: 95mm;
 
-    height: 14.5mm;
+    height: 145mm;
 
     margin: 0;
 
@@ -296,14 +309,13 @@ body {
 /* =====================================================
    ÁREA DO CÓDIGO DE ATIVAÇÃO
 
-   Área:
-   25mm x 8mm
-
    IMPORTANTE:
 
    left = esquerda / direita
    top  = cima / baixo
 
+   Estes são os dois valores que vamos ajustar
+   para encaixar exatamente na sua arte.
 ===================================================== */
 
 .area-codigo {
@@ -314,10 +326,8 @@ body {
     /*
      * POSIÇÃO HORIZONTAL
      *
-     * Começamos centralizado:
-     *
-     * 95 - 25 = 70
-     * 70 / 2 = 35mm
+     * Diminuir = vai para esquerda
+     * Aumentar = vai para direita
      */
     left: 35mm;
 
@@ -325,16 +335,15 @@ body {
     /*
      * POSIÇÃO VERTICAL
      *
-     * Começamos centralizado:
-     *
-     * 14.5 - 8 = 6.5
-     * 6.5 / 2 = 3.25mm
+     * Diminuir = sobe
+     * Aumentar = desce
      */
-    top: 3.25mm;
+    top: 105mm;
 
 
     /*
      * TAMANHO DA ÁREA
+     * RESERVADA PARA O CÓDIGO
      */
     width: 25mm;
 
@@ -348,19 +357,24 @@ body {
     justify-content: center;
 
 
+    margin: 0;
+
+    padding: 0;
+
+
     overflow: hidden;
 
 
-    text-align: center;
-
-
     background: transparent;
+
+
+    text-align: center;
 
 }
 
 
 /* =====================================================
-   CÓDIGO DE ATIVAÇÃO
+   TEXTO DO CÓDIGO DE ATIVAÇÃO
 ===================================================== */
 
 .codigo-ativacao {
@@ -460,6 +474,8 @@ body {
 
         width: 195mm;
 
+        display: grid;
+
         grid-template-columns:
             repeat(
                 2,
@@ -467,13 +483,17 @@ body {
             );
 
         grid-auto-rows:
-            14.5mm;
+            145mm;
 
         column-gap: 5mm;
 
         row-gap: 5mm;
 
         margin: 0 auto;
+
+        justify-content: center;
+
+        align-items: start;
 
     }
 
@@ -482,7 +502,11 @@ body {
 
         width: 95mm;
 
-        height: 14.5mm;
+        height: 145mm;
+
+        margin: 0;
+
+        padding: 0;
 
         break-inside: avoid;
 
@@ -495,7 +519,7 @@ body {
 
         width: 95mm;
 
-        height: 14.5mm;
+        height: 145mm;
 
     }
 
@@ -503,7 +527,7 @@ body {
 
 
 /* =====================================================
-   CELULAR
+   CELULAR / TELA PEQUENA
 ===================================================== */
 
 @media screen and (max-width: 700px) {
@@ -556,7 +580,7 @@ body {
             95mm;
 
         grid-auto-rows:
-            14.5mm;
+            145mm;
 
         column-gap: 0;
 
@@ -565,6 +589,24 @@ body {
         margin: 0 auto;
 
         justify-content: center;
+
+    }
+
+
+    .etiqueta-ativacao {
+
+        width: 95mm;
+
+        height: 145mm;
+
+    }
+
+
+    .etiqueta-ativacao img {
+
+        width: 95mm;
+
+        height: 145mm;
 
     }
 
