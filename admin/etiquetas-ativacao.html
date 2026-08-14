@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <title>
+        Etiquetas de ativação — PET NFC
+    </title>
+
+    <link
+        href="css/etiquetas-ativacao.css?v=1"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="toolbar">
+
+        <div>
+
+            <strong>
+                Etiquetas de ativação
+            </strong>
+
+            <span id="quantidadeEtiquetas">
+                -
+            </span>
+
+        </div>
+
+
+        <div class="toolbar-botoes">
+
+            <button
+                type="button"
+                onclick="window.print()">
+
+                🖨 Imprimir
+
+            </button>
+
+            <button
+                type="button"
+                onclick="history.back()">
+
+                ← Voltar
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="mensagem"
+        class="mensagem">
+
+        Carregando etiquetas...
+
+    </div>
+
+
+    <main
+        id="folha"
+        class="folha-a4 oculto">
+
+        <section
+            id="gradeEtiquetas"
+            class="grade-etiquetas">
+
+        </section>
+
+    </main>
+
+
+    <script src="js/config.js?v=8"></script>
+    <script src="js/api.js?v=8"></script>
+
+    <script
+        src="js/etiquetas-ativacao.js?v=1">
+    </script>
+
+</body>
+
+</html>
