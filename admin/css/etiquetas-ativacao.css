@@ -1,0 +1,466 @@
+/* =====================================================
+   PET NFC
+   ETIQUETAS DE ATIVAÇÃO
+
+   Arte:
+   80mm x 130mm
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+
+    margin: 0;
+    padding: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #ececec;
+
+}
+
+
+/* =====================================================
+   BARRA
+===================================================== */
+
+.toolbar {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 12px 20px;
+
+    background: #ffffff;
+
+    border-bottom:
+        1px solid
+        #cccccc;
+
+}
+
+
+.toolbar > div:first-child {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+}
+
+
+.toolbar span {
+
+    font-size: 13px;
+
+    color: #555555;
+
+}
+
+
+.toolbar-botoes {
+
+    display: flex;
+
+    gap: 10px;
+
+}
+
+
+.toolbar button {
+
+    padding:
+        10px
+        18px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: #0d6efd;
+
+    color: #ffffff;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+/* =====================================================
+   MENSAGEM
+===================================================== */
+
+.mensagem {
+
+    margin:
+        30px
+        auto;
+
+    text-align: center;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+}
+
+
+.mensagem.erro {
+
+    color: #b00020;
+
+}
+
+
+.oculto {
+
+    display: none !important;
+
+}
+
+
+/* =====================================================
+   FOLHA A4
+===================================================== */
+
+.folha-a4 {
+
+    width: 210mm;
+
+    min-height: 297mm;
+
+    margin:
+        15px
+        auto;
+
+    padding:
+        13.5mm
+        20mm;
+
+    background: #ffffff;
+
+    box-shadow:
+        0
+        3px
+        15px
+        rgba(
+            0,
+            0,
+            0,
+            0.18
+        );
+
+}
+
+
+/* =====================================================
+   GRADE
+
+   2 etiquetas por linha
+   2 linhas
+
+   4 etiquetas por A4
+===================================================== */
+
+.grade-etiquetas {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            80mm
+        );
+
+    grid-auto-rows:
+        130mm;
+
+    column-gap: 10mm;
+
+    row-gap: 10mm;
+
+    justify-content: center;
+
+}
+
+
+/* =====================================================
+   ETIQUETA
+
+   TAMANHO EXATO:
+   80 x 130mm
+===================================================== */
+
+.etiqueta-ativacao {
+
+    position: relative;
+
+    width: 80mm;
+
+    height: 130mm;
+
+    overflow: hidden;
+
+    break-inside: avoid;
+
+    page-break-inside: avoid;
+
+}
+
+
+/* =====================================================
+   ARTE
+===================================================== */
+
+.etiqueta-ativacao img {
+
+    display: block;
+
+    width: 80mm;
+
+    height: 130mm;
+
+    margin: 0;
+
+    padding: 0;
+
+    object-fit: contain;
+
+}
+
+
+/* =====================================================
+   ÁREA DO CÓDIGO
+
+   AJUSTAREMOS TOP E LEFT
+   DEPOIS QUE VOCÊ ME MOSTRAR A ARTE.
+===================================================== */
+
+.area-codigo {
+
+    position: absolute;
+
+    /*
+     * POSIÇÃO HORIZONTAL
+     */
+    left: 27.5mm;
+
+    /*
+     * POSIÇÃO VERTICAL
+     */
+    top: 100mm;
+
+
+    /*
+     * ÁREA INFORMADA:
+     * 25mm x 0,8mm
+     */
+    width: 25mm;
+
+    height: 0.8mm;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    overflow: hidden;
+
+
+    text-align: center;
+
+
+    /*
+     * Transparente para a arte
+     * permanecer visível.
+     */
+    background: transparent;
+
+}
+
+
+/* =====================================================
+   CÓDIGO
+===================================================== */
+
+.codigo-ativacao {
+
+    display: block;
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+
+    color: #000000;
+
+
+    /*
+     * Precisamos usar fonte minúscula
+     * para caber em 0,8mm.
+     */
+    font-size: 0.65mm;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-weight: 700;
+
+
+    line-height: 0.8mm;
+
+
+    white-space: nowrap;
+
+    text-align: center;
+
+}
+
+
+/* =====================================================
+   IMPRESSÃO
+===================================================== */
+
+@page {
+
+    size: A4 portrait;
+
+    margin: 0;
+
+}
+
+
+@media print {
+
+    html,
+    body {
+
+        width: 210mm;
+
+        min-height: 297mm;
+
+        margin: 0;
+
+        padding: 0;
+
+        background: #ffffff;
+
+    }
+
+
+    .toolbar,
+    .mensagem {
+
+        display: none !important;
+
+    }
+
+
+    .folha-a4 {
+
+        width: 210mm;
+
+        min-height: 297mm;
+
+        margin: 0;
+
+        padding:
+            13.5mm
+            20mm;
+
+        box-shadow: none;
+
+    }
+
+
+    .grade-etiquetas {
+
+        grid-template-columns:
+            repeat(
+                2,
+                80mm
+            );
+
+        grid-auto-rows:
+            130mm;
+
+        column-gap: 10mm;
+
+        row-gap: 10mm;
+
+    }
+
+
+    .etiqueta-ativacao {
+
+        width: 80mm;
+
+        height: 130mm;
+
+    }
+
+}
+
+
+/* =====================================================
+   CELULAR
+===================================================== */
+
+@media screen and (max-width: 700px) {
+
+    .folha-a4 {
+
+        width: 100%;
+
+        min-height: auto;
+
+        margin: 0;
+
+        padding: 20px;
+
+        overflow-x: auto;
+
+    }
+
+
+    .grade-etiquetas {
+
+        grid-template-columns:
+            80mm;
+
+        justify-content: center;
+
+    }
+
+}
