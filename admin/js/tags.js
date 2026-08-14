@@ -262,7 +262,22 @@ if (btnImprimirVersos) {
 
 }
 
+/*
+ * Botão imprimir etiquetas de ativação.
+ */
+const btnImprimirAtivacao =
+    document.getElementById(
+        "btnImprimirAtivacao"
+    );
 
+if (btnImprimirAtivacao) {
+
+    btnImprimirAtivacao.addEventListener(
+        "click",
+        imprimirEtiquetasAtivacao
+    );
+
+}
 /*
  * Carrega as TAGs.
  */
@@ -293,6 +308,10 @@ const btnImprimirVersos =
         "btnImprimirVersos"
     );
 
+   const btnImprimirAtivacao =
+    document.getElementById(
+        "btnImprimirAtivacao"
+    );
 
 const btnLimpar =
     document.getElementById(
@@ -335,6 +354,12 @@ if (btnImprimirVersos) {
 
 }
 
+   if (btnImprimirAtivacao) {
+
+    btnImprimirAtivacao.disabled =
+        total === 0;
+
+}
 
 if (btnLimpar) {
 
@@ -587,6 +612,45 @@ function imprimirVersosSelecionados() {
     window.open(
 
         "etiquetas-verso-lote.html?tokens=" +
+        encodeURIComponent(
+            tokens.join(",")
+        ),
+
+        "_blank"
+
+    );
+
+}
+
+/* ===================================================
+   IMPRIMIR ETIQUETAS DE ATIVAÇÃO
+=================================================== */
+
+function imprimirEtiquetasAtivacao() {
+
+    const tokens =
+        Array.from(
+            tagsSelecionadas
+        );
+
+
+    if (
+        tokens.length === 0
+    ) {
+
+        alert(
+            "Selecione pelo menos uma TAG."
+        );
+
+        return;
+
+    }
+
+
+    window.open(
+
+        "etiquetas-ativacao.html?tokens=" +
+
         encodeURIComponent(
             tokens.join(",")
         ),
