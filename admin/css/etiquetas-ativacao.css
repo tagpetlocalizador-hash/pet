@@ -3,7 +3,12 @@
    ETIQUETAS DE ATIVAÇÃO
 
    Arte:
-   80mm x 130mm
+   95mm x 14.5mm
+===================================================== */
+
+
+/* =====================================================
+   CONFIGURAÇÃO GERAL
 ===================================================== */
 
 * {
@@ -47,7 +52,9 @@ body {
 
     gap: 15px;
 
-    padding: 12px 20px;
+    padding:
+        12px
+        20px;
 
     background: #ffffff;
 
@@ -110,6 +117,13 @@ body {
 }
 
 
+.toolbar button:hover {
+
+    opacity: 0.9;
+
+}
+
+
 /* =====================================================
    MENSAGEM
 ===================================================== */
@@ -157,9 +171,19 @@ body {
         15px
         auto;
 
+    /*
+     * Duas etiquetas:
+     *
+     * 95mm + 5mm + 95mm = 195mm
+     *
+     * A4 = 210mm
+     *
+     * sobra 15mm
+     * = 7.5mm de cada lado
+     */
     padding:
-        13.5mm
-        20mm;
+        10mm
+        7.5mm;
 
     background: #ffffff;
 
@@ -181,29 +205,41 @@ body {
    GRADE
 
    2 etiquetas por linha
-   2 linhas
 
-   4 etiquetas por A4
+   Cada etiqueta:
+   95 x 14.5mm
+
+   Espaço horizontal:
+   5mm
+
+   Espaço vertical:
+   5mm
 ===================================================== */
 
 .grade-etiquetas {
+
+    width: 195mm;
 
     display: grid;
 
     grid-template-columns:
         repeat(
             2,
-            80mm
+            95mm
         );
 
     grid-auto-rows:
-        130mm;
+        14.5mm;
 
-    column-gap: 10mm;
+    column-gap: 5mm;
 
-    row-gap: 10mm;
+    row-gap: 5mm;
+
+    margin: 0 auto;
 
     justify-content: center;
+
+    align-items: start;
 
 }
 
@@ -212,16 +248,20 @@ body {
    ETIQUETA
 
    TAMANHO EXATO:
-   80 x 130mm
+   95 x 14.5mm
 ===================================================== */
 
 .etiqueta-ativacao {
 
     position: relative;
 
-    width: 80mm;
+    width: 95mm;
 
-    height: 130mm;
+    height: 14.5mm;
+
+    margin: 0;
+
+    padding: 0;
 
     overflow: hidden;
 
@@ -242,7 +282,7 @@ body {
 
     width: 95mm;
 
-    height: 14,5mm;
+    height: 14.5mm;
 
     margin: 0;
 
@@ -254,30 +294,47 @@ body {
 
 
 /* =====================================================
-   ÁREA DO CÓDIGO
+   ÁREA DO CÓDIGO DE ATIVAÇÃO
 
-   AJUSTAREMOS TOP E LEFT
-   DEPOIS QUE VOCÊ ME MOSTRAR A ARTE.
+   Área:
+   25mm x 8mm
+
+   IMPORTANTE:
+
+   left = esquerda / direita
+   top  = cima / baixo
+
 ===================================================== */
 
 .area-codigo {
 
     position: absolute;
 
+
     /*
      * POSIÇÃO HORIZONTAL
+     *
+     * Começamos centralizado:
+     *
+     * 95 - 25 = 70
+     * 70 / 2 = 35mm
      */
-    left: 25.7mm;
+    left: 35mm;
+
 
     /*
      * POSIÇÃO VERTICAL
+     *
+     * Começamos centralizado:
+     *
+     * 14.5 - 8 = 6.5
+     * 6.5 / 2 = 3.25mm
      */
-    top: 105mm;
+    top: 3.25mm;
 
 
     /*
-     * ÁREA INFORMADA:
-     * 25mm x 0,8mm
+     * TAMANHO DA ÁREA
      */
     width: 25mm;
 
@@ -297,17 +354,13 @@ body {
     text-align: center;
 
 
-    /*
-     * Transparente para a arte
-     * permanecer visível.
-     */
     background: transparent;
 
 }
 
 
 /* =====================================================
-   CÓDIGO
+   CÓDIGO DE ATIVAÇÃO
 ===================================================== */
 
 .codigo-ativacao {
@@ -324,21 +377,18 @@ body {
     color: #000000;
 
 
-    /*
-     * Precisamos usar fonte minúscula
-     * para caber em 0,8mm.
-     */
-    font-size: 4mm;
-
     font-family:
         Arial,
         Helvetica,
         sans-serif;
 
+
+    font-size: 4mm;
+
     font-weight: 700;
 
 
-    line-height: 1mm;
+    line-height: 1;
 
 
     white-space: nowrap;
@@ -396,8 +446,10 @@ body {
         margin: 0;
 
         padding:
-            13.5mm
-            20mm;
+            10mm
+            7.5mm;
+
+        background: #ffffff;
 
         box-shadow: none;
 
@@ -406,27 +458,44 @@ body {
 
     .grade-etiquetas {
 
+        width: 195mm;
+
         grid-template-columns:
             repeat(
                 2,
-                80mm
+                95mm
             );
 
         grid-auto-rows:
-            130mm;
+            14.5mm;
 
-        column-gap: 10mm;
+        column-gap: 5mm;
 
-        row-gap: 10mm;
+        row-gap: 5mm;
+
+        margin: 0 auto;
 
     }
 
 
     .etiqueta-ativacao {
 
-        width: 80mm;
+        width: 95mm;
 
-        height: 130mm;
+        height: 14.5mm;
+
+        break-inside: avoid;
+
+        page-break-inside: avoid;
+
+    }
+
+
+    .etiqueta-ativacao img {
+
+        width: 95mm;
+
+        height: 14.5mm;
 
     }
 
@@ -439,6 +508,29 @@ body {
 
 @media screen and (max-width: 700px) {
 
+    .toolbar {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    .toolbar-botoes {
+
+        width: 100%;
+
+    }
+
+
+    .toolbar button {
+
+        flex: 1;
+
+    }
+
+
     .folha-a4 {
 
         width: 100%;
@@ -447,7 +539,9 @@ body {
 
         margin: 0;
 
-        padding: 20px;
+        padding:
+            20px
+            10px;
 
         overflow-x: auto;
 
@@ -456,8 +550,19 @@ body {
 
     .grade-etiquetas {
 
+        width: 95mm;
+
         grid-template-columns:
-            80mm;
+            95mm;
+
+        grid-auto-rows:
+            14.5mm;
+
+        column-gap: 0;
+
+        row-gap: 5mm;
+
+        margin: 0 auto;
 
         justify-content: center;
 
