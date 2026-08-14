@@ -281,7 +281,7 @@ body {
      */
     width: 25mm;
 
-    height: 0.8mm;
+    height: 8mm;
 
 
     display: flex;
@@ -328,7 +328,7 @@ body {
      * Precisamos usar fonte minúscula
      * para caber em 0,8mm.
      */
-    font-size: 0.65mm;
+    font-size: 4mm;
 
     font-family:
         Arial,
@@ -338,7 +338,7 @@ body {
     font-weight: 700;
 
 
-    line-height: 0.8mm;
+    line-height: 1mm;
 
 
     white-space: nowrap;
